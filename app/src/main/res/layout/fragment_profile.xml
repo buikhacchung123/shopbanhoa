@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".fragment.ProfileFragment">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/profile_img"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/ic_media" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/profile_img"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txtun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/txtcb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Cấp bậc"
+                android:textSize="18dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnedit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="changeinfo"
+        android:text="Thay đổi thông tin"
+        android:textColor="@color/white"
+        android:background="@drawable/custom_button"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnreward" />
+
+    <Button
+        android:id="@+id/btnreward"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="reward"
+        android:text="Đổi thưởng"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnhistory" />
+
+    <Button
+        android:id="@+id/btnhistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="history"
+        android:text="Lịch sử mua hàng"
+        android:background="@drawable/custom_button"
+        android:layout_margin="10dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btnlogout" />
+
+    <Button
+        android:id="@+id/btnlogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="logout"
+        android:text="Đăng xuất"
+        android:layout_margin="10dp"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

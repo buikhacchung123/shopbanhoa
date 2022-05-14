@@ -1,0 +1,79 @@
+package com.example.testcontentprovider.activity;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.model.KhachHang;
+
+public class RegisterActivity extends AppCompatActivity {
+    EditText hoten, sdt, username, password, confirmpassword, diachi;
+    AppCompatButton register;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+        AnhXa();
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String user = username.getText().toString();
+                String pass = password.getText().toString();
+                String repass = confirmpassword.getText().toString();
+                String SDT = sdt.getText().toString();
+                String hoTen = hoten.getText().toString();
+                String diaChi = diachi.getText().toString();
+
+                if(user.equals("")||pass.equals("")||repass.equals("")||SDT.equals("")||hoTen.equals("")||diaChi.equals(""))
+                    Toast.makeText(RegisterActivity.this,"Vui lòng điền đầy đử thông tin",Toast.LENGTH_LONG).show();
+                else {
+                    if (pass.matches(repass)) {
+                        b.setMessage("Đăng kí thành công");
+                        b.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        AlertDialog al = b.create();
+                        al.show();
+                    }
+                    else {
+                        confirmpassword.setError("Xác nhận mật khẩu sai");
+                        password.requestFocus();
+                        return;
+                    }
+
+                }
+            }
+        });
+
+    }
+
+    private void AnhXa() {
+        hoten = findViewById(R.id.hoten);
+        sdt = findViewById(R.id.sdt);
+        diachi = findViewById(R.id.diachi);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.pass);
+        confirmpassword = findViewById(R.id.repass);
+        register = findViewById(R.id.btnDangki);
+    }
+
+    public void signin(View view) {
+        Intent login = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(login);
+    }
+
+}
+
