@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -63,34 +64,6 @@
             android:textSize="14dp"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnBuy"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/white_button"
-                android:textColor="@color/dark_blue"
-                android:text="Mua ngay" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnAddcart"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="2"
-                android:background="@drawable/custom_button"
-                android:text="Thêm vào giỏ hàng"
-                android:textColor="@color/white"
-                />
-        </LinearLayout>
-
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -98,15 +71,16 @@
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:textColor="@color/black"
-            android:textStyle="bold"
 
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mô tả sản phẩm"
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"/>
+            android:fontFamily="@font/cerapro_regular"
+            android:layout_marginTop="10dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer elementum elit et nisl molestie, in finibus sem laoreet. Nam id dolor sit amet mi ultrices tincidunt et quis metus. Maecenas et justo tellus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse rutrum turpis sit amet mi hendrerit semper. Aenean interdum eros varius ligula finibus ornare. Sed sem dolor, posuere non augue nec, consectetur feugiat quam."
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:textStyle="normal" />
         <TextView
             android:id="@+id/txtmota"
             android:textColor="@color/black"
@@ -115,5 +89,32 @@
             android:layout_marginRight="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBuy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_button"
+            android:text="Mua ngay"
+            android:textColor="@color/dark_blue" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAddcart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="2"
+            android:background="@drawable/custom_button"
+            android:text="Thêm vào giỏ hàng"
+            android:textColor="@color/white" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestContentProvider">
         <activity
+            android:name=".activity.ErrorActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.SearchActivity"
             android:exported="false" />
         <activity
