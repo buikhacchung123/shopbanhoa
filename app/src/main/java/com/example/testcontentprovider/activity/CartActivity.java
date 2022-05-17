@@ -25,7 +25,6 @@ public class CartActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Button btnTiepTucMuahang, btnThanhToan;
     static CartAdapter adapter;
-    List<GioHang> gioHangList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

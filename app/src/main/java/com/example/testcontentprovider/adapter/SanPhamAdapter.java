@@ -30,11 +30,26 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.MyViewHo
         this.array = array;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        SanPham sp = array.get(position);
+        return sp.getTypeDisplay();
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sanpham, parent, false);
-        return new MyViewHolder(item);
+        View view = null;
+        switch (viewType){
+            case SanPham.TYPE_LIST:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sanpham, parent, false);
+                break;
+            case SanPham.TYPE_GRID:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sanpham_grid, parent, false);
+                break;
+        }
+
+        return new MyViewHolder(view);
     }
 
     @Override

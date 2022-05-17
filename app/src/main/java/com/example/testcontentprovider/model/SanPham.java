@@ -4,11 +4,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SanPham implements Serializable {
+
+    public static final int TYPE_LIST = 1;
+    public static final int TYPE_GRID = 2;
+
     String masp, tensp, mota, hinhsp, madm;
     int soluong;
     double giaban;
+    int typeDisplay;
 
+    public int getTypeDisplay() {
+        return typeDisplay;
+    }
 
+    public void setTypeDisplay(int typeDisplay) {
+        this.typeDisplay = typeDisplay;
+    }
 
     public String getMasp() {
         return masp;
