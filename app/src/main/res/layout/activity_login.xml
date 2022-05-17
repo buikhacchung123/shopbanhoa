@@ -142,13 +142,14 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_weight="1"
+        android:fontFamily="@font/cerapro_regular"
         android:onClick="resetpass"
         android:text="Quên mật khẩu?"
         android:textColor="@color/dark_blue"
-        android:fontFamily="@font/cerapro_regular"
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+        app:layout_constraintTop_toTopOf="@+id/view"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/textView5"
@@ -169,11 +170,12 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/cerapro_regular"
         android:onClick="register"
         android:text="Đăng kí ngay"
         android:textColor="@color/dark_blue"
         android:textSize="15dp"
-        android:fontFamily="@font/cerapro_regular"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:ignore="TouchTargetSizeCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

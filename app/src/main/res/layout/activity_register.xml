@@ -6,18 +6,34 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:fontFamily="@font/amita"
-        android:gravity="center"
-        android:text="Đăng Kí"
-        android:textSize="50sp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/dark_blue"
+        android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/cerapro_regular"
+        android:text="Đăng Ký"
+        android:textColor="@color/dark_blue"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/linel0"
         android:layout_width="match_parent"
@@ -31,6 +47,7 @@
             android:layout_height="wrap_content"
             android:hint="Họ tên"
             android:inputType="text"
+            android:fontFamily="@font/cerapro_regular"
             android:background="@drawable/custom_input"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -53,10 +70,9 @@
             android:background="@drawable/custom_input"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:fontFamily="@font/cerapro_regular"
             android:drawableLeft="@drawable/ic_phone"
             android:drawablePadding="5dp"/>
-
-
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/lineldc"
@@ -71,6 +87,7 @@
             android:layout_height="wrap_content"
             android:hint="Địa chỉ"
             android:inputType="text"
+            android:fontFamily="@font/cerapro_regular"
             android:background="@drawable/custom_input"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -90,6 +107,7 @@
             android:layout_height="wrap_content"
             android:hint="Tên đăng nhập"
             android:inputType="text"
+            android:fontFamily="@font/cerapro_regular"
             android:background="@drawable/custom_input"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -112,6 +130,7 @@
             android:inputType="textPassword"
             android:background="@drawable/custom_input"
             android:layout_marginLeft="20dp"
+            android:fontFamily="@font/cerapro_regular"
             android:layout_marginRight="20dp"
             android:drawableLeft="@drawable/ic_key"
             android:drawablePadding="5dp"/>
@@ -130,6 +149,7 @@
             android:hint="Xác nhận mật khẩu"
             android:background="@drawable/custom_input"
             android:inputType="textPassword"
+            android:fontFamily="@font/cerapro_regular"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:drawableLeft="@drawable/ic_key"
@@ -139,50 +159,51 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnDangki"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/custom_button"
+        android:fontFamily="@font/cerapro_regular"
         android:text="Đăng Kí"
-        android:textColor="@color/white"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linel2" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/btnDangki">
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/cerapro_regular"
+        android:text="Đã có tài khoản!"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDangki" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="10dp"
-            android:text="Đã có tài khoản!"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:onClick="signin"
-            android:text="Đăng nhập"
-            android:textColor="	#3399FF"
-            android:textSize="15sp"
-            android:textStyle="italic" />
-    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/cerapro_regular"
+        android:onClick="signin"
+        android:text="Đăng nhập"
+        android:textColor="@color/dark_blue"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/btnDangki" />
 
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.204"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.206" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 </androidx.constraintlayout.widget.ConstraintLayout>

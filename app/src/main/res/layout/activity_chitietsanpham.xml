@@ -9,7 +9,7 @@
         android:id="@+id/toolbarct"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-
+        android:background="@color/light_yellow"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Chi tiết sản phẩm">
         <FrameLayout
