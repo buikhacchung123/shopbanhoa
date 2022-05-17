@@ -33,10 +33,12 @@ import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.adapter.DMSPAdapter;
 import com.example.testcontentprovider.fragment.HomeFragment;
 import com.example.testcontentprovider.fragment.NotificationFragment;
 import com.example.testcontentprovider.fragment.ProfileFragment;
 import com.example.testcontentprovider.fragment.VoucherFragment;
+import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.GioHang;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -50,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     Fragment currentfragment;
     public static List<GioHang> manggiohang;
+    private DMSPAdapter dmspAdapter;
+    private ArrayList<DanhMuc> mangdanhmuc;
+    DanhMuc dm = new DanhMuc();
+    ListView listView;
+    DrawerLayout drawerLayout;
+    FrameLayout frameLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +66,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         AhXa();
         LoadFrame(new HomeFragment());
-
+        mangdanhmuc = dm.getDM();
+        dmspAdapter = new DMSPAdapter(mangdanhmuc, getApplicationContext());
+        listView.setAdapter(dmspAdapter);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_menu);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -78,14 +96,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.bottom_notification:
-                        toolbar.setTitle("Thông báo");
+                        toolbar.setTitle("Danh sách yêu thích");
                         currentfragment = new NotificationFragment();
                         LoadFrame(currentfragment);
                         break;
                     case R.id.bottom_reward:
-                        toolbar.setTitle("Voucher");
-                        currentfragment = new VoucherFragment();
-                        LoadFrame(currentfragment);
+                        toolbar.setTitle("Giỏ hàng");
+                        Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                        startActivity(intent);
                         break;
                 }
                 return true;
@@ -94,7 +112,13 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent search = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(search);
+            }
+        });
     }
 
 
@@ -102,10 +126,14 @@ public class MainActivity extends AppCompatActivity {
     private void AhXa() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        drawerLayout = findViewById(R.id.drawerlayout_main);
         if(manggiohang == null)
         {
             manggiohang = new ArrayList<>();
         }
+
+        listView = findViewById(R.id.lv_main);
+        frameLayout = findViewById(R.id.frame_search);
     }
 
     public void LoadFrame(Fragment a)
