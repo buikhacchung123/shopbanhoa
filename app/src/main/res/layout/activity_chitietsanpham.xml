@@ -37,10 +37,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <ImageView
             android:id="@+id/imgct"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="300dp" />
 
         <TextView
             android:id="@+id/tv_tensp"
@@ -65,30 +66,33 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
     <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/layout1"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/cerapro_regular"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/cerapro_regular"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer elementum elit et nisl molestie, in finibus sem laoreet. Nam id dolor sit amet mi ultrices tincidunt et quis metus. Maecenas et justo tellus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse rutrum turpis sit amet mi hendrerit semper. Aenean interdum eros varius ligula finibus ornare. Sed sem dolor, posuere non augue nec, consectetur feugiat quam."
-            android:textColor="@color/black"
             android:textSize="14dp"
             android:textStyle="normal" />
+
         <TextView
             android:id="@+id/txtmota"
-            android:textColor="@color/black"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/black" />
     </LinearLayout>
 
     <LinearLayout

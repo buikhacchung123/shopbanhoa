@@ -22,7 +22,9 @@
         android:id="@+id/cart_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/light_yellow"
         app:title="Giỏ hàng">
 
     </androidx.appcompat.widget.Toolbar>
@@ -66,20 +68,25 @@
             android:textColor="#ff0000"/>
     </LinearLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnThanhToan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Thanh toán"
-        android:background="@drawable/custom_button"
+        android:layout_height="45dp"
         android:layout_margin="15dp"
-        app:layout_constraintBottom_toTopOf="@id/btntieptucmua" />
-    <Button
+        android:background="@drawable/white_button"
+        android:text="Thanh toán"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@id/btntieptucmua"
+        tools:layout_editor_absoluteX="15dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btntieptucmua"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tiếp tục mua hàng"
-        android:background="@drawable/custom_button"
+        android:layout_height="45dp"
         android:layout_margin="15dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:background="@drawable/custom_button"
+        android:text="Tiếp tục mua hàng"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="15dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

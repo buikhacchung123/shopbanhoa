@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/lnlayout"
     android:orientation="vertical"
-    android:background="@color/teal_200"
+    android:background="@color/white"
     tools:context=".fragment.HomeFragment">
     <ViewFlipper
         android:id="@+id/viewflipperhome"
@@ -16,10 +16,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:textColor="@color/white"
-        android:text="Danh Muc San Pham"
+        android:textColor="@color/dark_blue"
+        android:text="Danh mục"
         android:textSize="20dp"
-        android:textStyle="bold" />
+        android:fontFamily="@font/cerapro_regular"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvdanhmuc"
         android:layout_width="match_parent"
@@ -31,10 +31,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:textColor="@color/white"
-        android:text="Sản phẩm của chúng tôi"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:textColor="@color/dark_blue"
+        android:fontFamily="@font/cerapro_regular"
+        android:text="Sản phẩm"
+        android:textSize="20dp" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleview"
         android:layout_width="match_parent"
