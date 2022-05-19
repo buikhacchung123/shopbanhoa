@@ -62,6 +62,13 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnThanhToan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Test UI
+                startActivity(new Intent(CartActivity.this,ErrorActivity.class));
+            }
+        });
 
     }
 

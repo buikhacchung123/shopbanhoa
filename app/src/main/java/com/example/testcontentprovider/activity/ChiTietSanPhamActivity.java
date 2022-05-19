@@ -127,7 +127,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         imgChiTiet = findViewById(R.id.imgct);
         TenSP = findViewById(R.id.tv_tensp);
         Gia = findViewById(R.id.tv_giasp);
-        MoTa = findViewById(R.id.txtmota);
+        MoTa = findViewById(R.id.txtMoTa);
         btnMua = findViewById(R.id.btnBuy);
         btnAddCart = findViewById(R.id.btnAddcart);
         toolbar = findViewById(R.id.toolbarct);

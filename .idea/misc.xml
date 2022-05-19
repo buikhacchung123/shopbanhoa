@@ -36,17 +36,18 @@
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/ic_user.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/progress.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/separate_line.xml" value="0.3828125" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/uncheck.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/white_button.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_cart.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_chitietsanpham.xml" value="0.25" />
+        <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_chitietsanpham.xml" value="0.5" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_error.xml" value="0.4392523364485981" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_loading.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_search.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/fragment_home.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/fragment_notification.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/fragment_profile.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/fragment_voucher.xml" value="0.20520833333333333" />
