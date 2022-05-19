@@ -2,16 +2,24 @@ package com.example.testcontentprovider.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
@@ -35,6 +43,12 @@ public class HomeFragment extends Fragment {
     SanPham sp = new SanPham();
     DanhMuc dm = new DanhMuc();
     private SanPhamAdapter sanPhamAdapter;
+    private LinearLayoutManager mlinearLayoutManager;
+    private GridLayoutManager gridLayoutManager;
+    ImageButton button;
+
+    private  int mCurrentType = SanPham.TYPE_LIST;
+    private  int mCurrentPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,15 +56,13 @@ public class HomeFragment extends Fragment {
         AnhXa();
         ActionViewFlipper();
         dssp = sp.getSanPham();
+        setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
         dsdm = dm.getDM();
         sanPhamAdapter = new SanPhamAdapter(getContext(),dssp);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(),DividerItemDecoration.VERTICAL));
 
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(mlinearLayoutManager);
         recyclerView.setAdapter(sanPhamAdapter);
 
-        //
         adapter = new DMAdapter(getContext(),dsdm);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -58,13 +70,36 @@ public class HomeFragment extends Fragment {
         rvDM.setLayoutManager(layoutManager);
         rvDM.setAdapter(adapter);
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCurrentPosition();
+                onClickChangeTypeDisplay();
+            }
+        });
+
         return view;
+    }
+
+    private void setTypeDisplayRecyclerView(int typeDisplay) {
+        if(dssp == null || dssp.isEmpty()){
+            return;
+        }
+
+        mCurrentType = typeDisplay;
+
+        for(SanPham sp : dssp){
+            sp.setTypeDisplay(typeDisplay);
+        }
     }
 
     private void AnhXa() {
         viewFlipper = view.findViewById(R.id.viewflipperhome);
         recyclerView = view.findViewById(R.id.recycleview);
         rvDM = view.findViewById(R.id.rvdanhmuc);
+        mlinearLayoutManager = new LinearLayoutManager(this.getContext());
+        gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
+        button = view.findViewById(R.id.btn_changetype);
     }
 
     private void ActionViewFlipper() {
@@ -87,5 +122,40 @@ public class HomeFragment extends Fragment {
         viewFlipper.setOutAnimation(slideout);
     }
 
+    private void onClickChangeTypeDisplay() {
+        if(mCurrentType == SanPham.TYPE_LIST){
+            setTypeDisplayRecyclerView(SanPham.TYPE_GRID);
+            recyclerView.setLayoutManager(gridLayoutManager);
+        }
+        else if(mCurrentType == SanPham.TYPE_GRID){
+            setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
+            recyclerView.setLayoutManager(mlinearLayoutManager);
+        }
+        sanPhamAdapter.notifyDataSetChanged();
+        setIconButton();
+        recyclerView.scrollToPosition(mCurrentPosition);
+    }
 
+    private void setIconButton() {
+        switch (mCurrentType){
+            case SanPham.TYPE_LIST:
+                button.setImageResource(R.drawable.ic_list);
+                break;
+            case SanPham.TYPE_GRID:
+                button.setImageResource(R.drawable.ic_grid);
+                break;
+        }
+    }
+
+    private void setCurrentPosition(){
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        switch (mCurrentType){
+            case SanPham.TYPE_LIST:
+                mCurrentPosition = ((LinearLayoutManager)layoutManager).findFirstVisibleItemPosition();
+                break;
+            case SanPham.TYPE_GRID:
+                mCurrentPosition = ((GridLayoutManager)layoutManager).findFirstVisibleItemPosition();
+                break;
+        }
+    }
 }

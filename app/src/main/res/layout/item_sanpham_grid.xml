@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginRight="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:cardCornerRadius="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/item_hinhsp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/binhyen"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/item_tensp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/cerapro_regular"
+        android:text="Tên dịch vụ"
+        android:textColor="@color/dark_blue"
+        android:textSize="17dp" />
+
+    <TextView
+        android:id="@+id/item_giasp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="@font/cerapro_regular"
+        android:text="Giá 100.000 VNĐ"
+        android:textColor="@color/dark_blue"
+        android:textSize="14dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnMua"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/custom_button"
+        android:text="Mua"
+        android:textColor="@color/white"
+        tools:ignore="TouchTargetSizeCheck" />
+</LinearLayout>

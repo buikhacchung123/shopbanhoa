@@ -33,7 +33,7 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.MyViewHolder>{
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_danhmuc, parent, false);
-        item.setLayoutParams(new ViewGroup.LayoutParams((int) (parent.getWidth() * 0.3),ViewGroup.LayoutParams.MATCH_PARENT));
+        item.setLayoutParams(new ViewGroup.LayoutParams((int) (parent.getWidth() * 0.6),ViewGroup.LayoutParams.MATCH_PARENT));
 
         return new DMAdapter.MyViewHolder(item);
     }

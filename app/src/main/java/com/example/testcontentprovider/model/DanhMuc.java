@@ -4,7 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class DanhMuc implements Serializable {
-    String hinhDM, tenDM;
+    public String getMaDM() {
+        return MaDM;
+    }
+
+    public void setMaDM(String maDM) {
+        MaDM = maDM;
+    }
+
+    String MaDM,hinhDM, tenDM;
 
     public DanhMuc(String hinhDM, String tenDM) {
         this.hinhDM = hinhDM;
@@ -33,18 +41,23 @@ public class DanhMuc implements Serializable {
     public ArrayList<DanhMuc> getDM() {
         ArrayList<DanhMuc> dsdm = new ArrayList<DanhMuc>();
         DanhMuc sp1 = new DanhMuc();
+        sp1.setMaDM("DM001");
         sp1.setTenDM("Nơi tình yêu bắt đầu");
         sp1.setHinhDM("noitinhyeubatdau.jpg");
         DanhMuc sp2 = new DanhMuc();
+        sp2.setMaDM("DM002");
         sp2.setTenDM("Giấc mơ tuyết trắng");
         sp2.setHinhDM("giacmotuyettrang.jpg");
         DanhMuc sp3 = new DanhMuc();
+        sp3.setMaDM("DM003");
         sp3.setTenDM("Ánh chiều vàng");
         sp3.setHinhDM("anhchieuvang.jpg");
         DanhMuc sp4 = new DanhMuc();
+        sp4.setMaDM("DM004");
         sp4.setTenDM("Bình yên");
         sp4.setHinhDM("binhyen.jpg");
         DanhMuc sp5 = new DanhMuc();
+        sp5.setMaDM("DM005");
         sp5.setTenDM("Mơ mộng");
         sp5.setHinhDM("momong.jpg");
         dsdm.add(sp1);

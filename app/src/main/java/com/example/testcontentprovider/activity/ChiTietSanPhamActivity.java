@@ -23,7 +23,6 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     ImageView imgChiTiet;
     TextView TenSP,Gia,MoTa;
     Button btnMua, btnAddCart;
-    MainActivity mainActivity;
     SanPham sp;
     static NotificationBadge badge;
     FrameLayout frameLayout;
@@ -49,14 +48,14 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 xuLyMuaHang();
-                badge.setText(String.valueOf(mainActivity.manggiohang.size()));
+                badge.setText(String.valueOf(MainActivity.manggiohang.size()));
             }
         });
         btnMua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 xuLyMuaHang();
-                badge.setText(String.valueOf(mainActivity.manggiohang.size()));
+                badge.setText(String.valueOf(MainActivity.manggiohang.size()));
                 chuyenGioHang();
             }
         });
@@ -78,15 +77,15 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     }
 
     private void xuLyMuaHang() {
-        if(mainActivity.manggiohang.size() > 0){
+        if(MainActivity.manggiohang.size() > 0){
             boolean flag = false;
             int sl = 1;
-            for(int i = 0; i < mainActivity.manggiohang.size(); i++)
+            for(int i = 0; i < MainActivity.manggiohang.size(); i++)
             {
-                if(mainActivity.manggiohang.get(i).getMasp().equals(sp.getMasp())){
-                    mainActivity.manggiohang.get(i).setSoluong(mainActivity.manggiohang.get(i).getSoluong()+sl);
-                    double thanhtien = sp.getGiaban() * mainActivity.manggiohang.get(i).getSoluong();
-                    mainActivity.manggiohang.get(i).setThanhtien(thanhtien);
+                if(MainActivity.manggiohang.get(i).getMasp().equals(sp.getMasp())){
+                    MainActivity.manggiohang.get(i).setSoluong(MainActivity.manggiohang.get(i).getSoluong()+sl);
+                    double thanhtien = sp.getGiaban() * MainActivity.manggiohang.get(i).getSoluong();
+                    MainActivity.manggiohang.get(i).setThanhtien(thanhtien);
                     flag = true;
                 }
 
@@ -101,7 +100,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
                 gh.setGia(sp.getGiaban());
                 gh.setSoluong(sl);
                 gh.setThanhtien(thanhtien);
-                mainActivity.manggiohang.add(gh);
+                MainActivity.manggiohang.add(gh);
             }
         }
         else {
@@ -114,7 +113,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             gh.setGia(sp.getGiaban());
             gh.setSoluong(sl);
             gh.setThanhtien(thanhtien);
-            mainActivity.manggiohang.add(gh);
+            MainActivity.manggiohang.add(gh);
         }
     }
 
