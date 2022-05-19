@@ -26,23 +26,6 @@
         <entry key="..\:/TestContentProvider/app/src/main/res/layout/item_sanpham.xml" value="0.2" />
         <entry key="..\:/TestContentProvider/app/src/main/res/menu/bottom_menu.xml" value="0.2" />
         <entry key="..\:/TestContentProvider/app/src/main/res/menu/menu_toolbar.xml" value="0.2" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/activity_cart.xml" value="0.2" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/activity_chitietsanpham.xml" value="0.22" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/activity_error.xml" value="0.33" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/activity_loading.xml" value="0.2" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/activity_login.xml" value="0.2" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/activity_register.xml" value="0.22" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/activity_search.xml" value="0.2" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/fragment_cart.xml" value="0.2" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/fragment_notification.xml" value="0.25" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/item_danhmuc.xml" value="0.5" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/item_danhmuc_menu.xml" value="0.33" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/item_sanpham.xml" value="0.1" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/layout/item_sanpham_grid.xml" value="0.22" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/menu/bottom_menu.xml" value="0.2" />
-        <entry key="..\:/Users/ACER/OneDrive/Desktop/shopbanhoa/app/src/main/res/menu/changeview_menu.xml" value="0.2" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable-v24/custom_picture.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/custom_button.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/custom_check.xml" value="0.22135416666666666" />
@@ -57,7 +40,7 @@
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/uncheck.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/white_button.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_cart.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_chitietsanpham.xml" value="0.5" />
+        <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_chitietsanpham.xml" value="0.11574362165525824" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_error.xml" value="0.4392523364485981" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_loading.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_login.xml" value="0.25" />

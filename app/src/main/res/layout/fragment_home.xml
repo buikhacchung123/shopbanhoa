@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/lnlayout"
     android:orientation="vertical"
     android:background="@color/white"
@@ -45,11 +44,13 @@
             android:layout_marginTop="5dp"
             android:textColor="@color/dark_blue"
             android:fontFamily="@font/cerapro_regular"/>
+
         <ImageButton
             android:id="@+id/btn_changetype"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_list"/>
+            android:src="@drawable/ic_list"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
