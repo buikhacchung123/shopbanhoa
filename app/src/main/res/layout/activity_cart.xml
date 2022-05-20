@@ -34,12 +34,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
-        app:layout_constraintBottom_toTopOf="@id/cart_layout1"
+        app:layout_constraintBottom_toTopOf="@id/cartlayout"
         app:layout_constraintTop_toBottomOf="@+id/cart_toolbar"
         tools:layout_editor_absoluteX="5dp" />
 
     <LinearLayout
-        android:id="@+id/cart_layout1"
+        android:id="@+id/cartlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
