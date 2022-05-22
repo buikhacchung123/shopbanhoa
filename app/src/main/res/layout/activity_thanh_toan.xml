@@ -17,219 +17,194 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/tv_MaKM"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/cerapro_regular"
-        android:padding="5dp"
-        android:text="Mã khuyến mãi:"
-        android:textColor="@color/dark_blue"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cart_toolbar" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Nhập mã voucher"
-        android:fontFamily="@font/cerapro_regular"
-        android:textColor="@color/dark_blue"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/btnApDung"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_MaKM"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnApDung"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/white_button"
-        android:text="Áp dụng"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_MaKM"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <View
-        android:id="@+id/separate"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/separate_line"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_cart"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="5dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/separate"
-        tools:layout_editor_absoluteX="15dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <View
-        android:id="@+id/separate3"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/separate_line"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rcv_cart" />
-
-    <TextView
-        android:id="@+id/tv_TTGiaoHang"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/cerapro_regular"
-        android:padding="5dp"
-        android:text="Thông tin giao hàng:"
-        android:textColor="@color/dark_blue"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/separate3" />
-
-    <TextView
-        android:id="@+id/txtDiaChiGiao"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:hint="Địa chỉ giao"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_TTGiaoHang" />
-
-    <TextView
-        android:id="@+id/txtSDT"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:hint="Số điện thoại"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDiaChiGiao" />
-
-    <View
-        android:id="@+id/separate4"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/separate_line"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSDT" />
-
-    <LinearLayout
-        android:id="@+id/cart_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:weightSum="2"
-        app:layout_constraintTop_toBottomOf="@+id/separate4">
-
-        <TextView
-            android:layout_width="100dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/cerapro_regular"
-            android:text="Tổng tiền:"
-            android:textColor="@color/dark_blue"
-            android:textSize="15sp" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txttongtien"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/cerapro_regular"
-            android:gravity="right"
-            android:padding="5dp"
-            android:textColor="@color/dark_blue"
-            android:textSize="15sp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_MaKM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/cerapro_regular"
+                android:padding="5dp"
+                android:text="Mã khuyến mãi:"
+                android:textColor="@color/dark_blue"
+                android:textSize="15sp" />
 
-    <LinearLayout
-        android:id="@+id/cart_layout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        app:layout_constraintTop_toBottomOf="@+id/cart_layout">
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:fontFamily="@font/cerapro_regular"
+                android:hint="Nhập mã voucher"
+                android:inputType="textPersonName"
+                android:textColor="@color/dark_blue"
+                android:textSize="15sp"
+                tools:ignore="TouchTargetSizeCheck" />
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/cerapro_regular"
-            android:text="Tổng số lượng:"
-            android:textColor="@color/dark_blue"
-            android:textSize="15sp" />
+            <TextView
+                android:id="@+id/tv_ResultVoucher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="TextView"
+                android:visibility="visible" />
 
-        <TextView
-            android:id="@+id/txtTongSL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/cerapro_regular"
-            android:gravity="right"
-            android:padding="5dp"
-            android:textColor="@color/dark_blue"
-            android:textSize="15sp" />
-    </LinearLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnApDung"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/white_button"
+                android:text="Áp dụng"
+                tools:ignore="TouchTargetSizeCheck" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btntieptucmua"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_margin="15dp"
-        android:background="@drawable/custom_button"
-        android:text="Tiếp tục thanh toán"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="TouchTargetSizeCheck"
-        tools:layout_editor_absoluteX="15dp" />
+            <View
+                android:id="@+id/separate3"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/separate_line" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_thanhToan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <View
+                android:id="@+id/separate"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/separate_line" />
+
+            <TextView
+                android:id="@+id/tv_TTGiaoHang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/cerapro_regular"
+                android:text="Thông tin giao hàng:"
+                android:textColor="@color/dark_blue"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/txtDiaChiGiao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/cerapro_regular"
+                android:hint="Địa chỉ giao"
+                android:textSize="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/txtSDT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/cerapro_regular"
+                android:hint="Số điện thoại"
+                android:textSize="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/separate4"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/separate_line" />
+
+            <LinearLayout
+                android:id="@+id/cart_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/cerapro_regular"
+                    android:text="Tổng tiền:"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/txtTongTien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/cerapro_regular"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cart_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/cerapro_regular"
+                    android:text="Tổng số lượng:"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/txtTongSL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/cerapro_regular"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btntieptucmua"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_button"
+                android:text="Tiếp tục thanh toán"
+                android:textColor="@color/white"
+                tools:ignore="TouchTargetSizeCheck" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

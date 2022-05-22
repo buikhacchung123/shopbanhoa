@@ -86,6 +86,7 @@
                     android:layout_gravity="center_vertical"
                     android:background="@color/white"
                     android:scaleType="fitXY"
+                    android:layout_marginTop="10dp"
                     android:src="@drawable/ic_unfavorite"
                     tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
         </LinearLayout>

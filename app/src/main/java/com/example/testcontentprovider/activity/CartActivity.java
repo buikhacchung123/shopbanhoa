@@ -10,13 +10,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.CartAdapter;
-import com.example.testcontentprovider.model.GioHang;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
     static TextView giohangtrong;
@@ -25,7 +25,6 @@ public class CartActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Button btnTiepTucMuahang, btnThanhToan;
     static CartAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +63,19 @@ public class CartActivity extends AppCompatActivity {
         btnThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Test UI
-                startActivity(new Intent(CartActivity.this,ErrorActivity.class));
+                try {
+                    if(MainActivity.manggiohang.size()>0){
+                        Intent i = new Intent(CartActivity.this, ThanhToanActivity.class);
+                        i.putExtra("TongTien",txtTongtien.getText());
+                        i.putExtra("TongSL", MainActivity.manggiohang.size());
+                        startActivity(i);
+                    }else{
+                        Toast.makeText (getBaseContext(), "Không có sản phẩm để thanh toán", Toast.LENGTH_SHORT).show();
+                    }
+
+                }catch(Exception e){
+                    startActivity(new Intent(CartActivity.this,ErrorActivity.class));
+                }
             }
         });
 
@@ -91,9 +101,9 @@ public class CartActivity extends AppCompatActivity {
     }
     private void AnhXa() {
         giohangtrong = findViewById(R.id.txtcartnull);
-        txtTongtien = findViewById(R.id.txttongtien);
+        txtTongtien = findViewById(R.id.txtTongTien);
         toolbar = findViewById(R.id.cart_toolbar);
-        recyclerView = findViewById(R.id.rcv_cart);
+        recyclerView = findViewById(R.id.rcv_thanhToan);
         btnThanhToan = findViewById(R.id.btnThanhToan);
         btnTiepTucMuahang = findViewById(R.id.btntieptucmua);
     }
