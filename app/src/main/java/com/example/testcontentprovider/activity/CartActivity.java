@@ -1,5 +1,6 @@
 package com.example.testcontentprovider.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,12 +16,11 @@ import android.widget.Toast;
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.CartAdapter;
 
-import java.io.Serializable;
 import java.text.DecimalFormat;
 
 public class CartActivity extends AppCompatActivity {
     static TextView giohangtrong;
-    static TextView txtTongtien;
+    static TextView txtTongtien, txtTongSL;
     Toolbar toolbar;
     RecyclerView recyclerView;
     Button btnTiepTucMuahang, btnThanhToan;
@@ -67,7 +67,7 @@ public class CartActivity extends AppCompatActivity {
                     if(MainActivity.manggiohang.size()>0){
                         Intent i = new Intent(CartActivity.this, ThanhToanActivity.class);
                         i.putExtra("TongTien",txtTongtien.getText());
-                        i.putExtra("TongSL", MainActivity.manggiohang.size());
+                        i.putExtra("TongSL", 0);
                         startActivity(i);
                     }else{
                         Toast.makeText (getBaseContext(), "Không có sản phẩm để thanh toán", Toast.LENGTH_SHORT).show();
@@ -83,12 +83,15 @@ public class CartActivity extends AppCompatActivity {
 
     public static void tinhTongTien() {
         double tongtien = 0;
+        int tongsl = 0;
         for(int i = 0; i < MainActivity.manggiohang.size(); i++)
         {
             tongtien += (MainActivity.manggiohang.get(i).getGia() * MainActivity.manggiohang.get(i).getSoluong());
+            //tongsl += MainActivity.manggiohang.get(i).getSoluong();
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         txtTongtien.setText(decimalFormat.format(tongtien) + " VNĐ");
+        //txtTongSL.setText(tongsl);
     }
     public static void checkGH(){
         if(MainActivity.manggiohang.size() <= 0){
@@ -101,10 +104,11 @@ public class CartActivity extends AppCompatActivity {
     }
     private void AnhXa() {
         giohangtrong = findViewById(R.id.txtcartnull);
-        txtTongtien = findViewById(R.id.txtTongTien);
+        txtTongtien = findViewById(R.id.txtTongSL1);
         toolbar = findViewById(R.id.cart_toolbar);
         recyclerView = findViewById(R.id.rcv_thanhToan);
         btnThanhToan = findViewById(R.id.btnThanhToan);
         btnTiepTucMuahang = findViewById(R.id.btntieptucmua);
+        txtTongSL = findViewById(R.id.txtTongSL1);
     }
 }

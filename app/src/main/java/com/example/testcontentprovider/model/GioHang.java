@@ -2,9 +2,14 @@ package com.example.testcontentprovider.model;
 
 public class GioHang {
     String masp, tensp, hinhsp;
+    double thanhtien;
+    int soluong;
+    double gia;
 
     public GioHang(){
-
+        soluong =0;
+        gia=0;
+        thanhtien=0;
     }
 
     public String getMasp() {
@@ -47,8 +52,6 @@ public class GioHang {
         this.soluong = soluong;
     }
 
-    double gia;
-
     public double getThanhtien() {
         return thanhtien;
     }
@@ -57,6 +60,5 @@ public class GioHang {
         this.thanhtien = thanhtien;
     }
 
-    double thanhtien;
-    int soluong;
+
 }

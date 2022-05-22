@@ -42,9 +42,43 @@
         android:id="@+id/cartlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:weightSum="2"
+        app:layout_constraintBottom_toTopOf="@+id/cartlayout2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/cerapro_regular"
+            android:padding="5dp"
+            android:text="Tổng tiền:"
+            android:textColor="@color/dark_blue"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/txtTongTien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/cerapro_regular"
+            android:gravity="right"
+            android:padding="5dp"
+            android:textColor="@color/dark_blue"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cartlayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+
+        android:weightSum="2"
         app:layout_constraintBottom_toTopOf="@+id/btnThanhToan">
 
         <TextView
@@ -52,23 +86,23 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:padding="5dp"
             android:fontFamily="@font/cerapro_regular"
-            android:text="Tổng tiền:"
-            android:textColor="@color/dark_blue"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/txtTongTien"
             android:padding="5dp"
-            android:layout_marginRight="10dp"
+            android:text="Tổng số lượng:"
+            android:textColor="@color/dark_blue"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/txtTongSL1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:gravity="right"
             android:fontFamily="@font/cerapro_regular"
-            android:textSize="20sp"
-            android:textColor="@color/dark_blue"/>
+            android:gravity="right"
+            android:padding="5dp"
+            android:textColor="@color/dark_blue"
+            android:textSize="15sp" />
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton

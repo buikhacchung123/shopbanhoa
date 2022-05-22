@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AhXa();
+        AnhXa();
         LoadFrame(new HomeFragment());
         mangdanhmuc = dm.getDM();
         dmspAdapter = new DMSPAdapter(mangdanhmuc, getApplicationContext());
@@ -86,9 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
                 return true;
-
             }
-
         });
 
         frameLayout.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void AhXa() {
+    private void AnhXa() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawerlayout_main);
