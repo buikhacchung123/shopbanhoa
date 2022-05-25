@@ -30,7 +30,11 @@ public class UpdateUserInforActivity extends AppCompatActivity {
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
 
+                }catch(Exception ex){
+                    startActivity(new Intent(UpdateUserInforActivity.this,ErrorActivity.class));
+                }
             }
         });
     }

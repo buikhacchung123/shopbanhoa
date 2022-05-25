@@ -6,23 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".activity.ShopInforActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_shopinfor"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/light_yellow"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Thông tin cửa hàng" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingLeft="20dp"
-            android:paddingBottom="40dp"
             android:paddingRight="20dp"
-            android:orientation="vertical" >
+            android:paddingBottom="40dp">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                app:srcCompat="@drawable/noitinhyeubatdau" />
+                android:layout_height="200dp"
+                app:srcCompat="@drawable/banner" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -45,16 +55,34 @@
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempor leo eu lacus consequat, et dictum sem cursus. Vestibulum suscipit mi ligula, eget pellentesque ex tincidunt sit amet. Maecenas rutrum felis risus, ac cursus mauris gravida quis. Aenean ultrices venenatis urna, et molestie mi dictum eget. Fusce id dapibus tortor. Phasellus porttitor, quam et dictum scelerisque, arcu leo auctor urna, nec egestas nisi ex a libero."
                 android:textSize="15dp" />
 
-            <TextView
-                android:id="@+id/txtPara"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:paddingLeft="20dp"
-                android:background="@drawable/item_shop_infor"
-                android:fontFamily="@font/cerapro_regular"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempor leo eu lacus consequat, et dictum sem cursus. Vestibulum suscipit mi ligula, eget pellentesque ex tincidunt sit amet. Maecenas rutrum felis risus, ac cursus mauris gravida quis. Aenean ultrices venenatis urna, et molestie mi dictum eget. Fusce id dapibus tortor. Phasellus porttitor, quam et dictum scelerisque, arcu leo auctor urna, nec egestas nisi ex a libero."
-                android:textSize="15dp" />
+                android:paddingTop="20dp"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="4dp"
+                    android:layout_height="0dp"
+                    android:background="@color/dark_blue"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txtPara" />
+
+                <TextView
+                    android:id="@+id/txtPara"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/cerapro_regular"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempor leo eu lacus consequat, et dictum sem cursus. Vestibulum suscipit mi ligula, eget pellentesque ex tincidunt sit amet. Maecenas rutrum felis risus, ac cursus mauris gravida quis. Aenean ultrices venenatis urna, et molestie mi dictum eget. Fusce id dapibus tortor. Phasellus porttitor, quam et dictum scelerisque, arcu leo auctor urna, nec egestas nisi ex a libero."
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/txtPara2"
@@ -71,7 +99,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:background="@drawable/custom_button"
-                android:padding="20dp"
                 android:text="Xem sản phẩm"
                 android:textColor="@color/white" />
         </LinearLayout>
