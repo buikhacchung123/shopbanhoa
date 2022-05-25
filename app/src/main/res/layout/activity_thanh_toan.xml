@@ -85,6 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/cerapro_regular"
+                android:textSize="15sp"
                 android:textColor="@color/red"
                 android:visibility="gone" />
 
@@ -166,7 +168,68 @@
                 android:background="@drawable/separate_line" />
 
             <LinearLayout
-                android:id="@+id/cart_layout"
+                android:id="@+id/cart1_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/cerapro_regular"
+                    android:text="Tạm tính:"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/txtTamTinh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/cerapro_regular"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cart2_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/cerapro_regular"
+                    android:text="Giảm giá:"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/txtGiamGia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/cerapro_regular"
+                    android:gravity="right"
+                    android:padding="5dp"
+                    android:text="0 VNĐ"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cart3_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -195,7 +258,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/cart_layout2"
+                android:id="@+id/cart4_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

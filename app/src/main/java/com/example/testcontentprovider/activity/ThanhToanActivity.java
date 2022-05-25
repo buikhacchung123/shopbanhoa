@@ -17,7 +17,7 @@ import com.example.testcontentprovider.adapter.PaymentAdapter;
 public class ThanhToanActivity extends AppCompatActivity {
     RecyclerView rvThanhToan;
     static PaymentAdapter adapter;
-    TextView txtTongTien, txtTongSL, txtResult_VC;
+    TextView txtTongTien, txtTongSL, txtResult_VC, txtGiamGia, txtTamTinh;
     Button btnApDung;
     Toolbar toolbar;
 
@@ -33,7 +33,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvThanhToan.setLayoutManager(layoutManager);
         rvThanhToan.setAdapter(adapter);
-        txtTongTien.setText(getIntent().getStringExtra("TongTien"));
+        txtTamTinh.setText(getIntent().getStringExtra("TongTien"));
         txtTongSL.setText(getIntent().getStringExtra("TongSL"));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -42,6 +42,7 @@ public class ThanhToanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 txtResult_VC.setText("Mã voucher ko tồn tại");
+                txtGiamGia.setText("0 VNĐ");
                 txtResult_VC.setVisibility(View.VISIBLE);
             }
         });
@@ -53,5 +54,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         txtResult_VC = findViewById(R.id.tv_ResultVoucher);
         btnApDung = findViewById(R.id.btnApDung);
         toolbar = findViewById(R.id.payment_toolbar);
+        txtGiamGia = findViewById(R.id.txtGiamGia);
+        txtTamTinh = findViewById(R.id.txtTamTinh);
     }
 }

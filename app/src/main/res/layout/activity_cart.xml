@@ -54,7 +54,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/cerapro_regular"
             android:padding="5dp"
-            android:text="Tổng tiền:"
+            android:text="Tạm tính: "
             android:textColor="@color/dark_blue"
             android:textSize="15sp" />
 
