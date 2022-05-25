@@ -7,7 +7,7 @@
     tools:context=".activity.ThanhToanActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/cart_toolbar"
+        android:id="@+id/payment_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +23,7 @@
         android:layout_marginTop="55dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck">
 
@@ -43,36 +44,49 @@
                 android:textColor="@color/dark_blue"
                 android:textSize="15sp" />
 
-            <EditText
-                android:id="@+id/editTextTextPersonName"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:fontFamily="@font/cerapro_regular"
-                android:hint="Nhập mã voucher"
-                android:inputType="textPersonName"
-                android:textColor="@color/dark_blue"
-                android:textSize="15sp"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:ems="10"
+                    android:fontFamily="@font/cerapro_regular"
+                    android:hint="Nhập mã voucher"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toStartOf="@+id/btnApDung"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnApDung"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:background="@drawable/white_button"
+                    android:text="Áp dụng"
+                    android:textAllCaps="false"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_ResultVoucher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/red"
                 android:visibility="gone" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnApDung"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/white_button"
-                android:text="Áp dụng"
-                tools:ignore="TouchTargetSizeCheck" />
 
             <View
                 android:id="@+id/separate3"
@@ -110,20 +124,37 @@
             <EditText
                 android:id="@+id/txtDiaChiGiao"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/custom_input"
                 android:fontFamily="@font/cerapro_regular"
                 android:hint="Địa chỉ giao"
+                android:padding="5dp"
                 android:textSize="15dp"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <EditText
                 android:id="@+id/txtSDT"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/custom_input"
                 android:fontFamily="@font/cerapro_regular"
                 android:hint="Số điện thoại"
+                android:padding="5dp"
+                android:textSize="15dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <EditText
+                android:id="@+id/txtNgayGiao"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_input"
+                android:fontFamily="@font/cerapro_regular"
+                android:hint="Ngày giao"
+                android:padding="5dp"
                 android:textSize="15dp"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -152,7 +183,7 @@
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/txtTongSL1"
+                    android:id="@+id/txtTongTien"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

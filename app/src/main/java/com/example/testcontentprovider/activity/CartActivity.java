@@ -1,6 +1,5 @@
 package com.example.testcontentprovider.activity;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,7 +66,7 @@ public class CartActivity extends AppCompatActivity {
                     if(MainActivity.manggiohang.size()>0){
                         Intent i = new Intent(CartActivity.this, ThanhToanActivity.class);
                         i.putExtra("TongTien",txtTongtien.getText());
-                        i.putExtra("TongSL", 0);
+                        i.putExtra("TongSL", txtTongSL.getText());
                         startActivity(i);
                     }else{
                         Toast.makeText (getBaseContext(), "Không có sản phẩm để thanh toán", Toast.LENGTH_SHORT).show();
@@ -87,11 +86,11 @@ public class CartActivity extends AppCompatActivity {
         for(int i = 0; i < MainActivity.manggiohang.size(); i++)
         {
             tongtien += (MainActivity.manggiohang.get(i).getGia() * MainActivity.manggiohang.get(i).getSoluong());
-            //tongsl += MainActivity.manggiohang.get(i).getSoluong();
+            tongsl += MainActivity.manggiohang.get(i).getSoluong();
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         txtTongtien.setText(decimalFormat.format(tongtien) + " VNĐ");
-        //txtTongSL.setText(tongsl);
+        txtTongSL.setText(tongsl+"");
     }
     public static void checkGH(){
         if(MainActivity.manggiohang.size() <= 0){
@@ -104,7 +103,7 @@ public class CartActivity extends AppCompatActivity {
     }
     private void AnhXa() {
         giohangtrong = findViewById(R.id.txtcartnull);
-        txtTongtien = findViewById(R.id.txtTongSL1);
+        txtTongtien = findViewById(R.id.txtTongTien);
         toolbar = findViewById(R.id.cart_toolbar);
         recyclerView = findViewById(R.id.rcv_thanhToan);
         btnThanhToan = findViewById(R.id.btnThanhToan);

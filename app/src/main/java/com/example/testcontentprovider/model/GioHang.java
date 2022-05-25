@@ -7,9 +7,6 @@ public class GioHang {
     double gia;
 
     public GioHang(){
-        soluong =0;
-        gia=0;
-        thanhtien=0;
     }
 
     public String getMasp() {

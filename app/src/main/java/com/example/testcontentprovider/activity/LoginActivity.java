@@ -27,23 +27,27 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String un = username.getText().toString();
-                String pw = password.getText().toString();
-                boolean check = checkBox.isChecked();
-                if(un.length() == 0 || pw.length() == 0)
-                    Toast.makeText(LoginActivity.this, "Phải nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                else
-                {
-                    if (un.equals("admin") && pw.equals("123")) {
-                        LuuTT(un,pw,check);
-                        Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
+                try{
+                    String un = username.getText().toString();
+                    String pw = password.getText().toString();
+                    boolean check = checkBox.isChecked();
+                    if(un.length() == 0 || pw.length() == 0)
+                        Toast.makeText(LoginActivity.this, "Phải nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                     else
                     {
-                        Toast.makeText(LoginActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                        if (un.equals("admin") && pw.equals("123")) {
+                            LuuTT(un,pw,check);
+                            Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                        else
+                        {
+                            Toast.makeText(LoginActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                        }
                     }
+                }catch (Exception ex) {
+                    startActivity(new Intent(LoginActivity.this,ErrorActivity.class));
                 }
             }
         });
@@ -56,8 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         checkBox  = findViewById(R.id.rememberme);
     }
 
-    private void LuuTT(String un, String pw, boolean check)
-    {
+    private void LuuTT(String un, String pw, boolean check) {
         SharedPreferences pref = getSharedPreferences("thongtin.dat", MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         if(check){

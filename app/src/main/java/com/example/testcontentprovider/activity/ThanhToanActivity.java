@@ -1,6 +1,7 @@
 package com.example.testcontentprovider.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,12 +12,14 @@ import android.widget.TextView;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.CartAdapter;
+import com.example.testcontentprovider.adapter.PaymentAdapter;
 
 public class ThanhToanActivity extends AppCompatActivity {
     RecyclerView rvThanhToan;
-    static CartAdapter adapter;
+    static PaymentAdapter adapter;
     TextView txtTongTien, txtTongSL, txtResult_VC;
     Button btnApDung;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,26 +28,30 @@ public class ThanhToanActivity extends AppCompatActivity {
 
         AnhXa();
 
-        adapter = new CartAdapter(getApplicationContext(), MainActivity.manggiohang);
+        adapter = new PaymentAdapter(getApplicationContext(), MainActivity.manggiohang);
         rvThanhToan.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rvThanhToan.setLayoutManager(layoutManager);
         rvThanhToan.setAdapter(adapter);
         txtTongTien.setText(getIntent().getStringExtra("TongTien"));
         txtTongSL.setText(getIntent().getStringExtra("TongSL"));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnApDung.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 txtResult_VC.setText("Mã voucher ko tồn tại");
+                txtResult_VC.setVisibility(View.VISIBLE);
             }
         });
     }
     public void AnhXa(){
         rvThanhToan = findViewById(R.id.rcv_thanhToan);
         txtTongTien = findViewById(R.id.txtTongTien);
-        txtTongSL = findViewById(R.id.txtTongSL1);
+        txtTongSL = findViewById(R.id.txtTongSL);
         txtResult_VC = findViewById(R.id.tv_ResultVoucher);
         btnApDung = findViewById(R.id.btnApDung);
+        toolbar = findViewById(R.id.payment_toolbar);
     }
 }

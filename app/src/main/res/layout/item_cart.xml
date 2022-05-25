@@ -2,48 +2,75 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:elevation="8dp"
-    app:cardCornerRadius="4dp"
-    android:layout_margin="5dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:elevation="8dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    app:cardCornerRadius="4dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="10"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="10">
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+
             app:cardCornerRadius="10dp">
+
             <ImageView
                 android:id="@+id/itemcart_hinhsp"
                 android:layout_width="120dp"
-                android:layout_marginTop="-10dp"
-                android:layout_marginLeft="-10dp"
                 android:layout_height="120dp"
-                android:scaleType="centerCrop"/>
+                android:layout_marginLeft="-10dp"
+                android:layout_marginTop="-10dp"
+                android:scaleType="centerCrop" />
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:layout_width="240dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/itemcart_tensp"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="@font/cerapro_regular"
-                android:gravity="center|start"
-                android:text="Tên SP"
-                android:textColor="@color/dark_blue"
-                android:textSize="20sp" />
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/itemcart_tensp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/cerapro_regular"
+                    android:gravity="center|start"
+                    android:paddingLeft="10dp"
+                    android:text="Tên SP"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toStartOf="@+id/btnXoaSP"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnXoaSP"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/ic_close"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/itemcart_gia"
@@ -75,7 +102,7 @@
 
                 <TextView
                     android:id="@+id/itemcart_sl"
-                    android:layout_width="0dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="center"
@@ -90,6 +117,7 @@
                     android:text="+"
                     android:textColor="@color/white"
                     tools:ignore="TouchTargetSizeCheck" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -108,7 +136,7 @@
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/itemcart_thanhtien"
+                    android:id="@+id/itemPayment_ThanhTien"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
@@ -120,10 +148,7 @@
             </LinearLayout>
 
         </LinearLayout>
-        <ImageView
-            android:id="@+id/btnXoaSP"
-            android:src="@drawable/ic_close"
-            android:layout_width="30dp"
-            android:layout_height="30dp"/>
+
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

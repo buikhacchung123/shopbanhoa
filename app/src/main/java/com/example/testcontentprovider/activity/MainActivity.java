@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.DMSPAdapter;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     DrawerLayout drawerLayout;
     FrameLayout frameLayout;
+    TextView txtCuaHang;
 
 
     @Override
@@ -56,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+        txtCuaHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,ShopInforActivity.class));
             }
         });
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -105,21 +113,16 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawerLayout = findViewById(R.id.drawerlayout_main);
         if(manggiohang == null)
-        {
             manggiohang = new ArrayList<>();
-        }
-
+        txtCuaHang = findViewById(R.id.txtCuaHang);
         listView = findViewById(R.id.lv_main);
         frameLayout = findViewById(R.id.frame_search);
     }
 
-    public void LoadFrame(Fragment a)
-    {
+    public void LoadFrame(Fragment a) {
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.framlayout,a);
         transaction.addToBackStack(null);
         transaction.commit();
-
-
     }
 }
