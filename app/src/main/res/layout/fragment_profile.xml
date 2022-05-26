@@ -20,18 +20,27 @@
             android:layout_width="match_parent"
             android:layout_height="60dp">
 
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:src="@drawable/update_profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/txt_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:fontFamily="@font/cerapro_regular"
                 android:text="Thay đổi thông tin"
                 android:textColor="@color/dark_blue"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView11"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -52,19 +61,29 @@
             android:layout_height="60dp"
             android:background="@color/dark_blue">
 
+            <ImageView
+                android:id="@+id/img_h2"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:src="@drawable/gift_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/txt_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:fontFamily="@font/cerapro_regular"
                 android:text="Đổi thưởng"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/img_h2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.512" />
 
             <ImageView
                 android:id="@+id/img_2"
@@ -83,18 +102,27 @@
             android:layout_width="match_parent"
             android:layout_height="60dp">
 
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:src="@drawable/order_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/txt_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:fontFamily="@font/cerapro_regular"
                 android:text="Lịch sử mua hàng"
                 android:textColor="@color/dark_blue"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView10"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -115,18 +143,27 @@
             android:layout_height="60dp"
             android:background="@color/dark_blue">
 
+            <ImageView
+                android:id="@+id/img_h4"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:src="@drawable/store_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/txt_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:fontFamily="@font/cerapro_regular"
                 android:text="Thông tin cửa hàng"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_h4"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -178,18 +215,27 @@
             android:layout_height="60dp"
             android:background="@color/dark_blue">
 
+            <ImageView
+                android:id="@+id/img_h6"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:src="@drawable/log_out_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/txt_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:fontFamily="@font/cerapro_regular"
                 android:text="Đăng xuất"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_h6"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView

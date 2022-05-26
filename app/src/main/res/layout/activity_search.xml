@@ -4,20 +4,26 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/dark_blue"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme">
 
-        <SearchView
-            android:id="@+id/search_view"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/txtSearchBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@android:color/white"
             android:queryHint="Name, description" />
     </RelativeLayout>
@@ -51,16 +57,17 @@
     </androidx.cardview.widget.CardView>
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/lv_SearchResult"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </ListView>
 
     <TextView
+        android:id="@+id/txtNoContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="No result"
-        android:textSize="24sp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:text="Không có sản phẩm nào"
+        android:textSize="24sp" />
 </LinearLayout>

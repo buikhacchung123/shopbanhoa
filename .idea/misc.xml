@@ -45,6 +45,7 @@
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/ic_baseline_card_giftcard_24.xml" value="0.3828125" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/ic_favorite.xml" value="0.3828125" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/ic_unfavorite.xml" value="0.3828125" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/ic_user.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/drawable/item_shop_infor.xml" value="0.3828125" />
@@ -65,12 +66,13 @@
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/activity_update_user_infor.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/fragment_notification.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/fragment_profile.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/fragment_voucher.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/item_cart.xml" value="0.5" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/item_danhmuc.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/item_danhmuc_menu.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/item_payment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/item_rating.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/item_sanpham.xml" value="0.5" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/item_sanpham_grid.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/uyen.nguyen/Desktop/shopbanhoa/app/src/main/res/layout/item_shop_infot.xml" value="0.36666666666666664" />

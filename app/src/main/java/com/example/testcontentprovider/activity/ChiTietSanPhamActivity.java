@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     ImageView imgChiTiet;
     TextView TenSP,Gia,MoTa;
     Button btnMua, btnAddCart;
+    ImageButton btnLove;
     SanPham sp;
     static NotificationBadge badge;
     FrameLayout frameLayout;
@@ -65,7 +67,12 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
                 chuyenGioHang();
             }
         });
-
+        btnLove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnLove.setImageResource(R.drawable.ic_favorite);
+            }
+        });
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -117,8 +124,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         }
     }
 
-    public void chuyenGioHang()
-    {
+    public void chuyenGioHang() {
         Intent giohang = new Intent(ChiTietSanPhamActivity.this, CartActivity.class);
         startActivity(giohang);
     }
@@ -131,7 +137,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         btnAddCart = findViewById(R.id.btnAddcart);
         toolbar = findViewById(R.id.toolbarct);
         badge = findViewById(R.id.cart_sl);
-
+        btnLove = findViewById(R.id.btnLove);
 
         frameLayout = findViewById(R.id.shopingcart);
     }

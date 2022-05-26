@@ -100,7 +100,9 @@
                 android:layout_height="45dp"
                 android:background="@drawable/custom_button"
                 android:text="Xem sản phẩm"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                tools:ignore="TouchTargetSizeCheck" />
+
         </LinearLayout>
     </ScrollView>
 
