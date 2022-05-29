@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestContentProvider">
         <activity
+            android:name=".activity.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.UpdateUserInforActivity"
             android:exported="false" />
         <activity

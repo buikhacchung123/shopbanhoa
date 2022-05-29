@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     DrawerLayout drawerLayout;
     FrameLayout frameLayout;
-    TextView txtCuaHang;
 
 
     @Override
@@ -58,12 +57,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
-        txtCuaHang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,ShopInforActivity.class));
             }
         });
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -114,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerlayout_main);
         if(manggiohang == null)
             manggiohang = new ArrayList<>();
-        txtCuaHang = findViewById(R.id.txtCuaHang);
         listView = findViewById(R.id.lv_main);
         frameLayout = findViewById(R.id.frame_search);
     }

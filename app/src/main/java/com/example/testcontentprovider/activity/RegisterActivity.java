@@ -68,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.pass);
         confirmpassword = findViewById(R.id.repass);
-        register = findViewById(R.id.btnLuu);
+        register = findViewById(R.id.btnChange);
     }
 
     public void signin(View view) {

@@ -179,22 +179,31 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btnddd"
+            android:id="@+id/btnDoiMatKhau"
             android:layout_width="match_parent"
             android:layout_height="60dp">
 
+            <ImageView
+                android:id="@+id/img_h5"
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:src="@drawable/change_pass"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/txt_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginLeft="30dp"
+                android:layout_width="91dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:fontFamily="@font/cerapro_regular"
-                android:text="DDDD"
+                android:text="Đổi mật khẩu"
                 android:textColor="@color/dark_blue"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_h5"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -225,7 +234,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txt_5"
+                android:id="@+id/txt_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -239,7 +248,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/img_5"
+                android:id="@+id/img_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"

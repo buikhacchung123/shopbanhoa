@@ -40,7 +40,7 @@ public class UpdateUserInforActivity extends AppCompatActivity {
     }
 
     public void AnhXa(){
-        btnLuu = findViewById(R.id.btnLuu);
+        btnLuu = findViewById(R.id.btnChange);
         btnXemSP = findViewById(R.id.btnXemSP);
         txtTen = findViewById(R.id.txtTen_Update);
         txtDiaChi = findViewById(R.id.txtDiaChi_Update);

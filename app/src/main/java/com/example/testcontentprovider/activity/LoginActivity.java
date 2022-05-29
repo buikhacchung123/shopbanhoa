@@ -9,14 +9,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
 
 public class LoginActivity extends AppCompatActivity {
-    Button login;
+    Button btnLogin;
     EditText username, password;
     CheckBox checkBox;
+    TextView linkDangKyNgay, linkQuenMatKhau;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         AnhXa();
         loadData();
 
-        login.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try{
@@ -51,13 +53,27 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        linkDangKyNgay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(),RegisterActivity.class));
+            }
+        });
+        linkQuenMatKhau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(),ChangePasswordActivity.class));
+            }
+        });
     }
 
     private void AnhXa() {
-        login = findViewById(R.id.btnDangNhap);
+        btnLogin = findViewById(R.id.btnDangNhap);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         checkBox  = findViewById(R.id.rememberme);
+        linkQuenMatKhau = findViewById(R.id.linkQuenMatKhau);
+        linkDangKyNgay = findViewById(R.id.linkDangKyNgay);
     }
 
     private void LuuTT(String un, String pw, boolean check) {
@@ -82,10 +98,5 @@ public class LoginActivity extends AppCompatActivity {
             password.setText(pref.getString("password",""));
             checkBox.setChecked(check);
         }
-    }
-
-    public void register(View view) {
-        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-        startActivity(intent);
     }
 }
