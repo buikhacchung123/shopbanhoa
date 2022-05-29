@@ -30,8 +30,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    String un = username.getText().toString();
-                    String pw = password.getText().toString();
+                    String un = username.getText().toString().trim();
+                    String pw = password.getText().toString().trim();
                     boolean check = checkBox.isChecked();
                     if(un.length() == 0 || pw.length() == 0)
                         Toast.makeText(LoginActivity.this, "Phải nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();

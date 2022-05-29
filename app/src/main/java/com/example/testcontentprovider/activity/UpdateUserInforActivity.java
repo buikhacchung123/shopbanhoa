@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
 
@@ -31,7 +32,14 @@ public class UpdateUserInforActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-
+                    String tenDangNhap = txtTen.getText().toString().trim();
+                    String diaChi = txtDiaChi.getText().toString().trim();
+                    String sdt = txtSDT.getText().toString().trim();
+                    if(tenDangNhap.isEmpty() || diaChi.isEmpty() || sdt.isEmpty()){
+                        Toast.makeText(getBaseContext(), "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        //Cập nhật thông tin
+                    }
                 }catch(Exception ex){
                     startActivity(new Intent(UpdateUserInforActivity.this,ErrorActivity.class));
                 }

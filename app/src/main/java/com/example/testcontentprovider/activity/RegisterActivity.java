@@ -26,15 +26,15 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    String user = username.getText().toString();
-                    String pass = password.getText().toString();
-                    String repass = confirmpassword.getText().toString();
-                    String SDT = sdt.getText().toString();
-                    String hoTen = hoten.getText().toString();
-                    String diaChi = diachi.getText().toString();
+                    String user = username.getText().toString().trim();
+                    String pass = password.getText().toString().trim();
+                    String repass = confirmpassword.getText().toString().trim();
+                    String SDT = sdt.getText().toString().trim();
+                    String hoTen = hoten.getText().toString().trim();
+                    String diaChi = diachi.getText().toString().trim();
 
                     if(user.equals("")||pass.equals("")||repass.equals("")||SDT.equals("")||hoTen.equals("")||diaChi.equals(""))
-                        Toast.makeText(RegisterActivity.this,"Vui lòng điền đầy đử thông tin",Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this,"Vui lòng điền đầy đủ thông tin",Toast.LENGTH_LONG).show();
                     else {
                         if (pass.matches(repass)) {
                             b.setMessage("Đăng kí thành công");

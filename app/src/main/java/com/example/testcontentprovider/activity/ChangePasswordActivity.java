@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
 
@@ -26,7 +27,22 @@ public class ChangePasswordActivity extends AppCompatActivity {
         btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    String username = txtUsername.getText().toString().trim();
+                    String password = txtPass.getText().toString().trim();
+                    String confirmPass = txtConfirmPass.getText().toString().trim();
+                    if(username.isEmpty() || password.isEmpty() || confirmPass.isEmpty()){
+                        Toast.makeText(getBaseContext(), "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(password != confirmPass)
+                            Toast.makeText(getBaseContext(), "Xác nhận mật khẩu và mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+                        else{
+                            //Kiểm tra username đã tồn tại chưa
+                        }
+                    }
+                }catch (Exception ex){
+                    startActivity(new Intent(getBaseContext(),ErrorActivity.class));
+                }
             }
         });
         linkBackToHome.setOnClickListener(new View.OnClickListener() {
