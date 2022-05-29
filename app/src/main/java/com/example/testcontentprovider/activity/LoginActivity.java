@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
                     String pw = password.getText().toString().trim();
                     boolean check = checkBox.isChecked();
                     if(un.length() == 0 || pw.length() == 0)
-                        Toast.makeText(LoginActivity.this, "Phải nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
                     else
                     {
                         if (un.equals("admin") && pw.equals("123")) {
