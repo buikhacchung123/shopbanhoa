@@ -22,6 +22,7 @@ public class UpdateUserInforActivity extends AppCompatActivity {
 
         AnhXa();
 
+        //Sự kiện trang Cập nhật thông tin người dùng
         btnXemSP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

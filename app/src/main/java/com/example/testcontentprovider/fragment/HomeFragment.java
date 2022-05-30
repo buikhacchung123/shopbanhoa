@@ -2,23 +2,16 @@ package com.example.testcontentprovider.fragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
@@ -66,7 +59,6 @@ public class HomeFragment extends Fragment {
         adapter = new DMAdapter(getContext(),dsdm);
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-
         rvDM.setLayoutManager(layoutManager);
         rvDM.setAdapter(adapter);
 
@@ -77,29 +69,24 @@ public class HomeFragment extends Fragment {
                 onClickChangeTypeDisplay();
             }
         });
-
         return view;
     }
 
     private void setTypeDisplayRecyclerView(int typeDisplay) {
-        if(dssp == null || dssp.isEmpty()){
+        if(dssp == null || dssp.isEmpty())
             return;
-        }
-
         mCurrentType = typeDisplay;
-
-        for(SanPham sp : dssp){
+        for(SanPham sp : dssp)
             sp.setTypeDisplay(typeDisplay);
-        }
     }
 
     private void AnhXa() {
         viewFlipper = view.findViewById(R.id.viewflipperhome);
-        recyclerView = view.findViewById(R.id.recycleview);
+        recyclerView = view.findViewById(R.id.recyclerview);
         rvDM = view.findViewById(R.id.rvdanhmuc);
         mlinearLayoutManager = new LinearLayoutManager(this.getContext());
         gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
-        button = view.findViewById(R.id.btn_changetype);
+        button = view.findViewById(R.id.btn_changeDisplay);
     }
 
     private void ActionViewFlipper() {

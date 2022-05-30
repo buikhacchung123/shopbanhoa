@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.testcontentprovider">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -18,7 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TestContentProvider">
-
+        <activity
+            android:name=".activity.CategoryActivity"
+            android:parentActivityName=".activity.MainActivity" />
+            android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -32,18 +34,16 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activity.MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps" />
-        <activity
             android:name=".activity.ChangePasswordActivity"
-            android:exported="false" />
+            android:parentActivityName=".activity.MainActivity" />
+            android:exported="true" />
         <activity
             android:name=".activity.UpdateUserInforActivity"
             android:exported="false" />
         <activity
             android:name=".activity.ShopInforActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.ThanhToanActivity"
             android:exported="false"

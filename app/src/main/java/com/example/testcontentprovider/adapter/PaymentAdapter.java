@@ -56,35 +56,6 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
         holder.txtSL.setText("Số lượng: "+gh.getSoluong()+"");
         double thanhtien = gh.getSoluong() * gh.getGia();
         holder.txtThanhtien.setText("Thành tiền: "+decimalFormat.format(thanhtien) + " VNĐ");
-
-        /*holder.setListener(new IImageClickListener() {
-            @Override
-            public void onImageClick(View view, int position, int giatri) {
-                if(giatri == 1) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setTitle("Thông báo");
-                    builder.setMessage("Bạn có muốn xóa sản phẩm khỏi giỏ hàng");
-                    builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            MainActivity.manggiohang.remove(position);
-                            notifyDataSetChanged();
-                            com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
-                            CartActivity.checkGH();
-                            ChiTietSanPhamActivity.checkSLSP();
-                        }
-                    });
-                    builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.show();
-                }
-
-            }
-        });*/
     }
 
     @Override

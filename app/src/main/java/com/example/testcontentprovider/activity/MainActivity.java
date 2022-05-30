@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,14 +46,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         AnhXa();
         LoadFrame(new HomeFragment());
+
         mangdanhmuc = dm.getDM();
         dmspAdapter = new DMSPAdapter(mangdanhmuc, getApplicationContext());
         listView.setAdapter(dmspAdapter);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_menu);
+
+        //Sự kiện trang Home
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,10 +101,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(search);
             }
         });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick (AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intentCategory = new Intent(getBaseContext(), CategoryActivity.class);
+                intentCategory.putExtra("Category",mangdanhmuc.get(position));
+                startActivity(intentCategory);
+            }
+        });
     }
-
-
-
     private void AnhXa() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -110,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.lv_main);
         frameLayout = findViewById(R.id.frame_search);
     }
-
     public void LoadFrame(Fragment a) {
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.framlayout,a);

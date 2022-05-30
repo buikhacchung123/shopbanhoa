@@ -36,7 +36,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chitietsanpham);
         AnhXa();
         Intent intent = getIntent();
-        sp = sp = (SanPham) intent.getSerializableExtra("SPItem");
+        sp = (SanPham) intent.getSerializableExtra("SPItem");
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         TenSP.setText(sp.getTensp());
         Gia.setText(decimalFormat.format(sp.getGiaban())+" VNĐ");

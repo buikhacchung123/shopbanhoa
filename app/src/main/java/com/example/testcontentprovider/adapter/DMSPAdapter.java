@@ -32,7 +32,7 @@ public class DMSPAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return array.get(position);
     }
 
     @Override
@@ -41,8 +41,13 @@ public class DMSPAdapter extends BaseAdapter {
     }
 
     public class ViewHolder{
-        TextView tendm;
-        ImageView hinhdm;
+        TextView tendm_menu;
+        ImageView hinhdm_menu;
+
+        public ViewHolder(){
+
+        }
+
     }
 
     @Override
@@ -53,24 +58,21 @@ public class DMSPAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.item_danhmuc_menu,null);
-            viewHolder.tendm = convertView.findViewById(R.id.txtTenDM_menu);
-            viewHolder.hinhdm = convertView.findViewById(R.id.img_DM_menu);
+            viewHolder.tendm_menu = convertView.findViewById(R.id.txtTenDM_menu);
+            viewHolder.hinhdm_menu = convertView.findViewById(R.id.img_DM_menu);
             convertView.setTag(viewHolder);
         }
-        else {
+        else
             viewHolder = (ViewHolder) convertView.getTag();
 
-        }
-
-        viewHolder.tendm.setText(array.get(position).getTenDM());
+        viewHolder.tendm_menu.setText(array.get(position).getTenDM());
         String[] imgSplit = array.get(position).getHinhDM().split("\\.");
         String imgName = imgSplit[0];
         String PACKAGE_NAME = context.getPackageName();
         int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
 
-
-        viewHolder.hinhdm.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
-
+        viewHolder.hinhdm_menu.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
         return convertView;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.testcontentprovider.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class ShopInforActivity extends AppCompatActivity {
     Button btnHome;
-
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,9 @@ public class ShopInforActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shop_infor);
 
         btnHome = findViewById(R.id.btnHome);
+        toolbar = findViewById(R.id.toolbar_shopinfor);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

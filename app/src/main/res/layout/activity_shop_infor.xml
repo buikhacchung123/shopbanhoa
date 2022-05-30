@@ -93,14 +93,12 @@
                 android:fontFamily="@font/cerapro_regular"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempor leo eu lacus consequat, et dictum sem cursus. Vestibulum suscipit mi ligula, eget pellentesque ex tincidunt sit amet. Maecenas rutrum felis risus, ac cursus mauris gravida quis. Aenean ultrices venenatis urna, et molestie mi dictum eget. Fusce id dapibus tortor. Phasellus porttitor, quam et dictum scelerisque, arcu leo auctor urna, nec egestas nisi ex a libero."
                 android:textSize="15dp" />
-
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView"
                 android:name="com.example.testcontentprovider.fragment.MapsFragment"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginBottom="20dp"/>
-
+                android:layout_marginBottom="20dp"
+                android:layout_height="320dp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnHome"
                 android:layout_width="match_parent"

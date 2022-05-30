@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
                     String diaChi = diachi.getText().toString().trim();
 
                     if(user.equals("")||pass.equals("")||repass.equals("")||SDT.equals("")||hoTen.equals("")||diaChi.equals(""))
-                        Toast.makeText(RegisterActivity.this,"Vui lòng điền đầy đủ thông tin",Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this,"Vui lòng điền đầy đủ thông tin.",Toast.LENGTH_LONG).show();
                     else {
                         if (pass.matches(repass)) {
                             b.setMessage("Đăng kí thành công");
