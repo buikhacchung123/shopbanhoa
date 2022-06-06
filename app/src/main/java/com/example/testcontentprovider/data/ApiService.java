@@ -7,6 +7,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -15,4 +16,7 @@ public interface ApiService {
 
     @GET("/api/Sanphams")
     Call<List<SanPham>> getAllPSanPhams();
+
+    @GET("/api/Sanphams/GetSpByDm/{MaDM}")
+    Call<List<SanPham>> getSanPhamTheoDM(@Path("MaDM") String id);
 }

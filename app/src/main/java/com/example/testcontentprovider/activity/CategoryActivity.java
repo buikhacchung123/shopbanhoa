@@ -15,10 +15,18 @@ import android.widget.TextView;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.SanPhamAdapter;
+import com.example.testcontentprovider.data.ApiService;
+import com.example.testcontentprovider.data.Constance;
+import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.SanPham;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CategoryActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -27,7 +35,8 @@ public class CategoryActivity extends AppCompatActivity {
     private LinearLayoutManager mlinearLayoutManager;
     private GridLayoutManager gridLayoutManager;
     ImageButton btnChangeDisplay;
-    private ArrayList<SanPham> dssp;
+    private List<SanPham> dssp;
+    private ApiService apiService;
     private  int mCurrentType = SanPham.TYPE_LIST;
     private  int mCurrentPosition;
     DanhMuc dm;
@@ -49,11 +58,9 @@ public class CategoryActivity extends AppCompatActivity {
         txtCategory_name.setText(dm.getTenDM());
 
         //Lấy dữ liệu sản phẩm
-        //dssp = new SanPham().getSanPham();
-        setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
-        sanPhamAdapter = new SanPhamAdapter(getBaseContext(),dssp);
-        rv_category.setLayoutManager(mlinearLayoutManager);
-        rv_category.setAdapter(sanPhamAdapter);
+        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+        LoadingSanPhamTheoDM();
+
 
         //Sự kiện trang Sản phẩm theo danh mục
         btnChangeDisplay.setOnClickListener(new View.OnClickListener() {
@@ -112,5 +119,23 @@ public class CategoryActivity extends AppCompatActivity {
                 mCurrentPosition = ((GridLayoutManager)layoutManager).findFirstVisibleItemPosition();
                 break;
         }
+    }
+    private void LoadingSanPhamTheoDM() {
+        Call<List<SanPham>> call = apiService.getSanPhamTheoDM(dm.getMaDM());
+        call.enqueue(new Callback<List<SanPham>>() {
+            @Override
+            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
+                dssp = response.body();
+                setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
+                sanPhamAdapter = new SanPhamAdapter(getBaseContext(),(ArrayList<SanPham>) dssp);
+                rv_category.setLayoutManager(mlinearLayoutManager);
+                rv_category.setAdapter(sanPhamAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<SanPham>> call, Throwable t) {
+
+            }
+        });
     }
 }
