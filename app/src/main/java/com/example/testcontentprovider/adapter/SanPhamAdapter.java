@@ -19,13 +19,13 @@ import com.example.testcontentprovider.model.SanPham;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.MyViewHolder> {
     Context context;
-    ArrayList<SanPham> array;
+    List<SanPham> array;
 
-    public SanPhamAdapter(Context context, ArrayList<SanPham> array) {
+    public SanPhamAdapter(Context context, List<SanPham> array) {
         this.context = context;
         this.array = array;
     }
@@ -58,16 +58,16 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.MyViewHo
         if (sanPham == null) {
             return;
         }
-        String[] imgSplit = sanPham.getHinhsp().split("\\.");
+        String[] imgSplit = sanPham.getHinhSp().split("\\.");
         String imgName = imgSplit[0];
         String PACKAGE_NAME = context.getPackageName();
         int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
 
 
         holder.hinhAnh.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
-        holder.txtTen.setText(sanPham.getTensp());
+        holder.txtTen.setText(sanPham.getTenSp());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.txtGia.setText("Giá: " + decimalFormat.format(sanPham.getGiaban()) + " VNĐ");
+        holder.txtGia.setText("Giá: " + decimalFormat.format(sanPham.getGiaBan()) + " VNĐ");
 
 
     }

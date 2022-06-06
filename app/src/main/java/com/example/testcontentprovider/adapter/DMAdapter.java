@@ -14,18 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.activity.CategoryActivity;
-import com.example.testcontentprovider.activity.ChiTietSanPhamActivity;
 import com.example.testcontentprovider.model.DanhMuc;
-import com.example.testcontentprovider.model.SanPham;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 public class DMAdapter extends RecyclerView.Adapter<DMAdapter.MyViewHolder>{
     Context context;
-    ArrayList<DanhMuc> array;
+    List<DanhMuc> array;
 
-    public DMAdapter(Context context, ArrayList<DanhMuc> array) {
+    public DMAdapter(Context context, List<DanhMuc> array) {
         this.context = context;
         this.array = array;
     }
@@ -34,7 +31,7 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.MyViewHolder>{
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_danhmuc, parent, false);
-        item.setLayoutParams(new ViewGroup.LayoutParams((int) (parent.getWidth() * 0.6),ViewGroup.LayoutParams.MATCH_PARENT));
+        item.setLayoutParams(new ViewGroup.LayoutParams((int) (parent.getWidth() * 0.5),ViewGroup.LayoutParams.MATCH_PARENT));
         return new DMAdapter.MyViewHolder(item);
     }
 
@@ -49,7 +46,7 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.MyViewHolder>{
         int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
 
         holder.hinhAnh.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
-        holder.txtTen.setText(danhMuc.getTenDM());
+        holder.txtTen.setText(danhMuc.getTenDm());
     }
 
     @Override

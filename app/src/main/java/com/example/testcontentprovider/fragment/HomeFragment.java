@@ -14,27 +14,35 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.activity.MainActivity;
 import com.example.testcontentprovider.adapter.DMAdapter;
 import com.example.testcontentprovider.adapter.SanPhamAdapter;
+import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.SanPham;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeFragment extends Fragment {
     private View view;
     private ViewFlipper viewFlipper;
     private RecyclerView recyclerView, rvDM;
-    private ArrayList<SanPham> dssp;
-    private ArrayList<DanhMuc> dsdm;
+    private List<SanPham> dssp;
+    private List<DanhMuc> dsdm;
     private DMAdapter adapter;
     SanPham sp = new SanPham();
     DanhMuc dm = new DanhMuc();
+    MainActivity mMain = new MainActivity();
     private SanPhamAdapter sanPhamAdapter;
     private LinearLayoutManager mlinearLayoutManager;
     private GridLayoutManager gridLayoutManager;
@@ -48,19 +56,9 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         AnhXa();
         ActionViewFlipper();
-        dssp = sp.getSanPham();
-        setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
-        dsdm = dm.getDM();
-        sanPhamAdapter = new SanPhamAdapter(getContext(),dssp);
 
-        recyclerView.setLayoutManager(mlinearLayoutManager);
-        recyclerView.setAdapter(sanPhamAdapter);
-
-        adapter = new DMAdapter(getContext(),dsdm);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        rvDM.setLayoutManager(layoutManager);
-        rvDM.setAdapter(adapter);
+        LoadSPHomePage();
+        LoadDMHomePage();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +69,44 @@ public class HomeFragment extends Fragment {
         });
         return view;
     }
+
+    private void LoadDMHomePage() {
+        ApiService.apiService.getAllDanhMucs().enqueue(new Callback<List<DanhMuc>>() {
+            @Override
+            public void onResponse(Call<List<DanhMuc>> call, Response<List<DanhMuc>> response) {
+                dsdm = response.body();
+                adapter = new DMAdapter(getContext(),dsdm);
+                LinearLayoutManager layoutManager
+                        = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+                rvDM.setLayoutManager(layoutManager);
+                rvDM.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<DanhMuc>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void LoadSPHomePage() {
+        ApiService.apiService.getSanPham().enqueue(new Callback<List<SanPham>>() {
+            @Override
+            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
+                dssp = response.body();
+                sanPhamAdapter = new SanPhamAdapter(getContext(),dssp);
+                recyclerView.setLayoutManager(mlinearLayoutManager);
+                recyclerView.setAdapter(sanPhamAdapter);
+                setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
+            }
+
+            @Override
+            public void onFailure(Call<List<SanPham>> call, Throwable t) {
+                Toast.makeText(getContext(),"Call api failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private void setTypeDisplayRecyclerView(int typeDisplay) {
         if(dssp == null || dssp.isEmpty())

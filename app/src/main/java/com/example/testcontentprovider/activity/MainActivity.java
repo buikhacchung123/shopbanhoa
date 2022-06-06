@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,18 +17,27 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.adapter.DMAdapter;
 import com.example.testcontentprovider.adapter.DMSPAdapter;
+import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.fragment.HomeFragment;
 import com.example.testcontentprovider.fragment.NotificationFragment;
 import com.example.testcontentprovider.fragment.ProfileFragment;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.GioHang;
+import com.example.testcontentprovider.model.KhachHang;
+import com.example.testcontentprovider.model.SanPham;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -35,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
     Fragment currentfragment;
     public static List<GioHang> manggiohang;
     private DMSPAdapter dmspAdapter;
-    private ArrayList<DanhMuc> mangdanhmuc;
+    private List<DanhMuc> mangdanhmuc;
+    private List<SanPham> dssp;
     DanhMuc dm = new DanhMuc();
     ListView listView;
     DrawerLayout drawerLayout;
@@ -50,12 +61,14 @@ public class MainActivity extends AppCompatActivity {
         AnhXa();
         LoadFrame(new HomeFragment());
 
-        mangdanhmuc = dm.getDM();
-        dmspAdapter = new DMSPAdapter(mangdanhmuc, getApplicationContext());
-        listView.setAdapter(dmspAdapter);
+        LoadDMMenu();
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_menu);
+        // lay du lieu user tu login
+        KhachHang kh = (KhachHang) getIntent().getSerializableExtra("object_user");
+
 
         //Sự kiện trang Home
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -118,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             manggiohang = new ArrayList<>();
         listView = findViewById(R.id.lv_main);
         frameLayout = findViewById(R.id.frame_search);
+        dssp = new ArrayList<>();
     }
     public void LoadFrame(Fragment a) {
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
@@ -125,4 +139,21 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    private void LoadDMMenu() {
+        ApiService.apiService.getAllDanhMucs().enqueue(new Callback<List<DanhMuc>>() {
+            @Override
+            public void onResponse(Call<List<DanhMuc>> call, Response<List<DanhMuc>> response) {
+                mangdanhmuc = response.body();
+                dmspAdapter = new DMSPAdapter(mangdanhmuc, getApplicationContext());
+                listView.setAdapter(dmspAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<DanhMuc>> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

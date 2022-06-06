@@ -2,27 +2,32 @@ package com.example.testcontentprovider.model;
 
 import android.widget.EditText;
 
-public class KhachHang {
-    String hoten, sdt, username, password, diachi;
+import java.io.Serializable;
 
-    public KhachHang(){
+public class KhachHang implements Serializable {
+    int maND;
+    String tenNd;
+    String username;
+    String passWord;
+    String diaChi;
+    String sdt;
+    Boolean trangThai;
+    int maNnd;
 
+    public int getMaND() {
+        return maND;
     }
 
-    public String getHoten() {
-        return hoten;
+    public void setMaND(int maND) {
+        this.maND = maND;
     }
 
-    public void setHoten(String hoten) {
-        this.hoten = hoten;
+    public String getTenNd() {
+        return tenNd;
     }
 
-    public String getSdt() {
-        return sdt;
-    }
-
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
+    public void setTenNd(String tenNd) {
+        this.tenNd = tenNd;
     }
 
     public String getUsername() {
@@ -33,19 +38,48 @@ public class KhachHang {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 
-    public String getDiachi() {
-        return diachi;
+    public String getDiaChi() {
+        return diaChi;
     }
 
-    public void setDiachi(String diachi) {
-        this.diachi = diachi;
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
     }
+
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+
+    public Boolean getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(Boolean trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public int getMaNnd() {
+        return maNnd;
+    }
+
+    public void setMaNnd(int maNnd) {
+        this.maNnd = maNnd;
+    }
+
+    public KhachHang(){
+
+    }
+
 }

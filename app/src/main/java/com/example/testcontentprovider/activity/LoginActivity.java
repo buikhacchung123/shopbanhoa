@@ -1,7 +1,5 @@
 package com.example.testcontentprovider.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,13 +10,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.api.ApiService;
+import com.example.testcontentprovider.model.KhachHang;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     EditText username, password;
     CheckBox checkBox;
     TextView linkDangKyNgay, linkQuenMatKhau;
+    private List<KhachHang> user;
+    private KhachHang mkh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,16 +48,42 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
                     else
                     {
-                        if (un.equals("admin") && pw.equals("123")) {
-                            LuuTT(un,pw,check);
-                            Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        }
-                        else
-                        {
-                            Toast.makeText(LoginActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
-                        }
+                        ApiService.apiService.getUser(un).enqueue(new Callback<List<KhachHang>>() {
+                            @Override
+                            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
+                                user = response.body();
+                                if(user == null || user.isEmpty()){
+                                    Toast.makeText(LoginActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                boolean isHasUser = false;
+                                for (KhachHang kh : user)
+                                {
+                                    if(un.equals(kh.getUsername()) && pw.equals(kh.getPassWord())){
+                                        isHasUser = true;
+                                        mkh = kh;
+                                        break;
+                                    }
+                                }
+
+                                if(isHasUser){
+                                    LuuTT(un,pw,check);
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("object_user", mkh);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu sai!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
+                                Toast.makeText(LoginActivity.this, "Call api failed", Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
                 }catch (Exception ex) {
                     startActivity(new Intent(LoginActivity.this,ErrorActivity.class));
@@ -72,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         checkBox  = findViewById(R.id.rememberme);
+        user = new ArrayList<>();
         linkQuenMatKhau = findViewById(R.id.linkQuenMatKhau);
         linkDangKyNgay = findViewById(R.id.linkDangKyNgay);
     }

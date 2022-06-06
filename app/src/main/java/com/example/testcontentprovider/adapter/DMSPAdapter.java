@@ -65,13 +65,13 @@ public class DMSPAdapter extends BaseAdapter {
         else
             viewHolder = (ViewHolder) convertView.getTag();
 
-        viewHolder.tendm_menu.setText(array.get(position).getTenDM());
-        String[] imgSplit = array.get(position).getHinhDM().split("\\.");
-        String imgName = imgSplit[0];
-        String PACKAGE_NAME = context.getPackageName();
-        int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
-
-        viewHolder.hinhdm_menu.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
+        viewHolder.tendm_menu.setText(array.get(position).getTenDm());
+//        String[] imgSplit = array.get(position).getHinhDM().split("\\.");
+//        String imgName = imgSplit[0];
+//        String PACKAGE_NAME = context.getPackageName();
+//        int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
+//
+//        viewHolder.hinhdm_menu.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
         return convertView;
     }
 

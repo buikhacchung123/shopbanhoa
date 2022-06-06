@@ -38,14 +38,14 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         Intent intent = getIntent();
         sp = (SanPham) intent.getSerializableExtra("SPItem");
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        TenSP.setText(sp.getTensp());
-        Gia.setText(decimalFormat.format(sp.getGiaban())+" VNĐ");
-        String[] imgSplit= sp.getHinhsp().split("\\.");
+        TenSP.setText(sp.getTenSp());
+        Gia.setText(decimalFormat.format(sp.getGiaBan())+" VNĐ");
+        String[] imgSplit= sp.getHinhSp().split("\\.");
         String imgName = imgSplit[0];
         String PACKAGE_NAME = getPackageName();
         int imgId = getResources().getIdentifier(PACKAGE_NAME+":drawable/"+imgName , null, null);
         imgChiTiet.setImageBitmap(BitmapFactory.decodeResource(getResources(),imgId));
-        MoTa.setText(sp.getMota());
+        MoTa.setText(sp.getMoTa());
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,9 +89,9 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             int sl = 1;
             for(int i = 0; i < MainActivity.manggiohang.size(); i++)
             {
-                if(MainActivity.manggiohang.get(i).getMasp().equals(sp.getMasp())){
+                if(MainActivity.manggiohang.get(i).getMasp().equals(sp.getMaSp())){
                     MainActivity.manggiohang.get(i).setSoluong(MainActivity.manggiohang.get(i).getSoluong()+sl);
-                    double thanhtien = sp.getGiaban() * MainActivity.manggiohang.get(i).getSoluong();
+                    double thanhtien = sp.getGiaBan() * MainActivity.manggiohang.get(i).getSoluong();
                     MainActivity.manggiohang.get(i).setThanhtien(thanhtien);
                     flag = true;
                 }
@@ -99,12 +99,12 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             }
             if(flag == false)
             {
-                double thanhtien = sp.getGiaban() * sl;
+                double thanhtien = sp.getGiaBan() * sl;
                 GioHang gh = new GioHang();
-                gh.setMasp(sp.getMasp());
-                gh.setTensp(sp.getTensp());
-                gh.setHinhsp(sp.getHinhsp());
-                gh.setGia(sp.getGiaban());
+                gh.setMasp(sp.getMaSp());
+                gh.setTensp(sp.getTenSp());
+                gh.setHinhsp(sp.getHinhSp());
+                gh.setGia(sp.getGiaBan());
                 gh.setSoluong(sl);
                 gh.setThanhtien(thanhtien);
                 MainActivity.manggiohang.add(gh);
@@ -112,12 +112,12 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         }
         else {
             int sl = 1;
-            double thanhtien = sp.getGiaban() * sl;
+            double thanhtien = sp.getGiaBan() * sl;
             GioHang gh = new GioHang();
-            gh.setMasp(sp.getMasp());
-            gh.setTensp(sp.getTensp());
-            gh.setHinhsp(sp.getHinhsp());
-            gh.setGia(sp.getGiaban());
+            gh.setMasp(sp.getMaSp());
+            gh.setTensp(sp.getTenSp());
+            gh.setHinhsp(sp.getHinhSp());
+            gh.setGia(sp.getGiaBan());
             gh.setSoluong(sl);
             gh.setThanhtien(thanhtien);
             MainActivity.manggiohang.add(gh);

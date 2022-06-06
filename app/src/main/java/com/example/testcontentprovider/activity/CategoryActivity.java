@@ -12,13 +12,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.SanPhamAdapter;
+import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.SanPham;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CategoryActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -32,13 +39,13 @@ public class CategoryActivity extends AppCompatActivity {
     private  int mCurrentPosition;
     DanhMuc dm;
     TextView txtCategory_name;
-
+    SanPham sanPham = new SanPham();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-
+        dssp = onSetData();
         AnhXa();
 
         setSupportActionBar(toolbar);
@@ -46,10 +53,10 @@ public class CategoryActivity extends AppCompatActivity {
 
         //Nhận dữ liệu từ intent
         dm = (DanhMuc) getIntent().getSerializableExtra("Category");
-        txtCategory_name.setText(dm.getTenDM());
+        txtCategory_name.setText(dm.getTenDm());
 
         //Lấy dữ liệu sản phẩm
-        dssp = new SanPham().getSanPham();
+
         setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
         sanPhamAdapter = new SanPhamAdapter(getBaseContext(),dssp);
         rv_category.setLayoutManager(mlinearLayoutManager);
@@ -64,6 +71,31 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
     }
+
+    private ArrayList<SanPham> onSetData() {
+        dssp = new ArrayList<>();
+        ApiService.apiService.getSanPham().enqueue(new Callback<List<SanPham>>() {
+            @Override
+            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
+                List<SanPham> list = response.body();
+                if(list.size() > 0)
+                {
+                    for(int i = 0; i < list.size(); i++)
+                    {
+                        dssp.add(new SanPham(list.get(i)));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SanPham>> call, Throwable t) {
+                Toast.makeText(CategoryActivity.this,"Call api failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return dssp;
+    }
+
+
     public void AnhXa(){
         toolbar = findViewById(R.id.toolbar_category);
         btnChangeDisplay = findViewById(R.id.btn_changeDisplay);
