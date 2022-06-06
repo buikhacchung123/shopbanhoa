@@ -49,7 +49,7 @@ public class CategoryActivity extends AppCompatActivity {
         txtCategory_name.setText(dm.getTenDM());
 
         //Lấy dữ liệu sản phẩm
-        dssp = new SanPham().getSanPham();
+        //dssp = new SanPham().getSanPham();
         setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
         sanPhamAdapter = new SanPhamAdapter(getBaseContext(),dssp);
         rv_category.setLayoutManager(mlinearLayoutManager);

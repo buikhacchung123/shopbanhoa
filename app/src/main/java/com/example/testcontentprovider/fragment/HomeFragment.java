@@ -20,20 +20,29 @@ import com.bumptech.glide.Glide;
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.DMAdapter;
 import com.example.testcontentprovider.adapter.SanPhamAdapter;
+import com.example.testcontentprovider.data.ApiService;
+import com.example.testcontentprovider.data.Constance;
+import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.SanPham;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class HomeFragment extends Fragment {
     private View view;
     private ViewFlipper viewFlipper;
     private RecyclerView recyclerView, rvDM;
-    private ArrayList<SanPham> dssp;
-    private ArrayList<DanhMuc> dsdm;
+    private List<SanPham> dssp;
+    private List<DanhMuc> dsdm;
     private DMAdapter adapter;
-    SanPham sp = new SanPham();
+    private ApiService apiService;
     DanhMuc dm = new DanhMuc();
     private SanPhamAdapter sanPhamAdapter;
     private LinearLayoutManager mlinearLayoutManager;
@@ -48,19 +57,13 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         AnhXa();
         ActionViewFlipper();
-        dssp = sp.getSanPham();
-        setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
-        dsdm = dm.getDM();
-        sanPhamAdapter = new SanPhamAdapter(getContext(),dssp);
 
-        recyclerView.setLayoutManager(mlinearLayoutManager);
-        recyclerView.setAdapter(sanPhamAdapter);
 
-        adapter = new DMAdapter(getContext(),dsdm);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        rvDM.setLayoutManager(layoutManager);
-        rvDM.setAdapter(adapter);
+        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+
+        LoadingSanPhamHomePage();
+        LoadingDanhMucHomePage();
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +82,6 @@ public class HomeFragment extends Fragment {
         for(SanPham sp : dssp)
             sp.setTypeDisplay(typeDisplay);
     }
-
     private void AnhXa() {
         viewFlipper = view.findViewById(R.id.viewflipperhome);
         recyclerView = view.findViewById(R.id.recyclerview);
@@ -88,7 +90,6 @@ public class HomeFragment extends Fragment {
         gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
         button = view.findViewById(R.id.btn_changeDisplay);
     }
-
     private void ActionViewFlipper() {
         List<String> quangcao = new ArrayList<>();
         quangcao.add("https://hyt.r.worldssl.net/cms-images/banner/434410_dong-hanh-cung-nong-dan-viet-nam.jpg");
@@ -108,7 +109,6 @@ public class HomeFragment extends Fragment {
         viewFlipper.setInAnimation(slidein);
         viewFlipper.setOutAnimation(slideout);
     }
-
     private void onClickChangeTypeDisplay() {
         if(mCurrentType == SanPham.TYPE_LIST){
             setTypeDisplayRecyclerView(SanPham.TYPE_GRID);
@@ -122,7 +122,6 @@ public class HomeFragment extends Fragment {
         setIconButton();
         recyclerView.scrollToPosition(mCurrentPosition);
     }
-
     private void setIconButton() {
         switch (mCurrentType){
             case SanPham.TYPE_LIST:
@@ -133,7 +132,6 @@ public class HomeFragment extends Fragment {
                 break;
         }
     }
-
     private void setCurrentPosition(){
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         switch (mCurrentType){
@@ -144,5 +142,42 @@ public class HomeFragment extends Fragment {
                 mCurrentPosition = ((GridLayoutManager)layoutManager).findFirstVisibleItemPosition();
                 break;
         }
+    }
+    private void LoadingSanPhamHomePage() {
+        Call<List<SanPham>> call = apiService.getAllPSanPhams();
+        call.enqueue(new Callback<List<SanPham>>() {
+            @Override
+            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
+                dssp = response.body();
+                sanPhamAdapter = new SanPhamAdapter(getContext(),(ArrayList<SanPham>) dssp);
+                recyclerView.setLayoutManager(mlinearLayoutManager);
+                recyclerView.setAdapter(sanPhamAdapter);
+                setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
+            }
+
+            @Override
+            public void onFailure(Call<List<SanPham>> call, Throwable t) {
+
+            }
+        });
+    }
+    private void LoadingDanhMucHomePage() {
+        Call<List<DanhMuc>> call1 = apiService.getAllDanhMucs();
+        call1.enqueue(new Callback<List<DanhMuc>>() {
+            @Override
+            public void onResponse(Call<List<DanhMuc>> call, Response<List<DanhMuc>> response) {
+                dsdm = response.body();
+                adapter = new DMAdapter(getContext(), (ArrayList<DanhMuc>) dsdm);
+                LinearLayoutManager layoutManager
+                        = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+                rvDM.setLayoutManager(layoutManager);
+                rvDM.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<DanhMuc>> call, Throwable t) {
+
+            }
+        });
     }
 }

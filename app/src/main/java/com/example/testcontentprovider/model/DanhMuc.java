@@ -1,26 +1,35 @@
 package com.example.testcontentprovider.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class DanhMuc implements Serializable {
+    @SerializedName("maDm")
+    String MaDM;
+
+    @SerializedName("hinhDm")
+    String hinhDM;
+
+    @SerializedName("tenDm")
+    String tenDM;
+
+    public DanhMuc(String maDM, String tenDM, String hinhDM) {
+        this.hinhDM = hinhDM;
+        this.tenDM = tenDM;
+        this.MaDM = maDM;
+    }
+
+    public DanhMuc() {
+
+    }
     public String getMaDM() {
         return MaDM;
     }
 
     public void setMaDM(String maDM) {
         MaDM = maDM;
-    }
-
-    String MaDM,hinhDM, tenDM;
-
-    public DanhMuc(String hinhDM, String tenDM) {
-        this.hinhDM = hinhDM;
-        this.tenDM = tenDM;
-    }
-
-    public DanhMuc() {
-
     }
 
     public String getHinhDM() {

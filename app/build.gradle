@@ -51,5 +51,7 @@ dependencies {
     implementation 'me.gujun.android.taggroup:library:1.4@aar'
     //noinspection GradleCompatible
     implementation 'com.android.support:cardview-v7:27.+'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
 
 }

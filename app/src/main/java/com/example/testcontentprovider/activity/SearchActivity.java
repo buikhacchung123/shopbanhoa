@@ -70,7 +70,7 @@ public class SearchActivity extends AppCompatActivity {
     }
     private void SearchSanPham(String s) {
         ArrayList<SanPham> tmp = new ArrayList<>();
-
+//tmp = new SanPham().getSanPham();
         Toast.makeText(this, tmp.size()+"", Toast.LENGTH_SHORT).show();
         if(tmp.size() > 0){
             //adapterSP.clear();

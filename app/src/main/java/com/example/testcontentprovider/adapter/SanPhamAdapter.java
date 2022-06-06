@@ -47,6 +47,9 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.MyViewHo
             case SanPham.TYPE_GRID:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sanpham_grid, parent, false);
                 break;
+            default:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sanpham, parent, false);
+                break;
         }
 
         return new MyViewHolder(view);
@@ -68,8 +71,6 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.MyViewHo
         holder.txtTen.setText(sanPham.getTensp());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.txtGia.setText("Giá: " + decimalFormat.format(sanPham.getGiaban()) + " VNĐ");
-
-
     }
 
     @Override

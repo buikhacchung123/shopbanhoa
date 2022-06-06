@@ -20,6 +20,7 @@ import com.example.testcontentprovider.model.SanPham;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DMAdapter extends RecyclerView.Adapter<DMAdapter.MyViewHolder>{
     Context context;
@@ -41,12 +42,20 @@ public class DMAdapter extends RecyclerView.Adapter<DMAdapter.MyViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         DanhMuc danhMuc = array.get(position);
+        int imgId;
         if (danhMuc == null)
             return;
-        String[] imgSplit = danhMuc.getHinhDM().split("\\.");
-        String imgName = imgSplit[0];
         String PACKAGE_NAME = context.getPackageName();
-        int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
+        if(danhMuc.getHinhDM()!= null) {
+            String[] imgSplit = danhMuc.getHinhDM().split("\\.");
+            String imgName = imgSplit[0];
+            if (!imgName.isEmpty())
+                imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
+            else
+                imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/hoasinhnhat", null, null);
+        }
+        else
+            imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/hoasinhnhat", null, null);
 
         holder.hinhAnh.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
         holder.txtTen.setText(danhMuc.getTenDM());
