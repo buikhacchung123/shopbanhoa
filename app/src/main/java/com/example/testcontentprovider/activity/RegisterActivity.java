@@ -95,20 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
         edConfirmpassword = findViewById(R.id.repass);
         btnRegister = findViewById(R.id.btnChange);
     }
-    /*private void LoadingAllKhachHang() {
-        Call<List<KhachHang>> call = apiService.getAllKhachHangs();
-        call.enqueue(new Callback<List<KhachHang>>() {
-            @Override
-            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
-                arrayKH = response.body();
-            }
 
-            @Override
-            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
-
-            }
-        });
-    }*/
     public boolean IsUsernameExist(String mail){
         for (KhachHang k : LoadingActivity.arrayKH){
             if(k.getUsername() != null && !k.getUsername().isEmpty())

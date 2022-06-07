@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText username, password;
     CheckBox checkBox;
     TextView linkDangKyNgay, linkQuenMatKhau;
-    List<KhachHang> arrayKH;
+    //List<KhachHang> arrayKH;
     private ApiService apiService;
 
     @Override
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         AnhXa();
         loadData();
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-        LoadingAllKhachHang();
+        //LoadingAllKhachHang();
 
         if(getIntent().getSerializableExtra("intentUser")!=null && getIntent().getSerializableExtra("intentPass")!=null) {
             String user = getIntent().getSerializableExtra("intentUser").toString();
@@ -61,24 +61,28 @@ public class LoginActivity extends AppCompatActivity {
                     String un = username.getText().toString().trim();
                     String pw = password.getText().toString().trim();
                     boolean check = checkBox.isChecked();
-                    if(un.length() == 0 || pw.length() == 0)
+                    if(un.length() == 0 || pw.length() == 0) {
                         Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
-                    else
-                    {
-                        if (un.equals("admin") && pw.equals("123")) {
-                            LuuTT(un,pw,check);
-                            Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            //Test trang cap nhat khach hang
-                            KhachHang test = GetKhachHangByUsername("thanh123");
-                            intent.putExtra("CurrentUser", test.getUsername());
-                            startActivity(intent);
-                        }
-                        else
-                        {
-                            Toast.makeText(LoginActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
-                        }
+                        return;
                     }
+                    if(!IsUsernameExist(un)){
+                        username.setError("Tài khoản không tồn tại.");
+                        username.requestFocus();
+                        return;
+                    }
+                    KhachHang userLogin =GetKhachHangByUsername(un);
+                    if(!userLogin.getPassword().trim().equals(pw))
+                    {
+                        password.setError("Mật khẩu không đúng.");
+                        password.requestFocus();
+                        return;
+                    }
+                    LuuTT(un,pw,check);
+                    Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+                    intent.putExtra("CurrentUser", userLogin.getUsername());
+                    startActivity(intent);
                 }catch (Exception ex) {
                     startActivity(new Intent(LoginActivity.this,ErrorActivity.class));
                 }
@@ -120,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         editor.commit();
     }
+
     // đọc thông tin từ file thongtin.dat
     private void loadData(){
         SharedPreferences pref = getSharedPreferences("thongtin.dat",MODE_PRIVATE);
@@ -130,25 +135,19 @@ public class LoginActivity extends AppCompatActivity {
             checkBox.setChecked(check);
         }
     }
-    private void LoadingAllKhachHang() {
-        Call<List<KhachHang>> call = apiService.getAllKhachHangs();
-        call.enqueue(new Callback<List<KhachHang>>() {
-            @Override
-            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
-                arrayKH = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
-
-            }
-        });
-    }
     public KhachHang GetKhachHangByUsername(String userKH){
-        for (KhachHang k : arrayKH){
+        for (KhachHang k : LoadingActivity.arrayKH){
             if(userKH.toLowerCase().trim().equals(k.getUsername().toLowerCase()))
                 return k;
         }
         return new KhachHang();
+    }
+    public boolean IsUsernameExist(String mail){
+        for (KhachHang k : LoadingActivity.arrayKH){
+            if(k.getUsername() != null && !k.getUsername().isEmpty())
+                if(k.getUsername().toLowerCase().trim().equals(mail.toLowerCase().trim()))
+                    return true;
+        }
+        return false;
     }
 }
