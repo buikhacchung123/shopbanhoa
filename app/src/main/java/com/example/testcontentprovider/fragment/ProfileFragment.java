@@ -13,22 +13,22 @@ import android.view.ViewGroup;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.activity.ChangePasswordActivity;
+import com.example.testcontentprovider.activity.MainActivity;
 import com.example.testcontentprovider.activity.ShopInforActivity;
 import com.example.testcontentprovider.activity.UpdateUserInforActivity;
+
+import java.io.Serializable;
 
 public class ProfileFragment extends Fragment {
     ConstraintLayout btnThayDoiThongTin, btnDangXuat, btnDoiThuong, btnLichSuMuaHang, btnThongTinCH, btnDoiMK;
     private View view;
 
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
+    public ProfileFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
 
         }
@@ -46,7 +46,9 @@ public class ProfileFragment extends Fragment {
         btnThayDoiThongTin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), UpdateUserInforActivity.class));
+                Intent in1 = new Intent(getContext(), UpdateUserInforActivity.class);
+                in1.putExtra("CurrentUser1", MainActivity.CurrentUser);
+                startActivity(in1);
             }
         });
         btnThongTinCH.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +60,9 @@ public class ProfileFragment extends Fragment {
         btnDoiMK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), ChangePasswordActivity.class));
+                Intent intent = new Intent(getContext(), ChangePasswordActivity.class);
+                intent.putExtra("CurrentUser", MainActivity.CurrentUser);
+                startActivity(intent);
             }
         });
         btnDangXuat.setOnClickListener(new View.OnClickListener() {

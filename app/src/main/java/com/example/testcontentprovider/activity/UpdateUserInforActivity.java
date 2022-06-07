@@ -1,7 +1,9 @@
 package com.example.testcontentprovider.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,17 +12,48 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.data.ApiService;
+import com.example.testcontentprovider.data.Constance;
+import com.example.testcontentprovider.data.RetrofitClient;
+import com.example.testcontentprovider.model.KhachHang;
+import com.google.android.gms.common.api.Api;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UpdateUserInforActivity extends AppCompatActivity {
     Button btnLuu, btnXemSP;
     EditText txtTen, txtSDT, txtDiaChi;
+    private ApiService apiService;
+    List<KhachHang> arrayKH;
+    KhachHang currentKH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_user_infor);
 
+
+        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+        arrayKH = LoadingActivity.arrayKH;
+        //LoadingAllKhachHang();
         AnhXa();
+
+
+        if(getIntent().getSerializableExtra("CurrentUser1") !=null)
+        {
+            String currentUser = getIntent().getSerializableExtra("CurrentUser1").toString();
+            currentKH = GetKhachHangByUsername(currentUser);
+            if(currentKH!=null) {
+                txtTen.setText(currentKH.getHoten());
+                txtSDT.setText(currentKH.getSdt());
+                txtDiaChi.setText(currentKH.getDiachi());
+            }
+        }
+
 
         //Sự kiện trang Cập nhật thông tin người dùng
         btnXemSP.setOnClickListener(new View.OnClickListener() {
@@ -38,9 +71,19 @@ public class UpdateUserInforActivity extends AppCompatActivity {
                     String sdt = txtSDT.getText().toString().trim();
                     if(tenDangNhap.isEmpty() || diaChi.isEmpty() || sdt.isEmpty()){
                         Toast.makeText(getBaseContext(), "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
-                    }else{
-                        //Cập nhật thông tin
+                        return;
                     }
+                    if(IsPhoneExist(sdt)){
+                        txtSDT.setError("Số điện thoại đã tồn tại.");
+                        txtSDT.requestFocus();
+                        return;
+                    }
+                    currentKH.setHoten(tenDangNhap);
+                    currentKH.setDiachi(diaChi);
+                    currentKH.setSdt(sdt);
+                    UpdateUser(currentKH);
+                    startActivity(new Intent(getBaseContext(),MainActivity.class));
+
                 }catch(Exception ex){
                     startActivity(new Intent(UpdateUserInforActivity.this,ErrorActivity.class));
                 }
@@ -54,5 +97,54 @@ public class UpdateUserInforActivity extends AppCompatActivity {
         txtTen = findViewById(R.id.txtTen_Update);
         txtDiaChi = findViewById(R.id.txtDiaChi_Update);
         txtSDT = findViewById(R.id.txtSDT_Update);
+    }
+    /*private void LoadingAllKhachHang() {
+        Call<List<KhachHang>> call = apiService.getAllKhachHangs();
+        call.enqueue(new Callback<List<KhachHang>>() {
+            @Override
+            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
+                arrayKH = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
+
+            }
+        });
+    }*/
+    public boolean IsPhoneExist(String phone){
+        for(KhachHang k :arrayKH){
+            if(k.getSdt() != null && !k.getSdt().isEmpty())
+                if(k.getSdt().trim().equals(phone.trim()))
+                    return true;
+        }
+        return false;
+    }
+    public void UpdateUser(KhachHang kh){
+        Call<KhachHang> call = apiService.updateKhachHang(kh.getMaNd().toString(),kh);
+        call.enqueue(new Callback<KhachHang>() {
+            @Override
+            public void onResponse(Call<KhachHang> call, Response<KhachHang> response) {
+                String s = response.message();
+                if(response.isSuccessful()){
+                    Toast.makeText(getBaseContext(),"Cập nhật thông tin thành công.",Toast.LENGTH_LONG).show();
+                }
+                else
+                    Toast.makeText(getBaseContext(),"Cập nhật thông tin không thành công, vui lòng thử lại sau.",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<KhachHang> call, Throwable t) {
+                Toast.makeText(getBaseContext(),"Cập nhật thông tin không thành công, vui lòng thử lại sau.",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+    public KhachHang GetKhachHangByUsername(String userKH){
+        if(arrayKH !=null)
+            for (KhachHang k : arrayKH){
+                if(userKH.toLowerCase().trim().equals(k.getUsername().toLowerCase().trim()))
+                    return k;
+            }
+        return new KhachHang();
     }
 }

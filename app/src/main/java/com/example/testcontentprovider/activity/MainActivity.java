@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.example.testcontentprovider.fragment.NotificationFragment;
 import com.example.testcontentprovider.fragment.ProfileFragment;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.GioHang;
+import com.example.testcontentprovider.model.KhachHang;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -44,12 +46,15 @@ public class MainActivity extends AppCompatActivity {
     Fragment currentfragment;
     public static List<GioHang> manggiohang;
     private DMSPAdapter dmspAdapter;
-    private List<DanhMuc> mangdanhmuc;
+    //private List<DanhMuc> mangdanhmuc;
     DanhMuc dm = new DanhMuc();
     private ApiService apiService;
     ListView listView;
     DrawerLayout drawerLayout;
     FrameLayout frameLayout;
+    public static String CurrentUser;
+    //public static List<KhachHang> arrayKH;
+
 
 
     @Override
@@ -59,14 +64,15 @@ public class MainActivity extends AppCompatActivity {
 
         AnhXa();
         LoadFrame(new HomeFragment());
+        if(getIntent().getSerializableExtra("CurrentUser") != null)
+            CurrentUser = getIntent().getSerializableExtra("CurrentUser").toString().toLowerCase();
+        dmspAdapter = new DMSPAdapter(LoadingActivity.arrayDM, getBaseContext());
+        listView.setAdapter(dmspAdapter);
+        //apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+        //LoadingDanhMucHomePage();
+        //LoadingAllKhachHang();
 
-        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-        LoadingDanhMucHomePage();
 
-
-        /*mangdanhmuc = dm.getDM();
-        dmspAdapter = new DMSPAdapter(mangdanhmuc, getApplicationContext());
-        listView.setAdapter(dmspAdapter);*/
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_menu);
@@ -119,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick (AdapterView<?> adapterView, View view, int position, long l) {
                 Intent intentCategory = new Intent(getBaseContext(), CategoryActivity.class);
-                intentCategory.putExtra("Category",mangdanhmuc.get(position));
+                intentCategory.putExtra("Category",LoadingActivity.arrayDM.get(position));
                 startActivity(intentCategory);
             }
         });
@@ -139,20 +145,5 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-    private void LoadingDanhMucHomePage() {
-        Call<List<DanhMuc>> call = apiService.getAllDanhMucs();
-        call.enqueue(new Callback<List<DanhMuc>>() {
-            @Override
-            public void onResponse(Call<List<DanhMuc>> call, Response<List<DanhMuc>> response) {
-                mangdanhmuc = response.body();
-                dmspAdapter = new DMSPAdapter(mangdanhmuc, getBaseContext());
-                listView.setAdapter(dmspAdapter);
-            }
 
-            @Override
-            public void onFailure(Call<List<DanhMuc>> call, Throwable t) {
-
-            }
-        });
-    }
 }

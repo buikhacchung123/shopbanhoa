@@ -1,8 +1,11 @@
 package com.example.testcontentprovider.activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -16,19 +19,33 @@ import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.SanPhamAdapter;
+import com.example.testcontentprovider.data.ApiService;
+import com.example.testcontentprovider.data.Constance;
+import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.model.SanPham;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 import me.gujun.android.taggroup.TagGroup;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
     TextView txtNoContent;
-    ListView lv_SearchResult;
+    //ListView lv_SearchResult;
     SearchView txtSearchBox;
     TagGroup tagGroup;
-    ArrayList<SanPham> arraySP;
+    List<SanPham> arraySP;
+    List<SanPham> listSeach;
+    String[] tagList;
     SanPhamAdapter adapterSP;
     RecyclerView rv_searchSP;
-
+    private ApiService apiService;
+    private LinearLayoutManager mlinearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,21 +53,22 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         AnhXa();
-        arraySP = new ArrayList<>();
-        adapterSP = new SanPhamAdapter(SearchActivity.this,arraySP);
-        rv_searchSP.setAdapter(adapterSP);
+        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+        LoadingSanPham();
 
+        tagList = new String[]{"shi", "nu"};
+        tagGroup.setTags(tagList);
         //Sự kiện cho trang Tìm kiếm sản phẩm
         txtSearchBox.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                return false;
+                SearchSanPham(s);
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                SearchSanPham(s);
-                return false;
+                return true;
             }
         });
         tagGroup.setOnTagClickListener(new TagGroup.OnTagClickListener() {
@@ -62,30 +80,56 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
     private void AnhXa() {
-        lv_SearchResult = findViewById(R.id.lv_SearchResult);
+        //lv_SearchResult = findViewById(R.id.lv_SearchResult);
         txtSearchBox = findViewById(R.id.txtSearchBox);
         txtNoContent = findViewById(R.id.txtNoContent);
         tagGroup = findViewById(R.id.tag_group);
         rv_searchSP = findViewById(R.id.rv_SearchSP);
+        mlinearLayoutManager = new LinearLayoutManager(this.getBaseContext());
     }
     private void SearchSanPham(String s) {
-        ArrayList<SanPham> tmp = new ArrayList<>();
-//tmp = new SanPham().getSanPham();
-        Toast.makeText(this, tmp.size()+"", Toast.LENGTH_SHORT).show();
-        if(tmp.size() > 0){
-            //adapterSP.clear();
-            //adapterSP.addAll(tmp);
-            adapterSP.notifyDataSetChanged();
-            lv_SearchResult.setVisibility(View.VISIBLE);
-            txtNoContent.setVisibility(View.GONE);
-        }
-        if(s.isEmpty()){
-            lv_SearchResult.setVisibility(View.GONE);
-            txtNoContent.setVisibility(View.VISIBLE);
+        if (s.trim().length() > 0) {
+            listSeach = new ArrayList<>();
+            listSeach.clear();
+            for (int i = 0; i < arraySP.size(); i++) {
+                if (arraySP.get(i).getTensp().trim().toLowerCase().contains(s.trim().toLowerCase())) {
+                    listSeach.add(arraySP.get(i));
+                }
+            }
+            if(listSeach.size()!=0) {
+                adapterSP = new SanPhamAdapter(getBaseContext(), (ArrayList<SanPham>) listSeach);
+                adapterSP.notifyDataSetChanged();
+                rv_searchSP.setAdapter(adapterSP);
+                rv_searchSP.setVisibility(View.VISIBLE);
+                txtNoContent.setVisibility(View.GONE);
+            }else {
+                rv_searchSP.setVisibility(View.GONE);
+                txtNoContent.setVisibility(View.VISIBLE);
+            }
+            tagGroup.setTags(s);
         }
     }
     public void hideSoftKeyboard(View view){
         InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+    private void LoadingSanPham() {
+        Call<List<SanPham>> call = apiService.getAllPSanPhams();
+        call.enqueue(new Callback<List<SanPham>>() {
+            @Override
+            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
+                arraySP = response.body();
+                adapterSP = new SanPhamAdapter(SearchActivity.this,(ArrayList<SanPham>) arraySP);
+                rv_searchSP.setLayoutManager(mlinearLayoutManager);
+                rv_searchSP.setAdapter(adapterSP);
+                rv_searchSP.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<List<SanPham>> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

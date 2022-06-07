@@ -60,7 +60,6 @@ public class HomeFragment extends Fragment {
 
 
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-
         LoadingSanPhamHomePage();
         LoadingDanhMucHomePage();
 

@@ -1,12 +1,39 @@
 package com.example.testcontentprovider.model;
 
-import android.widget.EditText;
+import com.google.gson.annotations.SerializedName;
 
 public class KhachHang {
-    String hoten, sdt, username, password, diachi;
+    @SerializedName("maNd")
+    String maNd;
+
+    @SerializedName("tenNd")
+    String hoten;
+
+    @SerializedName("sdt")
+    String sdt;
+
+    @SerializedName("username")
+    String username;
+
+    @SerializedName("passWord")
+    String password;
+
+    @SerializedName("diaChi")
+    String diachi;
+
+    @SerializedName("trangThai")
+    Boolean trangThai;
 
     public KhachHang(){
+    }
 
+    public KhachHang( String hoten, String sdt, String username, String password, String diachi, Boolean trangThai) {
+        this.hoten = hoten;
+        this.sdt = sdt;
+        this.username = username;
+        this.password = password;
+        this.diachi = diachi;
+        this.trangThai = trangThai;
     }
 
     public String getHoten() {
@@ -47,5 +74,21 @@ public class KhachHang {
 
     public void setDiachi(String diachi) {
         this.diachi = diachi;
+    }
+
+    public String getMaNd() {
+        return maNd;
+    }
+
+    public void setMaNd(String maNd) {
+        this.maNd = maNd;
+    }
+
+    public Boolean getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(Boolean trangThai) {
+        this.trangThai = trangThai;
     }
 }

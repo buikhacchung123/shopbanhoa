@@ -13,19 +13,47 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.data.ApiService;
+import com.example.testcontentprovider.data.Constance;
+import com.example.testcontentprovider.data.RetrofitClient;
+import com.example.testcontentprovider.model.DanhMuc;
+import com.example.testcontentprovider.model.KhachHang;
+
+import java.io.Serializable;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     EditText username, password;
     CheckBox checkBox;
     TextView linkDangKyNgay, linkQuenMatKhau;
+    List<KhachHang> arrayKH;
+    private ApiService apiService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         AnhXa();
         loadData();
+        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+        LoadingAllKhachHang();
 
+        if(getIntent().getSerializableExtra("intentUser")!=null && getIntent().getSerializableExtra("intentPass")!=null) {
+            String user = getIntent().getSerializableExtra("intentUser").toString();
+            String pass = getIntent().getSerializableExtra("intentPass").toString();
+            if(user != null && pass != null){
+                username.setText("user");
+                password.setText("pass");
+            }
+        }
+
+        //Sự kiện trang đăng nhập
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +69,9 @@ public class LoginActivity extends AppCompatActivity {
                             LuuTT(un,pw,check);
                             Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            //Test trang cap nhat khach hang
+                            KhachHang test = GetKhachHangByUsername("thanh123");
+                            intent.putExtra("CurrentUser", test.getUsername());
                             startActivity(intent);
                         }
                         else
@@ -98,5 +129,26 @@ public class LoginActivity extends AppCompatActivity {
             password.setText(pref.getString("password",""));
             checkBox.setChecked(check);
         }
+    }
+    private void LoadingAllKhachHang() {
+        Call<List<KhachHang>> call = apiService.getAllKhachHangs();
+        call.enqueue(new Callback<List<KhachHang>>() {
+            @Override
+            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
+                arrayKH = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
+
+            }
+        });
+    }
+    public KhachHang GetKhachHangByUsername(String userKH){
+        for (KhachHang k : arrayKH){
+            if(userKH.toLowerCase().trim().equals(k.getUsername().toLowerCase()))
+                return k;
+        }
+        return new KhachHang();
     }
 }
