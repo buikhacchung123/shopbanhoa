@@ -138,7 +138,6 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbarct);
         badge = findViewById(R.id.cart_sl);
         btnLove = findViewById(R.id.btnLove);
-
         frameLayout = findViewById(R.id.shopingcart);
     }
     public static void checkSLSP(){

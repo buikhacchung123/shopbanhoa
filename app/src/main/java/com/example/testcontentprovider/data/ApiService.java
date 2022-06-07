@@ -1,6 +1,8 @@
 package com.example.testcontentprovider.data;
 
+import com.example.testcontentprovider.model.ChiTietGioHang;
 import com.example.testcontentprovider.model.DanhMuc;
+import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.KhachHang;
 import com.example.testcontentprovider.model.SanPham;
 
@@ -32,5 +34,12 @@ public interface ApiService {
 
     @PUT("/api/Nguoidungs/{MaND}")
     Call<KhachHang> updateKhachHang(@Path("MaND") String id,@Body KhachHang khachHang);
+
+    @GET("/api/GioHang")
+    Call<GioHang> getGioHang();
+
+    @GET("/api/ChitietGiohang/{maGH}&{maKH}")
+    Call<List<ChiTietGioHang>> getAllChiTietGioHang(@Path("MaGH") String maGH,@Path("MaKH") String maKH);
+
 
 }

@@ -68,7 +68,8 @@ public class ProfileFragment extends Fragment {
         btnDangXuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getActivity().finish();
+                System.exit(0);
             }
         });
         btnLichSuMuaHang.setOnClickListener(new View.OnClickListener() {
