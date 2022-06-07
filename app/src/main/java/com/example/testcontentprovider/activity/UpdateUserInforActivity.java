@@ -28,7 +28,7 @@ public class UpdateUserInforActivity extends AppCompatActivity {
     Button btnLuu, btnXemSP;
     EditText txtTen, txtSDT, txtDiaChi;
     private ApiService apiService;
-    List<KhachHang> arrayKH;
+    //List<KhachHang> arrayKH;
     KhachHang currentKH;
 
     @Override
@@ -38,7 +38,7 @@ public class UpdateUserInforActivity extends AppCompatActivity {
 
 
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-        arrayKH = LoadingActivity.arrayKH;
+        //arrayKH = LoadingActivity.arrayKH;
         //LoadingAllKhachHang();
         AnhXa();
 
@@ -113,7 +113,7 @@ public class UpdateUserInforActivity extends AppCompatActivity {
         });
     }*/
     public boolean IsPhoneExist(String phone){
-        for(KhachHang k :arrayKH){
+        for(KhachHang k : LoadingActivity.arrayKH){
             if(k.getSdt() != null && !k.getSdt().isEmpty())
                 if(k.getSdt().trim().equals(phone.trim()))
                     return true;
@@ -140,8 +140,8 @@ public class UpdateUserInforActivity extends AppCompatActivity {
         });
     }
     public KhachHang GetKhachHangByUsername(String userKH){
-        if(arrayKH !=null)
-            for (KhachHang k : arrayKH){
+        if(LoadingActivity.arrayKH !=null)
+            for (KhachHang k : LoadingActivity.arrayKH){
                 if(userKH.toLowerCase().trim().equals(k.getUsername().toLowerCase().trim()))
                     return k;
             }

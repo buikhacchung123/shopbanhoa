@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText edHoten, edSdt, edUsername, edPassword, edConfirmpassword, edDiachi;
     AppCompatButton btnRegister;
     private ApiService apiService;
-    List<KhachHang> arrayKH;
+    //List<KhachHang> arrayKH;
     AlertDialog.Builder b;
 
     @Override
@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         AnhXa();
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
         b = new AlertDialog.Builder(this);
-        LoadingAllKhachHang();
+        //LoadingAllKhachHang();
 
 
         //Sự kiện trang Đăng ký
@@ -95,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
         edConfirmpassword = findViewById(R.id.repass);
         btnRegister = findViewById(R.id.btnChange);
     }
-    private void LoadingAllKhachHang() {
+    /*private void LoadingAllKhachHang() {
         Call<List<KhachHang>> call = apiService.getAllKhachHangs();
         call.enqueue(new Callback<List<KhachHang>>() {
             @Override
@@ -108,9 +108,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
     public boolean IsUsernameExist(String mail){
-        for (KhachHang k : arrayKH){
+        for (KhachHang k : LoadingActivity.arrayKH){
             if(k.getUsername() != null && !k.getUsername().isEmpty())
                 if(k.getUsername().toLowerCase().trim().equals(mail.toLowerCase().trim()))
                     return true;
@@ -118,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
         return false;
     }
     public boolean IsPhoneExist(String phone){
-        for(KhachHang k :arrayKH){
+        for(KhachHang k : LoadingActivity.arrayKH){
             if(k.getSdt() != null && !k.getSdt().isEmpty())
                 if(k.getSdt().trim().equals(phone.trim()))
                     return true;
