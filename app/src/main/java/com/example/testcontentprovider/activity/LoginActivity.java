@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText username, password;
     CheckBox checkBox;
     TextView linkDangKyNgay, linkQuenMatKhau;
-    //List<KhachHang> arrayKH;
     private ApiService apiService;
 
     @Override
@@ -39,10 +38,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         AnhXa();
         loadData();
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-        //LoadingAllKhachHang();
+
 
         if(getIntent().getSerializableExtra("intentUser")!=null && getIntent().getSerializableExtra("intentPass")!=null) {
             String user = getIntent().getSerializableExtra("intentUser").toString();

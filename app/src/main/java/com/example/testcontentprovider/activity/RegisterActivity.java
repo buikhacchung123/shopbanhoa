@@ -30,7 +30,6 @@ public class RegisterActivity extends AppCompatActivity {
     EditText edHoten, edSdt, edUsername, edPassword, edConfirmpassword, edDiachi;
     AppCompatButton btnRegister;
     private ApiService apiService;
-    //List<KhachHang> arrayKH;
     AlertDialog.Builder b;
 
     @Override
@@ -41,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         AnhXa();
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
         b = new AlertDialog.Builder(this);
-        //LoadingAllKhachHang();
+
 
 
         //Sự kiện trang Đăng ký

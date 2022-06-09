@@ -36,10 +36,9 @@ import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
     TextView txtNoContent;
-    //ListView lv_SearchResult;
     SearchView txtSearchBox;
     TagGroup tagGroup;
-    List<SanPham> arraySP;
+    //List<SanPham> arraySP;
     List<SanPham> listSeach;
     String[] tagList;
     SanPhamAdapter adapterSP;
@@ -54,10 +53,17 @@ public class SearchActivity extends AppCompatActivity {
 
         AnhXa();
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-        LoadingSanPham();
+
+        //Gán list SP vào recycle view
+        adapterSP = new SanPhamAdapter(SearchActivity.this,(ArrayList<SanPham>) LoadingActivity.arraySP);
+        rv_searchSP.setLayoutManager(mlinearLayoutManager);
+        rv_searchSP.setAdapter(adapterSP);
+        rv_searchSP.setVisibility(View.GONE);
 
         tagList = new String[]{"shi", "nu"};
         tagGroup.setTags(tagList);
+
+
         //Sự kiện cho trang Tìm kiếm sản phẩm
         txtSearchBox.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -91,9 +97,9 @@ public class SearchActivity extends AppCompatActivity {
         if (s.trim().length() > 0) {
             listSeach = new ArrayList<>();
             listSeach.clear();
-            for (int i = 0; i < arraySP.size(); i++) {
-                if (arraySP.get(i).getTensp().trim().toLowerCase().contains(s.trim().toLowerCase())) {
-                    listSeach.add(arraySP.get(i));
+            for (int i = 0; i < LoadingActivity.arraySP.size(); i++) {
+                if (LoadingActivity.arraySP.get(i).getTensp().trim().toLowerCase().contains(s.trim().toLowerCase())) {
+                    listSeach.add(LoadingActivity.arraySP.get(i));
                 }
             }
             if(listSeach.size()!=0) {
@@ -113,23 +119,6 @@ public class SearchActivity extends AppCompatActivity {
         InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-    private void LoadingSanPham() {
-        Call<List<SanPham>> call = apiService.getAllPSanPhams();
-        call.enqueue(new Callback<List<SanPham>>() {
-            @Override
-            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
-                arraySP = response.body();
-                adapterSP = new SanPhamAdapter(SearchActivity.this,(ArrayList<SanPham>) arraySP);
-                rv_searchSP.setLayoutManager(mlinearLayoutManager);
-                rv_searchSP.setAdapter(adapterSP);
-                rv_searchSP.setVisibility(View.GONE);
-            }
 
-            @Override
-            public void onFailure(Call<List<SanPham>> call, Throwable t) {
-
-            }
-        });
-    }
 
 }

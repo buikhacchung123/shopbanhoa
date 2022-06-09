@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     FrameLayout frameLayout;
     public static String CurrentUser;
-    //public static List<KhachHang> arrayKH;
 
 
 
@@ -68,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
             CurrentUser = getIntent().getSerializableExtra("CurrentUser").toString().toLowerCase();
         dmspAdapter = new DMSPAdapter(LoadingActivity.arrayDM, getBaseContext());
         listView.setAdapter(dmspAdapter);
-        //apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-        //LoadingDanhMucHomePage();
-        //LoadingAllKhachHang();
 
 
         setSupportActionBar(toolbar);

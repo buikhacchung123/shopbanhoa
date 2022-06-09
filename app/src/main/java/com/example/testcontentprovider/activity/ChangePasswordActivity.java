@@ -29,7 +29,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
     Button btnChange;
     TextView linkBackToHome;
     private ApiService apiService;
-    //List<KhachHang> arrayKH;
     AlertDialog.Builder b;
 
     @Override
@@ -40,7 +39,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
         AnhXa();
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
         b = new AlertDialog.Builder(this);
-        //LoadingAllKhachHang();
         if(getIntent().getSerializableExtra("CurrentUser") !=null)
         {
             String k = getIntent().getSerializableExtra("CurrentUser").toString();
@@ -94,20 +92,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
         btnChange = findViewById(R.id.btnChange);
         linkBackToHome = findViewById(R.id.linkBackToLogin);
     }
-    /*private void LoadingAllKhachHang() {
-        Call<List<KhachHang>> call = apiService.getAllKhachHangs();
-        call.enqueue(new Callback<List<KhachHang>>() {
-            @Override
-            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
-                arrayKH = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
-
-            }
-        });
-    }*/
     public boolean IsUsernameExist(String mail){
         for (KhachHang k : LoadingActivity.arrayKH){
             if(k.getUsername() != null && !k.getUsername().isEmpty())

@@ -27,11 +27,7 @@ public class ShopInforActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_infor);
 
-        btnHome = findViewById(R.id.btnHome);
-        toolbar = findViewById(R.id.toolbar_shopinfor);
-        txtPara1 = findViewById(R.id.txtPara1);
-        txtPara2 = findViewById(R.id.txtPara2);
-        txtPara3 = findViewById(R.id.txtPara3);
+        AnhXa();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -48,5 +44,12 @@ public class ShopInforActivity extends AppCompatActivity {
                 startActivity(new Intent(ShopInforActivity.this,MainActivity.class));
             }
         });
+    }
+    public void AnhXa(){
+        btnHome = findViewById(R.id.btnHome);
+        toolbar = findViewById(R.id.toolbar_shopinfor);
+        txtPara1 = findViewById(R.id.txtPara1);
+        txtPara2 = findViewById(R.id.txtPara2);
+        txtPara3 = findViewById(R.id.txtPara3);
     }
 }

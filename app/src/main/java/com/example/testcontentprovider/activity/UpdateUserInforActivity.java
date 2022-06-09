@@ -28,7 +28,6 @@ public class UpdateUserInforActivity extends AppCompatActivity {
     Button btnLuu, btnXemSP;
     EditText txtTen, txtSDT, txtDiaChi;
     private ApiService apiService;
-    //List<KhachHang> arrayKH;
     KhachHang currentKH;
 
     @Override
@@ -38,8 +37,6 @@ public class UpdateUserInforActivity extends AppCompatActivity {
 
 
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-        //arrayKH = LoadingActivity.arrayKH;
-        //LoadingAllKhachHang();
         AnhXa();
 
 
@@ -98,20 +95,6 @@ public class UpdateUserInforActivity extends AppCompatActivity {
         txtDiaChi = findViewById(R.id.txtDiaChi_Update);
         txtSDT = findViewById(R.id.txtSDT_Update);
     }
-    /*private void LoadingAllKhachHang() {
-        Call<List<KhachHang>> call = apiService.getAllKhachHangs();
-        call.enqueue(new Callback<List<KhachHang>>() {
-            @Override
-            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
-                arrayKH = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
-
-            }
-        });
-    }*/
     public boolean IsPhoneExist(String phone){
         for(KhachHang k : LoadingActivity.arrayKH){
             if(k.getSdt() != null && !k.getSdt().isEmpty())
