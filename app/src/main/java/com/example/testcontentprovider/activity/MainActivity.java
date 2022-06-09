@@ -22,10 +22,12 @@ import android.widget.Toast;
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.DMAdapter;
 import com.example.testcontentprovider.adapter.DMSPAdapter;
+import com.example.testcontentprovider.adapter.SanPhamAdapter;
 import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.fragment.HomeFragment;
 import com.example.testcontentprovider.fragment.NotificationFragment;
 import com.example.testcontentprovider.fragment.ProfileFragment;
+import com.example.testcontentprovider.model.ChiTietGioHang;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.KhachHang;
@@ -43,22 +45,25 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
     Fragment currentfragment;
-    public static List<GioHang> manggiohang;
+    static GioHang gioHang;
+    public static List<ChiTietGioHang> manggiohang;
     private DMSPAdapter dmspAdapter;
     private List<DanhMuc> mangdanhmuc;
-    private List<SanPham> dssp;
+    public static List<SanPham> dssp;
     DanhMuc dm = new DanhMuc();
     ListView listView;
     DrawerLayout drawerLayout;
     FrameLayout frameLayout;
-
-
+    KhachHang kh;
+    public static String magh;
+    public static String makh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         AnhXa();
+        LoadDSSP();
         LoadFrame(new HomeFragment());
 
         LoadDMMenu();
@@ -67,9 +72,17 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_menu);
         // lay du lieu user tu login
-        KhachHang kh = (KhachHang) getIntent().getSerializableExtra("object_user");
+        kh = (KhachHang) getIntent().getSerializableExtra("object_user");
+        makh = String.valueOf(kh.getMaND());
+        KtraGioHang();
+        if(gioHang == null)
+        {
+            GioHang gh = new GioHang(kh.getMaND(), 0,0);
+            addCart(gh);
+            KtraGioHang();
+        }
 
-
+        LayDSChiTietGioHang();
         //Sự kiện trang Home
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +136,59 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public static void LayDSChiTietGioHang() {
+        ApiService.apiService.getAllCartDetail().enqueue(new Callback<List<ChiTietGioHang>>() {
+            @Override
+            public void onResponse(Call<List<ChiTietGioHang>> call, Response<List<ChiTietGioHang>> response) {
+                List<ChiTietGioHang> list1 = response.body();
+                if(list1 != null)
+                {
+                    for (int i = 0; i < list1.size(); i++)
+                    {
+                        if(list1.get(i).getMaGh().equals(gioHang.getMaGh()))
+                        {
+                            manggiohang.add(list1.get(i));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ChiTietGioHang>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void KtraGioHang() {
+        ApiService.apiService.getAllCart().enqueue(new Callback<List<GioHang>>() {
+            @Override
+            public void onResponse(Call<List<GioHang>> call, Response<List<GioHang>> response) {
+                List<GioHang> list = response.body();
+                if(list == null || list.isEmpty())
+                {
+                    return;
+                }
+
+                for(GioHang gh : list)
+                {
+                    if(String.valueOf(gh.getMaKh()).equals(kh.getMaND()))
+                    {
+                        gioHang = gh;
+                        magh = gioHang.getMaGh();
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<GioHang>> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void AnhXa() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -152,6 +218,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<DanhMuc>> call, Throwable t) {
 
+            }
+        });
+    }
+
+    private void LoadDSSP() {
+        ApiService.apiService.getSanPham().enqueue(new Callback<List<SanPham>>() {
+            @Override
+            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
+                dssp = response.body();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<SanPham>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),"Call api failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void addCart(GioHang gh)
+    {
+        ApiService.apiService.setCart(gioHang).enqueue(new Callback<GioHang>() {
+            @Override
+            public void onResponse(Call<GioHang> call, Response<GioHang> response) {
+                if(response.isSuccessful())
+                {
+                    gioHang = response.body();
+                    magh = gioHang.getMaGh();
+                }
+                Toast.makeText(getBaseContext(),"Add New Cart Failed, Code: " + response.code(), Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<GioHang> call, Throwable t) {
+                Toast.makeText(getBaseContext(),"Call Api Failed", Toast.LENGTH_SHORT).show();
             }
         });
     }

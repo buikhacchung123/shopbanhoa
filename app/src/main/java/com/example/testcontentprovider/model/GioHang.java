@@ -1,61 +1,49 @@
 package com.example.testcontentprovider.model;
 
 public class GioHang {
-    String masp, tensp, hinhsp;
-    double thanhtien;
-    int soluong;
-    double gia;
+    String maGh;
+    int maKh;
+    int tongSp;
+    double tongtien;
 
     public GioHang(){
     }
 
-    public String getMasp() {
-        return masp;
+    public GioHang(int maKh, int tongSp, double tongtien) {
+        this.maKh = maKh;
+        this.tongSp = tongSp;
+        this.tongtien = tongtien;
     }
 
-    public void setMasp(String masp) {
-        this.masp = masp;
+    public String getMaGh() {
+        return maGh;
     }
 
-    public String getTensp() {
-        return tensp;
+    public void setMaGh(String maGh) {
+        this.maGh = maGh;
     }
 
-    public void setTensp(String tensp) {
-        this.tensp = tensp;
+    public int getMaKh() {
+        return maKh;
     }
 
-    public String getHinhsp() {
-        return hinhsp;
+    public void setMaKh(int maKh) {
+        this.maKh = maKh;
     }
 
-    public void setHinhsp(String hinhsp) {
-        this.hinhsp = hinhsp;
+    public double getTongtien() {
+        return tongtien;
     }
 
-    public double getGia() {
-        return gia;
+    public void setTongtien(double tongtien) {
+        this.tongtien = tongtien;
     }
 
-    public void setGia(double gia) {
-        this.gia = gia;
+    public int getTongSp() {
+        return tongSp;
     }
 
-    public int getSoluong() {
-        return soluong;
+    public void setTongSp(int tongSp) {
+        this.tongSp = tongSp;
     }
-
-    public void setSoluong(int soluong) {
-        this.soluong = soluong;
-    }
-
-    public double getThanhtien() {
-        return thanhtien;
-    }
-
-    public void setThanhtien(double thanhtien) {
-        this.thanhtien = thanhtien;
-    }
-
-
 }

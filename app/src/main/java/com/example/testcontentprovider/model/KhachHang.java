@@ -5,7 +5,7 @@ import android.widget.EditText;
 import java.io.Serializable;
 
 public class KhachHang implements Serializable {
-    int maND;
+    int maNd;
     String tenNd;
     String username;
     String passWord;
@@ -15,11 +15,11 @@ public class KhachHang implements Serializable {
     int maNnd;
 
     public int getMaND() {
-        return maND;
+        return maNd;
     }
 
     public void setMaND(int maND) {
-        this.maND = maND;
+        this.maNd = maND;
     }
 
     public String getTenNd() {

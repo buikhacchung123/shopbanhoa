@@ -85,8 +85,8 @@ public class CartActivity extends AppCompatActivity {
         int tongsl = 0;
         for(int i = 0; i < MainActivity.manggiohang.size(); i++)
         {
-            tongtien += (MainActivity.manggiohang.get(i).getGia() * MainActivity.manggiohang.get(i).getSoluong());
-            tongsl += MainActivity.manggiohang.get(i).getSoluong();
+            tongtien += (MainActivity.manggiohang.get(i).getDonGia() * MainActivity.manggiohang.get(i).getSoLuong());
+            tongsl += MainActivity.manggiohang.get(i).getSoLuong();
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         txtTongtien.setText(decimalFormat.format(tongtien) + " VNĐ");

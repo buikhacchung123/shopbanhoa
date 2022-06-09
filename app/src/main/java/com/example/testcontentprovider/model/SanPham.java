@@ -3,6 +3,7 @@ package com.example.testcontentprovider.model;
 import android.widget.Toast;
 
 import com.example.testcontentprovider.activity.LoginActivity;
+import com.example.testcontentprovider.activity.MainActivity;
 import com.example.testcontentprovider.api.ApiService;
 
 import java.io.Serializable;
@@ -18,8 +19,8 @@ public class SanPham implements Serializable {
     public static final int TYPE_LIST = 1;
     public static final int TYPE_GRID = 2;
 
-    String maSp, tenSp, moTa, hinhSp, maDm;
-    int soLuong;
+    String  tenSp, moTa, hinhSp, maDm;
+    int maSp, soLuong;
     double giaBan;
     int typeDisplay;
 
@@ -37,7 +38,7 @@ public class SanPham implements Serializable {
         this.giaBan = sp.getGiaBan();
     }
 
-    public SanPham(String maSp, String tenSp, String moTa, String hinhSp, String maDm, int soLuong, double giaBan) {
+    public SanPham(int maSp, String tenSp, String moTa, String hinhSp, String maDm, int soLuong, double giaBan) {
         this.maSp = maSp;
         this.tenSp = tenSp;
         this.moTa = moTa;
@@ -55,11 +56,11 @@ public class SanPham implements Serializable {
         this.typeDisplay = typeDisplay;
     }
 
-    public String getMaSp() {
+    public int getMaSp() {
         return maSp;
     }
 
-    public void setMaSp(String maSp) {
+    public void setMaSp(int maSp) {
         this.maSp = maSp;
     }
 
@@ -111,6 +112,17 @@ public class SanPham implements Serializable {
         this.giaBan = giaBan;
     }
 
-
+    public SanPham getSPByMaSP(int ma)
+    {
+        SanPham kq = new SanPham();
+        for (SanPham sp: MainActivity.dssp)
+        {
+            if(sp.maSp == ma)
+            {
+                kq = sp;
+            }
+        }
+        return kq;
+    }
 
 }

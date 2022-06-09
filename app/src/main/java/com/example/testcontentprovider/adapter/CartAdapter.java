@@ -1,5 +1,6 @@
 package com.example.testcontentprovider.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,18 +19,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.activity.CartActivity;
 import com.example.testcontentprovider.activity.ChiTietSanPhamActivity;
+import com.example.testcontentprovider.api.ApiService;
+import com.example.testcontentprovider.fragment.HomeFragment;
+import com.example.testcontentprovider.model.ChiTietGioHang;
 import com.example.testcontentprovider.model.IImageClickListener;
 import com.example.testcontentprovider.activity.MainActivity;
 import com.example.testcontentprovider.model.GioHang;
+import com.example.testcontentprovider.model.SanPham;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
     Context context;
-    List<GioHang> gioHangList;
+    List<ChiTietGioHang> gioHangList;
+    SanPham sp = new SanPham();
 
-    public CartAdapter(Context context, List<GioHang> gioHangList) {
+    public CartAdapter(Context context, List<ChiTietGioHang> gioHangList) {
         this.context = context;
         this.gioHangList = gioHangList;
     }
@@ -41,75 +52,85 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         return new MyViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        GioHang gh = gioHangList.get(position);
-        holder.txtTensp.setText(gh.getTensp());
+        ChiTietGioHang gh = gioHangList.get(position);
+        holder.txtTensp.setText(sp.getSPByMaSP(gh.getMaSp()).getTenSp());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.txtGia.setText(decimalFormat.format(gh.getGia()) + " VNĐ");
-        String[] imgSplit = gh.getHinhsp().split("\\.");
+        holder.txtGia.setText(decimalFormat.format(gh.getDonGia()) + " VNĐ");
+        String[] imgSplit = sp.getSPByMaSP(gh.getMaSp()).getHinhSp().split("\\.");
         String imgName = imgSplit[0];
         String PACKAGE_NAME = context.getPackageName();
         int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
         holder.item_hinhsp.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
 
-        holder.txtSL.setText(gh.getSoluong()+"");
-        double thanhtien = gh.getSoluong() * gh.getGia();
+        holder.txtSL.setText(gh.getSoLuong() + "");
+        double thanhtien = gh.getSoLuong() * gh.getDonGia();
         holder.txtThanhtien.setText(decimalFormat.format(thanhtien) + " VNĐ");
         holder.btnCongSL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gioHangList.get(position).getSoluong() < 100){
-                        int soluongmoi = gioHangList.get(position).getSoluong() + 1;
-                        gioHangList.get(position).setSoluong(soluongmoi);
-                    }
-                    holder.txtSL.setText(gioHangList.get(position).getSoluong()+"");
-                    double thanhtien = gioHangList.get(position).getSoluong() * gioHangList.get(position).getGia();
-                    holder.txtThanhtien.setText(decimalFormat.format(thanhtien) + " VNĐ");
+                if (gioHangList.get(position).getSoLuong() < 100) {
+                    int soluongmoi = gioHangList.get(position).getSoLuong() + 1;
+                    gioHangList.get(position).setSoLuong(soluongmoi);
 
-                    com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
+                    ChiTietGioHang ct = gioHangList.get(position);
+                    updateCartDetail(ct);
+                }
+                holder.txtSL.setText(gioHangList.get(position).getSoLuong() + "");
+                double thanhtien = gioHangList.get(position).getSoLuong() * gioHangList.get(position).getDonGia();
+                holder.txtThanhtien.setText(decimalFormat.format(thanhtien) + " VNĐ");
+
+                com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
             }
         });
         holder.btnTruSL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gioHangList.get(position).getSoluong() > 1){
-                        int soluongmoi = gioHangList.get(position).getSoluong() - 1;
-                        gioHangList.get(position).setSoluong(soluongmoi);
+                if (gioHangList.get(position).getSoLuong() > 1) {
+                    int soluongmoi = gioHangList.get(position).getSoLuong() - 1;
+                    gioHangList.get(position).setSoLuong(soluongmoi);
 
-                        holder.txtSL.setText(gioHangList.get(position).getSoluong()+"");
-                        double thanhtien = gioHangList.get(position).getSoluong() * gioHangList.get(position).getGia();
-                        holder.txtThanhtien.setText(decimalFormat.format(thanhtien) + " VNĐ");
-                        com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
-                    }
-                    else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                        builder.setTitle("Thông báo");
-                        builder.setMessage("Bạn có muốn xóa sản phẩm khỏi giỏ hàng");
-                        builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                MainActivity.manggiohang.remove(position);
-                                notifyDataSetChanged();
-                                com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
-                                CartActivity.checkGH();
-                                ChiTietSanPhamActivity.checkSLSP();
-                            }
-                        });
-                        builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        builder.show();
-                    }
+                    ChiTietGioHang ct = gioHangList.get(position);
+                    updateCartDetail(ct);
+
+                    holder.txtSL.setText(gioHangList.get(position).getSoLuong() + "");
+                    double thanhtien = gioHangList.get(position).getSoLuong() * gioHangList.get(position).getDonGia();
+                    holder.txtThanhtien.setText(decimalFormat.format(thanhtien) + " VNĐ");
+                    com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setTitle("Thông báo");
+                    builder.setMessage("Bạn có muốn xóa sản phẩm khỏi giỏ hàng");
+                    builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            MainActivity.manggiohang.remove(position);
+                            notifyDataSetChanged();
+
+                            ChiTietGioHang ct = gioHangList.get(position);
+                            deleteCartDetail(ct);
+
+                            com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
+                            CartActivity.checkGH();
+                            ChiTietSanPhamActivity.checkSLSP();
+                        }
+                    });
+                    builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.show();
+                }
             }
         });
         holder.setListener(new IImageClickListener() {
             @Override
             public void onImageClick(View view, int position, int giatri) {
-                if(giatri == 1) {
+                if (giatri == 1) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                     builder.setTitle("Thông báo");
                     builder.setMessage("Bạn có muốn xóa sản phẩm khỏi giỏ hàng");
@@ -118,6 +139,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                         public void onClick(DialogInterface dialog, int which) {
                             MainActivity.manggiohang.remove(position);
                             notifyDataSetChanged();
+
+                            ChiTietGioHang ct = gioHangList.get(position);
+                            deleteCartDetail(ct);
+
                             com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
                             CartActivity.checkGH();
                             ChiTietSanPhamActivity.checkSLSP();
@@ -167,9 +192,45 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
         @Override
         public void onClick(View v) {
-            if(v == btnXoaGH){
-                listener.onImageClick(v, getAdapterPosition(),1);
+            if (v == btnXoaGH) {
+                listener.onImageClick(v, getAdapterPosition(), 1);
             }
         }
+
+
+    }
+
+    public void updateCartDetail(ChiTietGioHang ct) {
+        ApiService.apiService.updateCartDetail(ct.getMaGh(), ct.getMaSp(), ct)
+                .enqueue(new Callback<ChiTietGioHang>() {
+                    @Override
+                    public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
+                        if (response.isSuccessful()) {
+                            MainActivity.LayDSChiTietGioHang();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ChiTietGioHang> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    public void deleteCartDetail(ChiTietGioHang ct) {
+        ApiService.apiService.deleteCartDetail(ct.getMaGh(), ct.getMaSp())
+                .enqueue(new Callback<ChiTietGioHang>() {
+                    @Override
+                    public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
+                        if (response.isSuccessful()) {
+                            MainActivity.LayDSChiTietGioHang();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ChiTietGioHang> call, Throwable t) {
+
+                    }
+                });
     }
 }
