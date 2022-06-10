@@ -108,11 +108,11 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             {
                 double thanhtien = sp.getGiaBan() * sl;
                 ChiTietGioHang ctgh = new ChiTietGioHang();
+                ctgh.setMaGh(MainActivity.magh);
                 ctgh.setMaSp(sp.getMaSp());
                 ctgh.setDonGia(sp.getGiaBan());
                 ctgh.setSoLuong(sl);
                 ctgh.setThanhTien(thanhtien);
-                ctgh.setMaGh(MainActivity.magh);
                 MainActivity.manggiohang.add(ctgh);
                 ApiService.apiService.setCartDetail(ctgh).enqueue(new Callback<ChiTietGioHang>() {
                     @Override

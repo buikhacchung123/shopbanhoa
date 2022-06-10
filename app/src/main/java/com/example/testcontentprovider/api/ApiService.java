@@ -20,9 +20,11 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
     Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
@@ -45,32 +47,26 @@ public interface ApiService {
     @GET("Sanphams/GetSpByDm/{MaDM}")
     Call<List<SanPham>> getSanPhamTheoDM(@Path("MaDM") String id);
 
-    @GET("Giohangs")
-    Call<List<GioHang>> getAllCart();
+    @GET("Giohangs/")
+    Call<List<GioHang>> getCart(@Query("maKh") String ma);
 
-    //loi 400
+    @Headers({"Accept: application/json"})
     @POST("Giohangs")
-    Call<GioHang> setCart(@Body GioHang gh);
-    //loi 415
-    @FormUrlEncoded
-    @POST("Giohangs")
-    Call<GioHang> setCart(@Field("maKh") int ma,
-                          @Field("tongSp") int sl,
-                          @Field("tongTien") double tong);
+    Call<GioHang> setCart(@Body Map<String, String> body);
 
+    @Headers({"Accept: application/json"})
     @PUT("Giohangs/{maGh}")
     Call<GioHang> updateCart(@Path("maGh") int ma,
-                             @Body GioHang cart);
+                             @Body Map<String, String> body);
 
     @GET("ChitietGiohangs")
     Call<List<ChiTietGioHang>> getAllCartDetail();
 
-    @POST("ChitietGiohangs")
+    @POST("ChitietGiohangs/")
     Call<ChiTietGioHang> setCartDetail(@Body ChiTietGioHang ctgh);
 
-    @PUT("ChitietGiohangs/{maGh}&{maSp}")
+    @PUT("ChitietGiohangs/{maGh}")
     Call<ChiTietGioHang> updateCartDetail(@Path("maGh") String magh,
-                                          @Path("maSp") int masp,
                                           @Body ChiTietGioHang detail);
 
     @DELETE("ChitietGiohangs/{maGh}&{maSp}")

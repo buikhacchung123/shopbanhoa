@@ -1,6 +1,8 @@
 package com.example.testcontentprovider.model;
 
-public class GioHang {
+import java.io.Serializable;
+
+public class GioHang implements Serializable {
     String maGh;
     int maKh;
     int tongSp;

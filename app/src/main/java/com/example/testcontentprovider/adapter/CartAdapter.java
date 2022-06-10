@@ -201,12 +201,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
     public void updateCartDetail(ChiTietGioHang ct) {
-        ApiService.apiService.updateCartDetail(ct.getMaGh(), ct.getMaSp(), ct)
+        ApiService.apiService.updateCartDetail(ct.getMaGh(), ct)
                 .enqueue(new Callback<ChiTietGioHang>() {
                     @Override
                     public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
                         if (response.isSuccessful()) {
-                            MainActivity.LayDSChiTietGioHang();
+                            MainActivity.LayDSChiTietGioHang(ct.getMaGh());
                         }
                     }
 
@@ -223,7 +223,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     @Override
                     public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
                         if (response.isSuccessful()) {
-                            MainActivity.LayDSChiTietGioHang();
+                            MainActivity.LayDSChiTietGioHang(ct.getMaGh());
                         }
                     }
 

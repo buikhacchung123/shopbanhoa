@@ -1,5 +1,15 @@
 package com.example.testcontentprovider.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,22 +17,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.FrameLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.adapter.DMAdapter;
 import com.example.testcontentprovider.adapter.DMSPAdapter;
-import com.example.testcontentprovider.adapter.SanPhamAdapter;
 import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.fragment.HomeFragment;
 import com.example.testcontentprovider.fragment.NotificationFragment;
@@ -36,6 +33,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
     Fragment currentfragment;
-    static GioHang gioHang;
-    public static List<ChiTietGioHang> manggiohang;
     private DMSPAdapter dmspAdapter;
     private List<DanhMuc> mangdanhmuc;
     public static List<SanPham> dssp;
@@ -55,12 +51,51 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     FrameLayout frameLayout;
     KhachHang kh;
-    public static String magh;
     public static String makh;
+    private GioHang gioHang;
+    public static String magh;
+    public static List<ChiTietGioHang> manggiohang;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // lay du lieu user tu login
+        kh = (KhachHang) getIntent().getSerializableExtra("object_user");
+        makh = String.valueOf(kh.getMaND());
+        //Lay gio hang
+        ApiService.apiService.getCart(makh).enqueue(new Callback<List<GioHang>>() {
+            @Override
+            public void onResponse(Call<List<GioHang>> call, Response<List<GioHang>> response) {
+                List<GioHang> list = response.body();
+                if(list != null || list.size() > 0)
+                {
+                    gioHang = new GioHang();
+                    gioHang.setMaGh(list.get(0).getMaGh());
+                    gioHang.setMaKh(list.get(0).getMaKh());
+                    gioHang.setTongSp(list.get(0).getTongSp());
+                    gioHang.setTongtien(list.get(0).getTongtien());
+                    magh = gioHang.getMaGh();
+                    LayDSChiTietGioHang(magh);
+                    return;
+                }
+//              else {
+//              Map<String, String> map = new HashMap<>();
+//              map.put("maKh", makh);
+//              map.put("tongSp", "0");
+//              map.put("tongTien", "0");
+//              addCart(map);
+//              }
+            }
+            @Override
+            public void onFailure(Call<List<GioHang>> call, Throwable t) {
+
+            }
+        });
+
+
 
         AnhXa();
         LoadDSSP();
@@ -71,18 +106,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_menu);
-        // lay du lieu user tu login
-        kh = (KhachHang) getIntent().getSerializableExtra("object_user");
-        makh = String.valueOf(kh.getMaND());
-        KtraGioHang();
-        if(gioHang == null)
-        {
-            GioHang gh = new GioHang(kh.getMaND(), 0,0);
-            addCart(gh);
-            KtraGioHang();
-        }
 
-        LayDSChiTietGioHang();
+
         //Sự kiện trang Home
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,8 +161,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void loadCart(String ma)
+    {
 
-    public static void LayDSChiTietGioHang() {
+    }
+    public static void LayDSChiTietGioHang(String ma) {
         ApiService.apiService.getAllCartDetail().enqueue(new Callback<List<ChiTietGioHang>>() {
             @Override
             public void onResponse(Call<List<ChiTietGioHang>> call, Response<List<ChiTietGioHang>> response) {
@@ -146,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     for (int i = 0; i < list1.size(); i++)
                     {
-                        if(list1.get(i).getMaGh().equals(gioHang.getMaGh()))
+                        if(list1.get(i).getMaGh().equals(ma))
                         {
                             manggiohang.add(list1.get(i));
                         }
@@ -161,33 +189,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void KtraGioHang() {
-        ApiService.apiService.getAllCart().enqueue(new Callback<List<GioHang>>() {
-            @Override
-            public void onResponse(Call<List<GioHang>> call, Response<List<GioHang>> response) {
-                List<GioHang> list = response.body();
-                if(list == null || list.isEmpty())
-                {
-                    return;
-                }
-
-                for(GioHang gh : list)
-                {
-                    if(String.valueOf(gh.getMaKh()).equals(kh.getMaND()))
-                    {
-                        gioHang = gh;
-                        magh = gioHang.getMaGh();
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<GioHang>> call, Throwable t) {
-
-            }
-        });
-    }
 
     private void AnhXa() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -237,18 +238,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void addCart(GioHang gh)
+    public void addCart(Map <String, String> map)
     {
-        ApiService.apiService.setCart(gioHang).enqueue(new Callback<GioHang>() {
+        ApiService.apiService.setCart(map).enqueue(new Callback<GioHang>() {
             @Override
             public void onResponse(Call<GioHang> call, Response<GioHang> response) {
-                if(response.isSuccessful())
+                String mess = response.message();
+                if(!mess.equals("Created"))
                 {
-                    gioHang = response.body();
-                    magh = gioHang.getMaGh();
+                    Log.e( "Message: ",response.message().toString());
                 }
-                Toast.makeText(getBaseContext(),"Add New Cart Failed, Code: " + response.code(), Toast.LENGTH_SHORT).show();
-
+                gioHang = response.body();
+                magh = gioHang.getMaGh();
             }
 
             @Override

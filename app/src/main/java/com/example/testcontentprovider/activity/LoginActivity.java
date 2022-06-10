@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.api.ApiService;
+import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.KhachHang;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView linkDangKyNgay, linkQuenMatKhau;
     private List<KhachHang> user;
     private KhachHang mkh;
+    static GioHang cart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 }catch (Exception ex) {
                     startActivity(new Intent(LoginActivity.this,ErrorActivity.class));
                 }
+
             }
         });
         linkDangKyNgay.setOnClickListener(new View.OnClickListener() {
@@ -137,4 +140,5 @@ public class LoginActivity extends AppCompatActivity {
             checkBox.setChecked(check);
         }
     }
+
 }
