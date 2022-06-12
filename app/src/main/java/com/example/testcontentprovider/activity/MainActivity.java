@@ -32,6 +32,7 @@ import com.example.testcontentprovider.model.SanPham;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,28 +67,35 @@ public class MainActivity extends AppCompatActivity {
         kh = (KhachHang) getIntent().getSerializableExtra("object_user");
         makh = String.valueOf(kh.getMaND());
         //Lay gio hang
-        ApiService.apiService.getCart(makh).enqueue(new Callback<List<GioHang>>() {
+        ApiService.apiService.getCart().enqueue(new Callback<List<GioHang>>() {
             @Override
             public void onResponse(Call<List<GioHang>> call, Response<List<GioHang>> response) {
                 List<GioHang> list = response.body();
                 if(list != null || list.size() > 0)
                 {
-                    gioHang = new GioHang();
-                    gioHang.setMaGh(list.get(0).getMaGh());
-                    gioHang.setMaKh(list.get(0).getMaKh());
-                    gioHang.setTongSp(list.get(0).getTongSp());
-                    gioHang.setTongtien(list.get(0).getTongtien());
-                    magh = gioHang.getMaGh();
-                    LayDSChiTietGioHang(magh);
-                    return;
+                    for (GioHang gh : list)
+                    {
+                        if(gh.getMaKh() == kh.getMaND())
+                        {
+                            gioHang = new GioHang();
+                            gioHang.setMaGh(gh.getMaGh());
+                            gioHang.setMaKh(gh.getMaKh());
+                            gioHang.setTongSp(gh.getTongSp());
+                            gioHang.setTongtien(gh.getTongtien());
+                            magh = gioHang.getMaGh();
+                            LayDSChiTietGioHang(magh);
+                            return;
+                        }
+
+                    }
+                    Map<String, String> map = new HashMap<>();
+                    map.put("maKh", makh);
+                    map.put("tongSp", "0");
+                    map.put("tongTien", "0");
+                    addCart(map);
+                    loadCart(kh.getMaND());
                 }
-//              else {
-//              Map<String, String> map = new HashMap<>();
-//              map.put("maKh", makh);
-//              map.put("tongSp", "0");
-//              map.put("tongTien", "0");
-//              addCart(map);
-//              }
+
             }
             @Override
             public void onFailure(Call<List<GioHang>> call, Throwable t) {
@@ -161,9 +169,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void loadCart(String ma)
+    private void loadCart(int ma)
     {
+        ApiService.apiService.getCart().enqueue(new Callback<List<GioHang>>() {
+            @Override
+            public void onResponse(Call<List<GioHang>> call, Response<List<GioHang>> response) {
+                List<GioHang> list = response.body();
+                if(list != null || list.size() > 0)
+                {
+                    for (GioHang gh : list)
+                    {
+                        if(gh.getMaKh() == ma)
+                        {
+                            gioHang = new GioHang();
+                            gioHang.setMaGh(gh.getMaGh());
+                            gioHang.setMaKh(gh.getMaKh());
+                            gioHang.setTongSp(gh.getTongSp());
+                            gioHang.setTongtien(gh.getTongtien());
+                            magh = gioHang.getMaGh();
+                            LayDSChiTietGioHang(magh);
+                            return;
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<List<GioHang>> call, Throwable t) {
 
+            }
+        });
     }
     public static void LayDSChiTietGioHang(String ma) {
         ApiService.apiService.getAllCartDetail().enqueue(new Callback<List<ChiTietGioHang>>() {

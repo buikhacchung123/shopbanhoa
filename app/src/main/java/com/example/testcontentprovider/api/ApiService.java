@@ -47,8 +47,8 @@ public interface ApiService {
     @GET("Sanphams/GetSpByDm/{MaDM}")
     Call<List<SanPham>> getSanPhamTheoDM(@Path("MaDM") String id);
 
-    @GET("Giohangs/")
-    Call<List<GioHang>> getCart(@Query("maKh") String ma);
+    @GET("Giohangs")
+    Call<List<GioHang>> getCart();
 
     @Headers({"Accept: application/json"})
     @POST("Giohangs")
@@ -62,8 +62,9 @@ public interface ApiService {
     @GET("ChitietGiohangs")
     Call<List<ChiTietGioHang>> getAllCartDetail();
 
-    @POST("ChitietGiohangs/")
-    Call<ChiTietGioHang> setCartDetail(@Body ChiTietGioHang ctgh);
+    @Headers({"Accept: application/json"})
+    @POST("ChitietGiohangs")
+    Call<ChiTietGioHang> setCartDetail(@Body Map<String, String> body);
 
     @PUT("ChitietGiohangs/{maGh}")
     Call<ChiTietGioHang> updateCartDetail(@Path("maGh") String magh,

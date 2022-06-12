@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -22,6 +23,8 @@ import com.example.testcontentprovider.model.SanPham;
 import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,54 +110,57 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             if(flag == false)
             {
                 double thanhtien = sp.getGiaBan() * sl;
-                ChiTietGioHang ctgh = new ChiTietGioHang();
-                ctgh.setMaGh(MainActivity.magh);
-                ctgh.setMaSp(sp.getMaSp());
-                ctgh.setDonGia(sp.getGiaBan());
-                ctgh.setSoLuong(sl);
-                ctgh.setThanhTien(thanhtien);
+                ChiTietGioHang ctgh = new ChiTietGioHang(MainActivity.magh,
+                                                            sp.getMaSp(),
+                                                            sl,
+                                                            sp.getGiaBan(),
+                                                            thanhtien);
                 MainActivity.manggiohang.add(ctgh);
-                ApiService.apiService.setCartDetail(ctgh).enqueue(new Callback<ChiTietGioHang>() {
-                    @Override
-                    public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
-                        if(!response.isSuccessful()){
-                            Toast.makeText(getBaseContext(),"Add Error", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ChiTietGioHang> call, Throwable t) {
-
-                    }
-                });
+                Map<String, String> map = new HashMap<>();
+                map.put("maGh", ctgh.getMaGh());
+                map.put("maSp", "" + ctgh.getMaSp() + "");
+                map.put("soLuong", "" + ctgh.getSoLuong() + "");
+                map.put("donGia", "" + ctgh.getDonGia() + "");
+                map.put("thanhTien", "" + ctgh.getThanhTien() + "");
+                addCartDetail(map);
             }
         }
         else {
             int sl = 1;
             double thanhtien = sp.getGiaBan() * sl;
-            ChiTietGioHang gh = new ChiTietGioHang();
-            gh.setMaSp(sp.getMaSp());
-            gh.setDonGia(sp.getGiaBan());
-            gh.setSoLuong(sl);
-            gh.setThanhTien(thanhtien);
+            ChiTietGioHang gh = new ChiTietGioHang(MainActivity.magh,
+                    sp.getMaSp(),
+                    sl,
+                    sp.getGiaBan(),
+                    thanhtien);
             gh.setMaGh(MainActivity.magh);
             MainActivity.manggiohang.add(gh);
-            ApiService.apiService.setCartDetail(gh).enqueue(new Callback<ChiTietGioHang>() {
-                @Override
-                public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
-                    if(!response.isSuccessful()){
-                        Toast.makeText(getBaseContext(),"Code: " + response.code(), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ChiTietGioHang> call, Throwable t) {
-
-                }
-            });
+            Map<String, String> map = new HashMap<>();
+            map.put("maGh", gh.getMaGh());
+            map.put("maSp", "" + gh.getMaSp() + "");
+            map.put("soLuong", "" + gh.getSoLuong() + "");
+            map.put("donGia", "" + gh.getDonGia() + "");
+            map.put("thanhTien", "" + gh.getThanhTien() + "");
+            addCartDetail(map);
         }
+    }
+
+    private void addCartDetail(Map<String, String> map) {
+        ApiService.apiService.setCartDetail(map).enqueue(new Callback<ChiTietGioHang>() {
+            @Override
+            public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
+                if(!response.message().equals("Created")){
+                    Log.e("Hi: ", response.raw() + "");
+                    Toast.makeText(getBaseContext(),"Code: " + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChiTietGioHang> call, Throwable t) {
+
+            }
+        });
     }
 
     public void chuyenGioHang() {

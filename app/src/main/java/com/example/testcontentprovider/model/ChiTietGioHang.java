@@ -1,11 +1,23 @@
 package com.example.testcontentprovider.model;
 
-public class ChiTietGioHang {
+import java.io.Serializable;
+
+public class ChiTietGioHang implements Serializable {
     String maGh;
-    int soLuong, maSp;
-    double donGia, thanhTien;
+    int maSp;
+    int soLuong;
+    double donGia;
+    double thanhTien;
 
     public ChiTietGioHang() {
+    }
+
+    public ChiTietGioHang(String maGh, int maSp, int soLuong, double donGia, double thanhTien) {
+        this.maGh = maGh;
+        this.maSp = maSp;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
+        this.thanhTien = thanhTien;
     }
 
     public String getMaGh() {
