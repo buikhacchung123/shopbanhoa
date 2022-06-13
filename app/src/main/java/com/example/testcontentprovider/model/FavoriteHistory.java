@@ -18,7 +18,7 @@ public class FavoriteHistory {
         if (favorHistory.size() == 0)
             this.favorHistory.add(0, s);
         else if (favorHistory.indexOf(s) > 0){
-            
+
         }else
             this.favorHistory.add(s);
     }
@@ -27,5 +27,23 @@ public class FavoriteHistory {
         if (this.favorHistory.size()!=0)
             return this.favorHistory;
         return new ArrayList<>();
+    }
+
+    public void removeFavoriteHistory(SanPham s){
+        if (checkExist(s)) {
+            for (int i = 0;i<favorHistory.size(); i++)
+                if(s.getMasp().trim().equals(favorHistory.get(i).getMasp().trim()))
+                    favorHistory.remove(i);
+
+        }
+    }
+
+    public boolean checkExist(SanPham s){
+        if(favorHistory == null || favorHistory.size()==0)
+            return false;
+        for(SanPham i : favorHistory)
+            if (i.getMasp().trim().equals(s.getMasp().trim()))
+                return true;
+            return false;
     }
 }

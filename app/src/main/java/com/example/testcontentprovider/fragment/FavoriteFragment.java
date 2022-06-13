@@ -44,7 +44,7 @@ public class FavoriteFragment extends Fragment {
         AnhXa();
 
 
-        //favoriteHistory = new FavoriteHistory();
+
         favorList = new FavoriteHistory(getContext()).getFavorHistory();
         adapterSp = new SanPhamAdapter(getContext(),favorList);
 
@@ -58,7 +58,6 @@ public class FavoriteFragment extends Fragment {
             txtNoFavoriteList.setVisibility(View.GONE);
             rv.setVisibility(View.VISIBLE);
         }
-
         return view;
     }
     public void AnhXa(){
@@ -73,20 +72,20 @@ public class FavoriteFragment extends Fragment {
             sp.setTypeDisplay(typeDisplay);
     }
 
-    /*@Override
+    @Override
     public void onResume(){
         super.onResume();
-        favorList.clear();
-        favorList = new FavoriteHistory().getFavorHistory();
+        /*favorList.clear();
+        favorList = new FavoriteHistory(getContext()).getFavorHistory();*/
         adapterSp.notifyDataSetChanged();
         rv.setAdapter(adapterSp);
 
-        f(favorList.size()==0){
+        if(favorList.size()==0 || favorList == null){
             txtNoFavoriteList.setVisibility(View.VISIBLE);
             rv.setVisibility(View.GONE);
         }else{
             txtNoFavoriteList.setVisibility(View.GONE);
             rv.setVisibility(View.VISIBLE);
         }
-    }*/
+    }
 }
