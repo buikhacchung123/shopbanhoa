@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.model.FavoriteHistory;
 import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.SanPham;
 import com.nex3z.notificationbadge.NotificationBadge;
@@ -35,8 +36,10 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitietsanpham);
         AnhXa();
-        Intent intent = getIntent();
-        sp = (SanPham) intent.getSerializableExtra("SPItem");
+
+
+        //Nhận dữ liệu, gán vào trang
+        sp = (SanPham) getIntent().getSerializableExtra("SPItem");
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         TenSP.setText(sp.getTensp());
         Gia.setText(decimalFormat.format(sp.getGiaban())+" VNĐ");
@@ -46,6 +49,9 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         int imgId = getResources().getIdentifier(PACKAGE_NAME+":drawable/"+imgName , null, null);
         imgChiTiet.setImageBitmap(BitmapFactory.decodeResource(getResources(),imgId));
         MoTa.setText(sp.getMota());
+        FavoriteHistory utils = new FavoriteHistory(getBaseContext());
+
+        //Sự kiện trang Chi tiết sản phẩm
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +76,10 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         btnLove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 btnLove.setImageResource(R.drawable.ic_favorite);
+                utils.addFavoriteHistorry(sp);
+
             }
         });
         setSupportActionBar(toolbar);
@@ -123,7 +132,6 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             MainActivity.manggiohang.add(gh);
         }
     }
-
     public void chuyenGioHang() {
         Intent giohang = new Intent(ChiTietSanPhamActivity.this, CartActivity.class);
         startActivity(giohang);

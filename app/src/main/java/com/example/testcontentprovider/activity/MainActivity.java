@@ -7,38 +7,27 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.adapter.DMAdapter;
 import com.example.testcontentprovider.adapter.DMSPAdapter;
 import com.example.testcontentprovider.data.ApiService;
-import com.example.testcontentprovider.data.Constance;
-import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.fragment.HomeFragment;
-import com.example.testcontentprovider.fragment.NotificationFragment;
+import com.example.testcontentprovider.fragment.FavoriteFragment;
 import com.example.testcontentprovider.fragment.ProfileFragment;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.GioHang;
-import com.example.testcontentprovider.model.KhachHang;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -97,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
                         LoadFrame(currentfragment);
                         break;
 
-                    case R.id.bottom_notification:
+                    case R.id.bottom_favorite:
                         toolbar.setTitle("Danh sách yêu thích");
-                        currentfragment = new NotificationFragment();
+                        currentfragment = new FavoriteFragment();
                         LoadFrame(currentfragment);
                         break;
                     case R.id.bottom_reward:

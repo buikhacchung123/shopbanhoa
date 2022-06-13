@@ -70,7 +70,7 @@ public class UpdateUserInforActivity extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    if(IsPhoneExist(sdt)){
+                    if(IsPhoneExist(sdt) && !sdt.trim().equals(currentKH.getSdt())){
                         txtSDT.setError("Số điện thoại đã tồn tại.");
                         txtSDT.requestFocus();
                         return;

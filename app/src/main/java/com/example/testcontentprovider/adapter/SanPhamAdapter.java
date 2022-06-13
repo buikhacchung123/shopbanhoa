@@ -29,6 +29,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.MyViewHo
         this.context = context;
         this.array = array;
     }
+    public SanPhamAdapter(){}
 
     @Override
     public int getItemViewType(int position) {

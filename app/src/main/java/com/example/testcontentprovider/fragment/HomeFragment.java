@@ -18,6 +18,7 @@ import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.activity.LoadingActivity;
 import com.example.testcontentprovider.adapter.DMAdapter;
 import com.example.testcontentprovider.adapter.SanPhamAdapter;
 import com.example.testcontentprovider.data.ApiService;
@@ -39,18 +40,15 @@ public class HomeFragment extends Fragment {
     private View view;
     private ViewFlipper viewFlipper;
     private RecyclerView recyclerView, rvDM;
-    private List<SanPham> dssp;
-    private List<DanhMuc> dsdm;
     private DMAdapter adapter;
     private ApiService apiService;
-    DanhMuc dm = new DanhMuc();
     private SanPhamAdapter sanPhamAdapter;
     private LinearLayoutManager mlinearLayoutManager;
     private GridLayoutManager gridLayoutManager;
     ImageButton button;
 
-    private  int mCurrentType = SanPham.TYPE_LIST;
-    private  int mCurrentPosition;
+    private int mCurrentType = SanPham.TYPE_LIST;
+    private int mCurrentPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,8 +58,19 @@ public class HomeFragment extends Fragment {
 
 
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-        LoadingSanPhamHomePage();
-        LoadingDanhMucHomePage();
+
+        //Set giao diện list SP
+        sanPhamAdapter = new SanPhamAdapter(getContext(),(ArrayList<SanPham>) LoadingActivity.arraySP);
+        recyclerView.setLayoutManager(mlinearLayoutManager);
+        recyclerView.setAdapter(sanPhamAdapter);
+        setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
+
+        //Set giao diện list DM
+        adapter = new DMAdapter(getContext(), (ArrayList<DanhMuc>) LoadingActivity.arrayDM);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvDM.setLayoutManager(layoutManager);
+        rvDM.setAdapter(adapter);
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -75,10 +84,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void setTypeDisplayRecyclerView(int typeDisplay) {
-        if(dssp == null || dssp.isEmpty())
+        if(LoadingActivity.arraySP == null || LoadingActivity.arraySP.isEmpty())
             return;
         mCurrentType = typeDisplay;
-        for(SanPham sp : dssp)
+        for(SanPham sp : LoadingActivity.arraySP)
             sp.setTypeDisplay(typeDisplay);
     }
     private void AnhXa() {
@@ -142,41 +151,5 @@ public class HomeFragment extends Fragment {
                 break;
         }
     }
-    private void LoadingSanPhamHomePage() {
-        Call<List<SanPham>> call = apiService.getAllPSanPhams();
-        call.enqueue(new Callback<List<SanPham>>() {
-            @Override
-            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
-                dssp = response.body();
-                sanPhamAdapter = new SanPhamAdapter(getContext(),(ArrayList<SanPham>) dssp);
-                recyclerView.setLayoutManager(mlinearLayoutManager);
-                recyclerView.setAdapter(sanPhamAdapter);
-                setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
-            }
 
-            @Override
-            public void onFailure(Call<List<SanPham>> call, Throwable t) {
-
-            }
-        });
-    }
-    private void LoadingDanhMucHomePage() {
-        Call<List<DanhMuc>> call1 = apiService.getAllDanhMucs();
-        call1.enqueue(new Callback<List<DanhMuc>>() {
-            @Override
-            public void onResponse(Call<List<DanhMuc>> call, Response<List<DanhMuc>> response) {
-                dsdm = response.body();
-                adapter = new DMAdapter(getContext(), (ArrayList<DanhMuc>) dsdm);
-                LinearLayoutManager layoutManager
-                        = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-                rvDM.setLayoutManager(layoutManager);
-                rvDM.setAdapter(adapter);
-            }
-
-            @Override
-            public void onFailure(Call<List<DanhMuc>> call, Throwable t) {
-
-            }
-        });
-    }
 }
