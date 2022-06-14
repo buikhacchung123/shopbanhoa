@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     Fragment currentfragment;
     public static List<GioHang> manggiohang;
     private DMSPAdapter dmspAdapter;
-    //private List<DanhMuc> mangdanhmuc;
     DanhMuc dm = new DanhMuc();
     private ApiService apiService;
     ListView listView;

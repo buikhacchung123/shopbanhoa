@@ -39,10 +39,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
         AnhXa();
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
         b = new AlertDialog.Builder(this);
-        if(getIntent().getSerializableExtra("CurrentUser") !=null)
+        /*if(getIntent().getSerializableExtra("CurrentUser") !=null)
         {
             String k = getIntent().getSerializableExtra("CurrentUser").toString();
             txtUsername.setText(k);
+        }*/
+        if(LoginActivity.CURRENT_USER!=null){
+            txtUsername.setText(LoginActivity.CURRENT_USER.getUsername());
         }
 
         //Sự kiện trang Đổi mật khẩu
@@ -93,7 +96,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         linkBackToHome = findViewById(R.id.linkBackToLogin);
     }
     public boolean IsUsernameExist(String mail){
-        for (KhachHang k : LoadingActivity.arrayKH){
+        for (KhachHang k : LoginActivity.arrayKH){
             if(k.getUsername() != null && !k.getUsername().isEmpty())
                 if(k.getUsername().toLowerCase().trim().equals(mail.toLowerCase().trim()))
                     return true;
@@ -101,8 +104,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
         return false;
     }
     public KhachHang GetKhachHangByUsername(String userKH){
-        for (KhachHang k : LoadingActivity.arrayKH){
-            if(userKH.toLowerCase().trim().equals(k.getUsername().toLowerCase().trim()))
+        for (KhachHang k : LoginActivity.arrayKH){
+            if(k.getUsername()!= null && userKH.toLowerCase().trim().equals(k.getUsername().toLowerCase().trim()))
                 return k;
         }
         return new KhachHang();

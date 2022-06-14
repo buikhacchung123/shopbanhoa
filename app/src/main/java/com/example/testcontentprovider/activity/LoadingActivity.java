@@ -35,7 +35,7 @@ import retrofit2.Response;
 public class LoadingActivity extends AppCompatActivity {
     private ApiService apiService;
     public static List<DanhMuc> arrayDM;
-    public static List<KhachHang> arrayKH;
+    //public static List<KhachHang> arrayKH;
     public static List<SanPham> arraySP;
     public static String Description1;
     public static String Description2;
@@ -50,7 +50,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
         LoadingAllDanhMucs();
-        LoadingAllKhachHangs();
+        //LoadingAllKhachHangs();
         LoadingAllSanPhams();
         LoadDuLieuFirebase();
 
@@ -59,9 +59,9 @@ public class LoadingActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(LoadingActivity.this, LoginActivity.class);
+                Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         }, 4000);
     }
@@ -93,20 +93,7 @@ public class LoadingActivity extends AppCompatActivity {
             }
         });
     }
-    private void LoadingAllKhachHangs() {
-        Call<List<KhachHang>> call = apiService.getAllKhachHangs();
-        call.enqueue(new Callback<List<KhachHang>>() {
-            @Override
-            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
-                arrayKH = response.body();
-            }
 
-            @Override
-            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
-
-            }
-        });
-    }
     public void LoadDuLieuFirebase(){
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();

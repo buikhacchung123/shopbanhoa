@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -72,12 +70,12 @@ public class CategoryActivity extends AppCompatActivity {
         });
     }
     public void AnhXa(){
-        toolbar = findViewById(R.id.toolbar_category);
+        toolbar = findViewById(R.id.toolbar_historyOrder);
         btnChangeDisplay = findViewById(R.id.btn_changeDisplay);
         mlinearLayoutManager = new LinearLayoutManager(this.getBaseContext());
         gridLayoutManager = new GridLayoutManager(this.getBaseContext(), 2);
-        txtCategory_name = findViewById(R.id.txtCategory);
-        rv_category = findViewById(R.id.rv_category);
+        txtCategory_name = findViewById(R.id.txtHistoryOrder);
+        rv_category = findViewById(R.id.rv_listOrder);
     }
     private void onClickChangeTypeDisplay() {
         if(mCurrentType == SanPham.TYPE_LIST){

@@ -38,9 +38,10 @@ public class UpdateUserInforActivity extends AppCompatActivity {
 
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
         AnhXa();
+        currentKH = LoginActivity.CURRENT_USER;
 
 
-        if(getIntent().getSerializableExtra("CurrentUser1") !=null)
+        /*if(getIntent().getSerializableExtra("CurrentUser1") !=null)
         {
             String currentUser = getIntent().getSerializableExtra("CurrentUser1").toString();
             currentKH = GetKhachHangByUsername(currentUser);
@@ -49,6 +50,11 @@ public class UpdateUserInforActivity extends AppCompatActivity {
                 txtSDT.setText(currentKH.getSdt());
                 txtDiaChi.setText(currentKH.getDiachi());
             }
+        }*/
+        if(LoginActivity.CURRENT_USER != null || LoginActivity.CURRENT_USER.getMaNd().trim()!="") {
+            txtTen.setText(LoginActivity.CURRENT_USER.getHoten());
+            txtSDT.setText(LoginActivity.CURRENT_USER.getSdt());
+            txtDiaChi.setText(LoginActivity.CURRENT_USER.getDiachi());
         }
 
 
@@ -70,7 +76,7 @@ public class UpdateUserInforActivity extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    if(IsPhoneExist(sdt) && !sdt.trim().equals(currentKH.getSdt())){
+                    if(IsPhoneExist(sdt) && !sdt.trim().equals(currentKH.getSdt().trim())){
                         txtSDT.setError("Số điện thoại đã tồn tại.");
                         txtSDT.requestFocus();
                         return;
@@ -96,7 +102,7 @@ public class UpdateUserInforActivity extends AppCompatActivity {
         txtSDT = findViewById(R.id.txtSDT_Update);
     }
     public boolean IsPhoneExist(String phone){
-        for(KhachHang k : LoadingActivity.arrayKH){
+        for(KhachHang k : LoginActivity.arrayKH){
             if(k.getSdt() != null && !k.getSdt().isEmpty())
                 if(k.getSdt().trim().equals(phone.trim()))
                     return true;
@@ -122,9 +128,9 @@ public class UpdateUserInforActivity extends AppCompatActivity {
         });
     }
     public KhachHang GetKhachHangByUsername(String userKH){
-        if(LoadingActivity.arrayKH !=null)
-            for (KhachHang k : LoadingActivity.arrayKH){
-                if(userKH.toLowerCase().trim().equals(k.getUsername().toLowerCase().trim()))
+        if(LoginActivity.arrayKH !=null)
+            for (KhachHang k : LoginActivity.arrayKH){
+                if(k.getUsername()!= null && userKH.toLowerCase().trim().equals(k.getUsername().toLowerCase().trim()))
                     return k;
             }
         return new KhachHang();

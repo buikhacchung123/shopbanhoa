@@ -96,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public boolean IsUsernameExist(String mail){
-        for (KhachHang k : LoadingActivity.arrayKH){
+        for (KhachHang k : LoginActivity.arrayKH){
             if(k.getUsername() != null && !k.getUsername().isEmpty())
                 if(k.getUsername().toLowerCase().trim().equals(mail.toLowerCase().trim()))
                     return true;
@@ -104,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
         return false;
     }
     public boolean IsPhoneExist(String phone){
-        for(KhachHang k : LoadingActivity.arrayKH){
+        for(KhachHang k : LoginActivity.arrayKH){
             if(k.getSdt() != null && !k.getSdt().isEmpty())
                 if(k.getSdt().trim().equals(phone.trim()))
                     return true;

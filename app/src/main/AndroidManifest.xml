@@ -18,9 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestContentProvider">
         <activity
+            android:name=".activity.HistoryOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.CategoryActivity"
             android:parentActivityName=".activity.MainActivity" />
-            android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,7 +38,6 @@
         <activity
             android:name=".activity.ChangePasswordActivity"
             android:parentActivityName=".activity.MainActivity" />
-            android:exported="true" />
         <activity
             android:name=".activity.UpdateUserInforActivity"
             android:exported="false" />
@@ -65,15 +66,18 @@
             android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.LoadingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.LoadingActivity"
+            android:exported="false">
+
         </activity>
         <activity android:name=".activity.MainActivity" />
 

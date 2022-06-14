@@ -1,6 +1,7 @@
 package com.example.testcontentprovider.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -13,9 +14,12 @@ import android.view.ViewGroup;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.activity.ChangePasswordActivity;
+import com.example.testcontentprovider.activity.HistoryOrderActivity;
+import com.example.testcontentprovider.activity.LoginActivity;
 import com.example.testcontentprovider.activity.MainActivity;
 import com.example.testcontentprovider.activity.ShopInforActivity;
 import com.example.testcontentprovider.activity.UpdateUserInforActivity;
+import com.example.testcontentprovider.model.KhachHang;
 
 import java.io.Serializable;
 
@@ -68,14 +72,20 @@ public class ProfileFragment extends Fragment {
         btnDangXuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().finish();
-                System.exit(0);
+                //getActivity().finish();
+                SharedPreferences settings = getContext().getSharedPreferences("thongtin.dat", getContext().MODE_PRIVATE);
+                settings.edit().remove("username").commit();
+                settings.edit().remove("password").commit();
+                LoginActivity.CURRENT_USER=new KhachHang();
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                //System.exit(0);
+
             }
         });
         btnLichSuMuaHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getContext(), HistoryOrderActivity.class));
             }
         });
         btnDoiThuong.setOnClickListener(new View.OnClickListener() {

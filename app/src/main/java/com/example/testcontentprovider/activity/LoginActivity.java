@@ -20,6 +20,7 @@ import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.KhachHang;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,16 +33,19 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox checkBox;
     TextView linkDangKyNgay, linkQuenMatKhau;
     private ApiService apiService;
+    public static KhachHang CURRENT_USER;
+    public static List<KhachHang> arrayKH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
+        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+        LoadingAllKhachHangs();
         AnhXa();
         loadData();
-        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+
 
 
         if(getIntent().getSerializableExtra("intentUser")!=null && getIntent().getSerializableExtra("intentPass")!=null) {
@@ -65,12 +69,13 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    if(!IsUsernameExist(un)){
+                    KhachHang userLogin =GetKhachHangByUsername(un);
+                    if(!IsUsernameExist(un) || userLogin == null){
                         username.setError("Tài khoản không tồn tại.");
                         username.requestFocus();
                         return;
                     }
-                    KhachHang userLogin =GetKhachHangByUsername(un);
+
                     if(!userLogin.getPassword().trim().equals(pw))
                     {
                         password.setError("Mật khẩu không đúng.");
@@ -79,8 +84,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     LuuTT(un,pw,check);
                     Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
+                    CURRENT_USER = userLogin;
+                    Intent intent = new Intent(LoginActivity.this, LoadingActivity.class);
                     intent.putExtra("CurrentUser", userLogin.getUsername());
                     startActivity(intent);
                 }catch (Exception ex) {
@@ -136,18 +141,34 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     public KhachHang GetKhachHangByUsername(String userKH){
-        for (KhachHang k : LoadingActivity.arrayKH){
-            if(userKH.toLowerCase().trim().equals(k.getUsername().toLowerCase()))
-                return k;
-        }
+        if(LoginActivity.arrayKH.size()!=0 ||LoginActivity.arrayKH!=null)
+            for (KhachHang k : LoginActivity.arrayKH){
+                if(k != null)
+                    if(k.getUsername()!= null && userKH.toLowerCase().trim().equals(k.getUsername().toLowerCase()))
+                        return k;
+            }
         return new KhachHang();
     }
     public boolean IsUsernameExist(String mail){
-        for (KhachHang k : LoadingActivity.arrayKH){
+        for (KhachHang k : LoginActivity.arrayKH){
             if(k.getUsername() != null && !k.getUsername().isEmpty())
                 if(k.getUsername().toLowerCase().trim().equals(mail.toLowerCase().trim()))
                     return true;
         }
         return false;
+    }
+    private void LoadingAllKhachHangs() {
+        Call<List<KhachHang>> call = apiService.getAllKhachHangs();
+        call.enqueue(new Callback<List<KhachHang>>() {
+            @Override
+            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
+                arrayKH = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
+
+            }
+        });
     }
 }

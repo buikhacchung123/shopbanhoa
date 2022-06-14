@@ -83,18 +83,6 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         btnLove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Ktra sp đã có trong mảng yêu thích chưa
-                //Không có thì thêm, có thì bỏ
-                /*if(utils.favorHistory.indexOf(sp)==0 ) {
-                    btnLove.setImageResource(R.drawable.ic_favorite);
-                    utils.addFavoriteHistorry(sp);
-                }else if(utils.favorHistory.size()==0){
-                    btnLove.setImageResource(R.drawable.ic_favorite);
-                    utils.addFavoriteHistorry(sp);
-                }else{
-                    btnLove.setImageResource(R.drawable.ic_unfavorite);
-                    utils.removeFavoriteHistory(sp);
-                }*/
                 if(utils.checkExist(sp)) {
                     btnLove.setImageResource(R.drawable.ic_unfavorite);
                     utils.removeFavoriteHistory(sp);
