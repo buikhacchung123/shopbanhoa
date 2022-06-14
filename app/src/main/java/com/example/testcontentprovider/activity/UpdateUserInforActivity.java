@@ -109,9 +109,8 @@ public class UpdateUserInforActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<KhachHang> call, Response<KhachHang> response) {
                 String s = response.message();
-                if(response.isSuccessful()){
+                if(response.isSuccessful())
                     Toast.makeText(getBaseContext(),"Cập nhật thông tin thành công.",Toast.LENGTH_LONG).show();
-                }
                 else
                     Toast.makeText(getBaseContext(),"Cập nhật thông tin không thành công, vui lòng thử lại sau.",Toast.LENGTH_LONG).show();
             }

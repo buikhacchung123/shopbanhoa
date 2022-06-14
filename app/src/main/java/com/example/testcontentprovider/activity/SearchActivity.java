@@ -40,7 +40,8 @@ public class SearchActivity extends AppCompatActivity {
     TagGroup tagGroup;
     //List<SanPham> arraySP;
     List<SanPham> listSeach;
-    String[] tagList;
+    //String[] tagList;
+    ArrayList<String> tagList;
     SanPhamAdapter adapterSP;
     RecyclerView rv_searchSP;
     private ApiService apiService;
@@ -60,7 +61,7 @@ public class SearchActivity extends AppCompatActivity {
         rv_searchSP.setAdapter(adapterSP);
         rv_searchSP.setVisibility(View.GONE);
 
-        tagList = new String[]{"shi", "nu"};
+        tagList = new ArrayList<String>();
         tagGroup.setTags(tagList);
 
 
@@ -112,13 +113,21 @@ public class SearchActivity extends AppCompatActivity {
                 rv_searchSP.setVisibility(View.GONE);
                 txtNoContent.setVisibility(View.VISIBLE);
             }
-            tagGroup.setTags(s);
+            if(!IsExistOnSearchList(s)){
+                tagList.add(s);
+                tagGroup.setTags(tagList);
+            }
         }
     }
     public void hideSoftKeyboard(View view){
         InputMethodManager imm =(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-
+    public boolean IsExistOnSearchList(String search){
+        for(int i=0; i<tagList.size();i++)
+            if(tagList.get(i).trim().equals(search.trim()))
+                return true;
+            return false;
+    }
 
 }
