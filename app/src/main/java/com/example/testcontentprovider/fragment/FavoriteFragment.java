@@ -24,7 +24,6 @@ public class FavoriteFragment extends Fragment {
     TextView txtNoFavoriteList;
     private View view;
     ArrayList<SanPham> favorList;
-    //FavoriteHistory favoriteHistory;
     private int mCurrentType = SanPham.TYPE_LIST;
     private SanPhamAdapter adapterSp;
 
@@ -42,7 +41,6 @@ public class FavoriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_favorite, container, false);
         AnhXa();
-
 
 
         favorList = new FavoriteHistory(getContext()).getFavorHistory();
@@ -65,21 +63,19 @@ public class FavoriteFragment extends Fragment {
         txtNoFavoriteList = view.findViewById(R.id.txtNoFavorite);
     }
     private void setTypeDisplayRecyclerView(int typeDisplay) {
-        if(LoadingActivity.arraySP == null || LoadingActivity.arraySP.isEmpty())
+        if(favorList == null || favorList.isEmpty())
             return;
         mCurrentType = typeDisplay;
-        for(SanPham sp : LoadingActivity.arraySP)
+        for(SanPham sp : favorList)
             sp.setTypeDisplay(typeDisplay);
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        /*favorList.clear();
-        favorList = new FavoriteHistory(getContext()).getFavorHistory();*/
         adapterSp.notifyDataSetChanged();
         rv.setAdapter(adapterSp);
-
+        setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
         if(favorList.size()==0 || favorList == null){
             txtNoFavoriteList.setVisibility(View.VISIBLE);
             rv.setVisibility(View.GONE);
