@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 if (gioHangList.get(position).getSoLuong() < 100) {
                     int soluongmoi = gioHangList.get(position).getSoLuong() + 1;
                     gioHangList.get(position).setSoLuong(soluongmoi);
-
+                    int thanhtien = (int) (soluongmoi * gioHangList.get(position).getDonGia());
+                    gioHangList.get(position).setThanhTien(thanhtien);
                     ChiTietGioHang ct = gioHangList.get(position);
                     updateCartDetail(ct);
                 }
@@ -91,12 +93,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 if (gioHangList.get(position).getSoLuong() > 1) {
                     int soluongmoi = gioHangList.get(position).getSoLuong() - 1;
                     gioHangList.get(position).setSoLuong(soluongmoi);
-
+                    int thanhtien = (int) (soluongmoi * gioHangList.get(position).getDonGia());
+                    gioHangList.get(position).setThanhTien(thanhtien);
                     ChiTietGioHang ct = gioHangList.get(position);
                     updateCartDetail(ct);
-
                     holder.txtSL.setText(gioHangList.get(position).getSoLuong() + "");
-                    double thanhtien = gioHangList.get(position).getSoLuong() * gioHangList.get(position).getDonGia();
                     holder.txtThanhtien.setText(decimalFormat.format(thanhtien) + " VNĐ");
                     com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
                 } else {
@@ -106,15 +107,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            MainActivity.manggiohang.remove(position);
-                            notifyDataSetChanged();
-
                             ChiTietGioHang ct = gioHangList.get(position);
                             deleteCartDetail(ct);
-
+                            MainActivity.manggiohang.remove(position);
+                            notifyDataSetChanged();
                             com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
                             CartActivity.checkGH();
-                            ChiTietSanPhamActivity.checkSLSP();
                         }
                     });
                     builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
@@ -137,15 +135,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            MainActivity.manggiohang.remove(position);
-                            notifyDataSetChanged();
-
                             ChiTietGioHang ct = gioHangList.get(position);
                             deleteCartDetail(ct);
-
+                            MainActivity.manggiohang.remove(position);
+                            notifyDataSetChanged();
                             com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
                             CartActivity.checkGH();
-                            ChiTietSanPhamActivity.checkSLSP();
                         }
                     });
                     builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
@@ -156,7 +151,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     });
                     builder.show();
                 }
-
             }
         });
     }
@@ -187,7 +181,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             btnTruSL = itemView.findViewById(R.id.btnGiamSL);
             btnXoaGH = itemView.findViewById(R.id.btnXoaSP);
             btnXoaGH.setOnClickListener(this);
-
         }
 
         @Override
@@ -196,8 +189,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 listener.onImageClick(v, getAdapterPosition(), 1);
             }
         }
-
-
     }
 
     public void updateCartDetail(ChiTietGioHang ct) {
@@ -205,11 +196,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 .enqueue(new Callback<ChiTietGioHang>() {
                     @Override
                     public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
-                        if (response.isSuccessful()) {
-                            MainActivity.LayDSChiTietGioHang(ct.getMaGh());
+                        if (response.code() == 204) {
+                            Log.e("Notification: ", "Update successfully");
                         }
                     }
-
                     @Override
                     public void onFailure(Call<ChiTietGioHang> call, Throwable t) {
 
@@ -223,7 +213,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     @Override
                     public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
                         if (response.isSuccessful()) {
-                            MainActivity.LayDSChiTietGioHang(ct.getMaGh());
+                            Log.e("Notification: ", "Delete successfully");
                         }
                     }
 

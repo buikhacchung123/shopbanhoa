@@ -29,7 +29,7 @@ import java.util.List;
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHolder_Payment> {
     Context context;
     List<ChiTietGioHang> gioHangList;
-    SanPham sp;
+    SanPham sp = new SanPham();
     public PaymentAdapter(Context context, List<ChiTietGioHang> gioHangList) {
         this.context = context;
         this.gioHangList = gioHangList;
@@ -46,6 +46,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder_Payment holder, int position) {
         ChiTietGioHang gh = gioHangList.get(position);
+
         holder.txtTenSP.setText(sp.getSPByMaSP(gh.getMaSp()).getTenSp());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.txtGia.setText("Giá: "+decimalFormat.format(gh.getDonGia()) + " VNĐ");

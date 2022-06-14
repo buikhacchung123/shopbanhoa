@@ -101,33 +101,29 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             {
                 if(MainActivity.manggiohang.get(i).getMaSp() == sp.getMaSp()){
                     MainActivity.manggiohang.get(i).setSoLuong(MainActivity.manggiohang.get(i).getSoLuong()+sl);
-                    double thanhtien = sp.getGiaBan() * MainActivity.manggiohang.get(i).getSoLuong();
+                    int thanhtien = sp.getGiaBan() * MainActivity.manggiohang.get(i).getSoLuong();
                     MainActivity.manggiohang.get(i).setThanhTien(thanhtien);
+                    ChiTietGioHang ct = MainActivity.manggiohang.get(i);
+                    updateCartDetail(ct.getMaGh(), ct);
                     flag = true;
                 }
 
             }
             if(flag == false)
             {
-                double thanhtien = sp.getGiaBan() * sl;
+                int thanhtien = sp.getGiaBan() * sl;
                 ChiTietGioHang ctgh = new ChiTietGioHang(MainActivity.magh,
                                                             sp.getMaSp(),
                                                             sl,
                                                             sp.getGiaBan(),
                                                             thanhtien);
                 MainActivity.manggiohang.add(ctgh);
-                Map<String, String> map = new HashMap<>();
-                map.put("maGh", ctgh.getMaGh());
-                map.put("maSp", "" + ctgh.getMaSp() + "");
-                map.put("soLuong", "" + ctgh.getSoLuong() + "");
-                map.put("donGia", "" + ctgh.getDonGia() + "");
-                map.put("thanhTien", "" + ctgh.getThanhTien() + "");
-                addCartDetail(map);
+                addCartDetail(ctgh);
             }
         }
         else {
             int sl = 1;
-            double thanhtien = sp.getGiaBan() * sl;
+            int thanhtien = sp.getGiaBan() * sl;
             ChiTietGioHang gh = new ChiTietGioHang(MainActivity.magh,
                     sp.getMaSp(),
                     sl,
@@ -135,22 +131,34 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
                     thanhtien);
             gh.setMaGh(MainActivity.magh);
             MainActivity.manggiohang.add(gh);
-            Map<String, String> map = new HashMap<>();
-            map.put("maGh", gh.getMaGh());
-            map.put("maSp", "" + gh.getMaSp() + "");
-            map.put("soLuong", "" + gh.getSoLuong() + "");
-            map.put("donGia", "" + gh.getDonGia() + "");
-            map.put("thanhTien", "" + gh.getThanhTien() + "");
-            addCartDetail(map);
+            addCartDetail(gh);
         }
     }
 
-    private void addCartDetail(Map<String, String> map) {
+    private void updateCartDetail(int maGh, ChiTietGioHang ct) {
+        ApiService.apiService.updateCartDetail(maGh, ct).enqueue(new Callback<ChiTietGioHang>() {
+            @Override
+            public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
+                if(response.code() != 204)
+                {
+                    Log.e("Error: ", response.raw() + "");
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChiTietGioHang> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void addCartDetail(ChiTietGioHang map) {
         ApiService.apiService.setCartDetail(map).enqueue(new Callback<ChiTietGioHang>() {
             @Override
             public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
                 if(!response.message().equals("Created")){
-                    Log.e("Hi: ", response.raw() + "");
+                    Log.e("Error: ", response.raw() + "");
                     Toast.makeText(getBaseContext(),"Code: " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -183,7 +191,8 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     public static void checkSLSP(){
         if(MainActivity.manggiohang != null)
         {
-            badge.setText(String.valueOf(MainActivity.manggiohang.size()));
+            String sl = String.valueOf(MainActivity.manggiohang.size());
+            badge.setText(sl+"");
         }
         else {
             badge.setText(String.valueOf(0));

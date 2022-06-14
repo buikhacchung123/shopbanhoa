@@ -64,9 +64,15 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     if(MainActivity.manggiohang.size()>0){
+                        int tt = 0;
                         Intent i = new Intent(CartActivity.this, ThanhToanActivity.class);
+                        for(int j = 0; j < MainActivity.manggiohang.size(); j++)
+                        {
+                            tt += (MainActivity.manggiohang.get(j).getDonGia() * MainActivity.manggiohang.get(j).getSoLuong());
+                        }
                         i.putExtra("TongTien",txtTongtien.getText());
                         i.putExtra("TongSL", txtTongSL.getText());
+                        i.putExtra("tt", tt);
                         startActivity(i);
                     }else{
                         Toast.makeText (getBaseContext(), "Không có sản phẩm để thanh toán", Toast.LENGTH_SHORT).show();

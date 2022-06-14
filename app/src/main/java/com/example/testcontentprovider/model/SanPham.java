@@ -19,9 +19,9 @@ public class SanPham implements Serializable {
     public static final int TYPE_LIST = 1;
     public static final int TYPE_GRID = 2;
 
-    String  tenSp, moTa, hinhSp, maDm;
-    int maSp, soLuong;
-    double giaBan;
+    String  tenSp, moTa, hinhSp;
+    int maSp, soLuong, maDm;
+    int giaBan;
     int typeDisplay;
 
     public SanPham(){
@@ -38,7 +38,7 @@ public class SanPham implements Serializable {
         this.giaBan = sp.getGiaBan();
     }
 
-    public SanPham(int maSp, String tenSp, String moTa, String hinhSp, String maDm, int soLuong, double giaBan) {
+    public SanPham(int maSp, String tenSp, String moTa, String hinhSp, int maDm, int soLuong, int giaBan) {
         this.maSp = maSp;
         this.tenSp = tenSp;
         this.moTa = moTa;
@@ -88,11 +88,11 @@ public class SanPham implements Serializable {
         this.hinhSp = hinhSp;
     }
 
-    public String getMaDm() {
+    public int getMaDm() {
         return maDm;
     }
 
-    public void setMaDm(String maDm) {
+    public void setMaDm(int maDm) {
         this.maDm = maDm;
     }
 
@@ -104,22 +104,23 @@ public class SanPham implements Serializable {
         this.soLuong = soLuong;
     }
 
-    public double getGiaBan() {
+    public int getGiaBan() {
         return giaBan;
     }
 
-    public void setGiaBan(double giaBan) {
+    public void setGiaBan(int giaBan) {
         this.giaBan = giaBan;
     }
 
     public SanPham getSPByMaSP(int ma)
     {
         SanPham kq = new SanPham();
-        for (SanPham sp: MainActivity.dssp)
+        for (int i = 0; i < MainActivity.dssp.size(); i++)
         {
-            if(sp.maSp == ma)
+            if(MainActivity.dssp.get(i).getMaSp() == ma)
             {
-                kq = sp;
+                kq = MainActivity.dssp.get(i);
+                break;
             }
         }
         return kq;

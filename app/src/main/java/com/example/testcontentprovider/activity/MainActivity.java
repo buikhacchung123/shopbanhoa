@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     KhachHang kh;
     public static String makh;
     private GioHang gioHang;
-    public static String magh;
+    public static int magh;
     public static List<ChiTietGioHang> manggiohang;
 
 
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                             gioHang.setMaKh(gh.getMaKh());
                             gioHang.setTongSp(gh.getTongSp());
                             gioHang.setTongtien(gh.getTongtien());
-                            magh = gioHang.getMaGh();
+                            magh = Integer.parseInt(gioHang.getMaGh());
                             LayDSChiTietGioHang(magh);
                             return;
                         }
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                             gioHang.setMaKh(gh.getMaKh());
                             gioHang.setTongSp(gh.getTongSp());
                             gioHang.setTongtien(gh.getTongtien());
-                            magh = gioHang.getMaGh();
+                            magh = Integer.parseInt(gioHang.getMaGh());
                             LayDSChiTietGioHang(magh);
                             return;
                         }
@@ -199,7 +199,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public static void LayDSChiTietGioHang(String ma) {
+    public static void LayDSChiTietGioHang(int ma) {
+        List<ChiTietGioHang> templist = new ArrayList<>();
         ApiService.apiService.getAllCartDetail().enqueue(new Callback<List<ChiTietGioHang>>() {
             @Override
             public void onResponse(Call<List<ChiTietGioHang>> call, Response<List<ChiTietGioHang>> response) {
@@ -208,11 +209,15 @@ public class MainActivity extends AppCompatActivity {
                 {
                     for (int i = 0; i < list1.size(); i++)
                     {
-                        if(list1.get(i).getMaGh().equals(ma))
+                        if(list1.get(i).getMaGh() == (ma))
                         {
-                            manggiohang.add(list1.get(i));
+                            templist.add(list1.get(i));
                         }
                     }
+                    manggiohang = templist;
+                }
+                else {
+                    manggiohang = null;
                 }
             }
 
@@ -283,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.e( "Message: ",response.message().toString());
                 }
                 gioHang = response.body();
-                magh = gioHang.getMaGh();
+                magh = Integer.parseInt(gioHang.getMaGh());
             }
 
             @Override

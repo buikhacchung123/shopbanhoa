@@ -2,17 +2,17 @@ package com.example.testcontentprovider.model;
 
 import java.io.Serializable;
 
-public class ChiTietGioHang implements Serializable {
-    String maGh;
+public class ChiTietGioHang implements Serializable{
+    int maGh;
     int maSp;
     int soLuong;
-    double donGia;
-    double thanhTien;
+    int donGia;
+    int thanhTien;
 
     public ChiTietGioHang() {
     }
 
-    public ChiTietGioHang(String maGh, int maSp, int soLuong, double donGia, double thanhTien) {
+    public ChiTietGioHang(int maGh, int maSp, int soLuong, int donGia, int thanhTien) {
         this.maGh = maGh;
         this.maSp = maSp;
         this.soLuong = soLuong;
@@ -20,11 +20,11 @@ public class ChiTietGioHang implements Serializable {
         this.thanhTien = thanhTien;
     }
 
-    public String getMaGh() {
+    public int getMaGh() {
         return maGh;
     }
 
-    public void setMaGh(String maGh) {
+    public void setMaGh(int maGh) {
         this.maGh = maGh;
     }
 
@@ -48,15 +48,15 @@ public class ChiTietGioHang implements Serializable {
         return donGia;
     }
 
-    public void setDonGia(double donGia) {
+    public void setDonGia(int donGia) {
         this.donGia = donGia;
     }
 
-    public double getThanhTien() {
+    public int getThanhTien() {
         return thanhTien;
     }
 
-    public void setThanhTien(double thanhTien) {
+    public void setThanhTien(int thanhTien) {
         this.thanhTien = thanhTien;
     }
 }
