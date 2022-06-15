@@ -14,6 +14,7 @@ import com.example.testcontentprovider.data.ApiService;
 import com.example.testcontentprovider.data.Constance;
 import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.model.DanhMuc;
+import com.example.testcontentprovider.model.HoaDon;
 import com.example.testcontentprovider.model.KhachHang;
 import com.example.testcontentprovider.model.SanPham;
 import com.firebase.client.ChildEventListener;
@@ -37,6 +38,7 @@ public class LoadingActivity extends AppCompatActivity {
     public static List<DanhMuc> arrayDM;
     //public static List<KhachHang> arrayKH;
     public static List<SanPham> arraySP;
+    public static List<HoaDon> arrayHD;
     public static String Description1;
     public static String Description2;
     public static String Description3;
@@ -50,6 +52,7 @@ public class LoadingActivity extends AppCompatActivity {
 
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
         LoadingAllDanhMucs();
+        LoadingAllHoadons();
         //LoadingAllKhachHangs();
         LoadingAllSanPhams();
         LoadDuLieuFirebase();
@@ -93,7 +96,20 @@ public class LoadingActivity extends AppCompatActivity {
             }
         });
     }
+    private void LoadingAllHoadons(){
+        Call<List<HoaDon>> call = apiService.getAllHoadons(LoginActivity.CURRENT_USER.getMaNd());
+        call.enqueue(new Callback<List<HoaDon>>() {
+            @Override
+            public void onResponse(Call<List<HoaDon>> call, Response<List<HoaDon>> response) {
+                arrayHD = response.body();
+            }
 
+            @Override
+            public void onFailure(Call<List<HoaDon>> call, Throwable t) {
+
+            }
+        });
+    }
     public void LoadDuLieuFirebase(){
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();

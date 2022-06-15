@@ -1,13 +1,10 @@
 package com.example.testcontentprovider.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,9 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.activity.CartActivity;
-import com.example.testcontentprovider.activity.ChiTietSanPhamActivity;
-import com.example.testcontentprovider.activity.MainActivity;
 import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.IImageClickListener;
 
@@ -74,7 +68,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
 
         public MyViewHolder_Payment(@NonNull View itemView) {
             super(itemView);
-            item_hinhSP = itemView.findViewById(R.id.itemPayment_HinhSP);
+            item_hinhSP = itemView.findViewById(R.id.itemHoaDon_Hinh);
             txtGia = itemView.findViewById(R.id.itemPayment_Gia);
             txtSL = itemView.findViewById(R.id.itemPayment_SoLuong);
             txtTenSP = itemView.findViewById(R.id.itemPayment_TenSP);

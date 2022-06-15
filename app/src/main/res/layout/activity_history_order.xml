@@ -12,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/light_yellow"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Lịch sửa mua hàng"/>
+        app:title="Lịch sử mua hàng" />
 
     <ScrollView
         android:layout_width="match_parent"

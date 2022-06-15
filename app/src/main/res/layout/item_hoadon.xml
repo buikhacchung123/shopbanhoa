@@ -30,7 +30,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/itemPayment_TenSP"
+        android:id="@+id/itemHoaDon_MaHD"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -38,14 +38,14 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/cerapro_regular"
         android:gravity="center|start"
-        android:text="Tên SP"
+        android:text="Mã HD: 1"
         android:textColor="@color/dark_blue"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/itemPayment_Gia"
+        android:id="@+id/itemHoaDon_TongTien"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -53,13 +53,13 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/cerapro_regular"
         android:gravity="center|start"
-        android:text="Giá: 100,000 VND"
+        android:text="Tổng tiền: 100,000 VND"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/itemPayment_TenSP" />
+        app:layout_constraintTop_toBottomOf="@+id/itemHoaDon_MaHD" />
 
     <TextView
-        android:id="@+id/itemPayment_SoLuong"
+        android:id="@+id/itemHoaDon_TongSoLuong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -70,10 +70,10 @@
         android:text="Số lượng: 3"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/itemPayment_Gia" />
+        app:layout_constraintTop_toBottomOf="@+id/itemHoaDon_TongTien" />
 
     <TextView
-        android:id="@+id/itemPayment_ThanhTien"
+        android:id="@+id/itemHoaDon_NgayLap"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -81,10 +81,10 @@
         android:layout_marginTop="10dp"
         android:layout_weight="1.5"
         android:fontFamily="@font/cerapro_regular"
-        android:text="Thành tiền: 300, 000 VND"
+        android:text="Ngày lập: 22/02/2022"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/itemPayment_SoLuong" />
+        app:layout_constraintTop_toBottomOf="@+id/itemHoaDon_TongSoLuong" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
