@@ -51,9 +51,7 @@ public class ProfileFragment extends Fragment {
         btnThayDoiThongTin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in1 = new Intent(getContext(), UpdateUserInforActivity.class);
-                in1.putExtra("CurrentUser1", MainActivity.CurrentUser);
-                startActivity(in1);
+                startActivity(new Intent(getContext(), UpdateUserInforActivity.class));
             }
         });
         btnThongTinCH.setOnClickListener(new View.OnClickListener() {
@@ -65,21 +63,17 @@ public class ProfileFragment extends Fragment {
         btnDoiMK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ChangePasswordActivity.class);
-                intent.putExtra("CurrentUser", MainActivity.CurrentUser);
-                startActivity(intent);
+                startActivity(new Intent(getContext(), ChangePasswordActivity.class));
             }
         });
         btnDangXuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getActivity().finish();
                 SharedPreferences settings = getContext().getSharedPreferences("thongtin.dat", getContext().MODE_PRIVATE);
                 settings.edit().remove("username").commit();
                 settings.edit().remove("password").commit();
                 LoginActivity.CURRENT_USER=new KhachHang();
                 startActivity(new Intent(getContext(), LoginActivity.class));
-                //System.exit(0);
 
             }
         });

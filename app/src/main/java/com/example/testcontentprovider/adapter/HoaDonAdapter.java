@@ -14,6 +14,7 @@ import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.model.HoaDon;
 import com.example.testcontentprovider.model.IImageClickListener;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.MyViewHolder_HoaDon> {
@@ -29,29 +30,17 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.MyViewHold
     @Override
     public HoaDonAdapter.MyViewHolder_HoaDon onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hoadon, parent, false);
-
         return new HoaDonAdapter.MyViewHolder_HoaDon(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder_HoaDon holder, int position) {
         HoaDon hd = listHD.get(position);
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.txtMaHD.setText("Mã HD: "+hd.getMaHD());
         holder.txtNgayLap.setText("Ngày lập: "+hd.getNgayLap());
         holder.txtTongSL.setText("Tổng Sl: "+hd.getTongSoLuong());
-        holder.txtTongTien.setText("Thành tiền: "+hd.getTongTien());
-        /*holder.txtTenSP.setText(hd.getTensp());
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.txtGia.setText("Giá: "+decimalFormat.format(gh.getGia()) + " VNĐ");
-        String[] imgSplit = hd.getHinhsp().split("\\.");
-        String imgName = imgSplit[0];
-        String PACKAGE_NAME = context.getPackageName();
-        int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
-        holder.item_hinhSP.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
-
-        holder.txtSL.setText("Số lượng: "+gh.getSoluong()+"");
-        double thanhtien = gh.getSoluong() * gh.getGia();
-        holder.txtThanhtien.setText("Thành tiền: "+decimalFormat.format(thanhtien) + " VNĐ");*/
+        holder.txtTongTien.setText("Thành tiền: "+decimalFormat.format(hd.getTongTien())+" VNĐ");
     }
 
     @Override

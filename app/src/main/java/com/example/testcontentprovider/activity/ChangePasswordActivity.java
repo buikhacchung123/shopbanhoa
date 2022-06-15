@@ -39,11 +39,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         AnhXa();
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
         b = new AlertDialog.Builder(this);
-        /*if(getIntent().getSerializableExtra("CurrentUser") !=null)
-        {
-            String k = getIntent().getSerializableExtra("CurrentUser").toString();
-            txtUsername.setText(k);
-        }*/
+
         if(LoginActivity.CURRENT_USER!=null){
             txtUsername.setText(LoginActivity.CURRENT_USER.getUsername());
         }

@@ -41,16 +41,6 @@ public class UpdateUserInforActivity extends AppCompatActivity {
         currentKH = LoginActivity.CURRENT_USER;
 
 
-        /*if(getIntent().getSerializableExtra("CurrentUser1") !=null)
-        {
-            String currentUser = getIntent().getSerializableExtra("CurrentUser1").toString();
-            currentKH = GetKhachHangByUsername(currentUser);
-            if(currentKH!=null) {
-                txtTen.setText(currentKH.getHoten());
-                txtSDT.setText(currentKH.getSdt());
-                txtDiaChi.setText(currentKH.getDiachi());
-            }
-        }*/
         if(LoginActivity.CURRENT_USER != null || LoginActivity.CURRENT_USER.getMaNd().trim()!="") {
             txtTen.setText(LoginActivity.CURRENT_USER.getHoten());
             txtSDT.setText(LoginActivity.CURRENT_USER.getSdt());

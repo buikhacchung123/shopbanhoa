@@ -19,6 +19,7 @@
         android:theme="@style/Theme.TestContentProvider">
         <activity
             android:name=".activity.HistoryOrderActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:exported="false" />
         <activity
             android:name=".activity.CategoryActivity"
