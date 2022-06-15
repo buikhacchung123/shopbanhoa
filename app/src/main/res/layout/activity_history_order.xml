@@ -39,6 +39,7 @@
                 android:fontFamily="@font/cerapro_regular"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
+                android:paddingTop="20dp"
                 android:text="Không có lịch sử mua hàng"
                 android:textSize="15sp"
                 android:visibility="gone" />

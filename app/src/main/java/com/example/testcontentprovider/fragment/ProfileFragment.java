@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.activity.ChangePasswordActivity;
+import com.example.testcontentprovider.activity.ErrorActivity;
 import com.example.testcontentprovider.activity.HistoryOrderActivity;
 import com.example.testcontentprovider.activity.LoginActivity;
 import com.example.testcontentprovider.activity.MainActivity;
@@ -91,7 +92,7 @@ public class ProfileFragment extends Fragment {
         btnDoiThuong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getContext(), ErrorActivity.class));
             }
         });
         return view;
