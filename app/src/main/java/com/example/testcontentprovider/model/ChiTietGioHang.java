@@ -44,7 +44,7 @@ public class ChiTietGioHang implements Serializable{
         this.soLuong = soLuong;
     }
 
-    public double getDonGia() {
+    public int getDonGia() {
         return donGia;
     }
 

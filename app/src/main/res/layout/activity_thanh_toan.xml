@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -60,6 +60,7 @@
                     android:fontFamily="@font/cerapro_regular"
                     android:hint="Nhập mã voucher"
                     android:inputType="textPersonName"
+                    android:singleLine="true"
                     android:textColor="@color/dark_blue"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toStartOf="@+id/btnApDung"
@@ -132,6 +133,7 @@
                 android:fontFamily="@font/cerapro_regular"
                 android:hint="Địa chỉ giao"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:textSize="15dp"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -143,23 +145,26 @@
                 android:background="@drawable/custom_input"
                 android:fontFamily="@font/cerapro_regular"
                 android:hint="Số điện thoại"
+                android:maxLength="11"
                 android:padding="5dp"
+                android:singleLine="true"
+                android:inputType="phone"
                 android:textSize="15dp"
                 tools:ignore="TouchTargetSizeCheck" />
-
             <EditText
                 android:id="@+id/txtNgayGiao"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/custom_input"
                 android:fontFamily="@font/cerapro_regular"
-                android:hint="Ngày giao"
+                android:background="@drawable/custom_input"
+                android:hint="Ngày giao: 2022-06-14"
                 android:padding="5dp"
+                android:inputType="date"
+                android:singleLine="true"
                 android:textSize="15dp"
                 tools:ignore="TouchTargetSizeCheck" />
-
             <View
                 android:id="@+id/separate4"
                 android:layout_width="match_parent"
@@ -287,12 +292,12 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btntieptucmua"
+                android:id="@+id/btnDatHang"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/custom_button"
-                android:text="Tiếp tục thanh toán"
+                android:text="Đặt hàng"
                 android:textColor="@color/white"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -300,4 +305,4 @@
     </ScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

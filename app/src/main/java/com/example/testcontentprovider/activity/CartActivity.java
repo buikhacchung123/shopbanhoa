@@ -42,7 +42,7 @@ public class CartActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        if(MainActivity.manggiohang.size() == 0)
+        if(MainActivity.manggiohang.size() == 0 || MainActivity.manggiohang == null)
         {
             giohangtrong.setVisibility(View.VISIBLE);
         }

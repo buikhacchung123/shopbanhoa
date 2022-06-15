@@ -39,6 +39,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     static NotificationBadge badge;
     FrameLayout frameLayout;
     Toolbar toolbar;
+    int tongtien, tongsl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +106,13 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
                     MainActivity.manggiohang.get(i).setThanhTien(thanhtien);
                     ChiTietGioHang ct = MainActivity.manggiohang.get(i);
                     updateCartDetail(ct.getMaGh(), ct);
+                    tinhtt();
+                    Map<String, String> map = new HashMap<>();
+                    map.put("maGh", "" + ct.getMaGh() + "");
+                    map.put("maKh", MainActivity.makh);
+                    map.put("tongSp", "" + tongsl + "");
+                    map.put("tongTien", "" + tongtien + "");
+                    updateCart(ct.getMaGh(), map);
                     flag = true;
                 }
 
@@ -119,6 +127,13 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
                                                             thanhtien);
                 MainActivity.manggiohang.add(ctgh);
                 addCartDetail(ctgh);
+                tinhtt();
+                Map<String, String> map = new HashMap<>();
+                map.put("maGh", "" + ctgh.getMaGh() + "");
+                map.put("maKh", MainActivity.makh);
+                map.put("tongSp", "" + tongsl + "");
+                map.put("tongTien", "" + tongtien + "");
+                updateCart(ctgh.getMaGh(), map);
             }
         }
         else {
@@ -132,6 +147,13 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             gh.setMaGh(MainActivity.magh);
             MainActivity.manggiohang.add(gh);
             addCartDetail(gh);
+            tinhtt();
+            Map<String, String> map = new HashMap<>();
+            map.put("maGh", "" + gh.getMaGh() + "");
+            map.put("maKh", MainActivity.makh);
+            map.put("tongSp", "" + tongsl + "");
+            map.put("tongTien", "" + tongtien + "");
+            updateCart(gh.getMaGh(), map);
         }
     }
 
@@ -199,8 +221,33 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         }
     }
 
+    private void updateCart(int maGh, Map<String, String> map) {
+        ApiService.apiService.updateCart(maGh, map).enqueue(new Callback<GioHang>() {
+            @Override
+            public void onResponse(Call<GioHang> call, Response<GioHang> response) {
+                if(response.isSuccessful())
+                {
+                    Log.e("Message: ", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GioHang> call, Throwable t) {
+
+            }
+        });
+    }
 
 
+    private void tinhtt() {
+        tongtien = 0;
+        tongsl = 0;
+        for(int i = 0; i < MainActivity.manggiohang.size(); i++)
+        {
+            tongtien += (MainActivity.manggiohang.get(i).getDonGia() * MainActivity.manggiohang.get(i).getSoLuong());
+            tongsl += MainActivity.manggiohang.get(i).getSoLuong();
+        }
+    }
 
 
 }

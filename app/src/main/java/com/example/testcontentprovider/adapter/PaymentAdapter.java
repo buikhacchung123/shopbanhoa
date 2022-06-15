@@ -63,7 +63,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return gioHangList.size();
+        if(gioHangList != null)
+            return gioHangList.size();
+        return 0;
     }
 
     public class MyViewHolder_Payment extends RecyclerView.ViewHolder implements View.OnClickListener {

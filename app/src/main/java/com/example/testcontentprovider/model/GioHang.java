@@ -17,6 +17,13 @@ public class GioHang implements Serializable {
         this.tongtien = tongtien;
     }
 
+    public GioHang(String maGh, int maKh, int tongSp, double tongtien) {
+        this.maGh = maGh;
+        this.maKh = maKh;
+        this.tongSp = tongSp;
+        this.tongtien = tongtien;
+    }
+
     public String getMaGh() {
         return maGh;
     }

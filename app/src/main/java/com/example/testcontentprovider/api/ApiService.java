@@ -1,6 +1,7 @@
 package com.example.testcontentprovider.api;
 
 import com.example.testcontentprovider.model.ChiTietGioHang;
+import com.example.testcontentprovider.model.ChiTietHoaDon;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.HoaDon;
@@ -53,6 +54,12 @@ public interface ApiService {
     @PUT("Giohangs/{maGh}")
     Call<GioHang> updateCart(@Path("maGh") int ma,
                              @Body Map<String, String> body);
+    @Headers({"Accept: application/json"})
+    @PUT("Giohangs/{maGh}")
+    Call<GioHang> updateCart(@Path("maGh") int ma,
+                             @Body GioHang body);
+    @DELETE("Giohangs/{maGh}")
+    Call<GioHang> deleteCart(@Path("maGh") int ma);
     // xu ly chi tiet gio hang
     @GET("ChitietGiohangs")
     Call<List<ChiTietGioHang>> getAllCartDetail();
@@ -66,12 +73,20 @@ public interface ApiService {
     Call<ChiTietGioHang> deleteCartDetail(@Path("maGh") int magh,
                                           @Path("maSp") int masp);
     // xu ly voucher
-    @GET("Vouchers")
-    Call<List<Voucher>> getAllVoucher();
+    @GET("Vouchers/{maVc}")
+    Call<Voucher> getVoucher(@Path("maVc") String ma);
+    @PUT("Vouchers/{maVc}")
+    Call<Voucher> updateVoucher(@Path("maVc") String ma, @Body Voucher gh);
     // hoa don
-    @GET("Hoadons")
-    Call<List<HoaDon>> getHoaDon();
+    @GET("Hoadons/GetHdByMaNd/{maNd}")
+    Call<List<HoaDon>> getHoaDon(@Path("maNd") int ma);
     @Headers({"Accept: application/json"})
     @POST("Hoadons")
     Call<HoaDon> setHD(@Body HoaDon hd);
+
+    @GET("ChitietHoadons")
+    Call<List<ChiTietHoaDon>> getHoaDon();
+    @Headers({"Accept: application/json"})
+    @POST("ChitietHoadons")
+    Call<ChiTietHoaDon> setCTHD(@Body ChiTietHoaDon cthd);
 }

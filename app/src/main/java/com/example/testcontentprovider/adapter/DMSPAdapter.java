@@ -27,7 +27,9 @@ public class DMSPAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return array.size();
+        if(array != null)
+            return array.size();
+        return 0;
     }
 
     @Override

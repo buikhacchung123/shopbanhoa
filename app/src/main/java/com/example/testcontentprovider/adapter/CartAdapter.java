@@ -29,7 +29,9 @@ import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.SanPham;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +41,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     Context context;
     List<ChiTietGioHang> gioHangList;
     SanPham sp = new SanPham();
-
+    int tongtien;
+    int tongsl;
     public CartAdapter(Context context, List<ChiTietGioHang> gioHangList) {
         this.context = context;
         this.gioHangList = gioHangList;
@@ -79,6 +82,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     gioHangList.get(position).setThanhTien(thanhtien);
                     ChiTietGioHang ct = gioHangList.get(position);
                     updateCartDetail(ct);
+                    tinhtt();
+                    Map<String, String> map = new HashMap<>();
+                    map.put("maGh", "" + ct.getMaGh() + "");
+                    map.put("maKh", MainActivity.makh);
+                    map.put("tongSp", "" + tongsl + "");
+                    map.put("tongTien", "" + tongtien + "");
+                    updateCart(ct.getMaGh(), map);
                 }
                 holder.txtSL.setText(gioHangList.get(position).getSoLuong() + "");
                 double thanhtien = gioHangList.get(position).getSoLuong() * gioHangList.get(position).getDonGia();
@@ -100,6 +110,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     holder.txtSL.setText(gioHangList.get(position).getSoLuong() + "");
                     holder.txtThanhtien.setText(decimalFormat.format(thanhtien) + " VNĐ");
                     com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
+                    tinhtt();
+                    Map<String, String> map = new HashMap<>();
+                    map.put("maGh", "" + ct.getMaGh() + "");
+                    map.put("maKh", MainActivity.makh);
+                    map.put("tongSp", "" + tongsl + "");
+                    map.put("tongTien", "" + tongtien + "");
+                    updateCart(ct.getMaGh(), map);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     builder.setTitle("Thông báo");
@@ -112,6 +129,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                             MainActivity.manggiohang.remove(position);
                             notifyDataSetChanged();
                             com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
+                            tinhtt();
+                            Map<String, String> map = new HashMap<>();
+                            map.put("maGh", "" + ct.getMaGh() + "");
+                            map.put("maKh", MainActivity.makh);
+                            map.put("tongSp", "" + tongsl + "");
+                            map.put("tongTien", "" + tongtien + "");
+                            updateCart(ct.getMaGh(), map);
                             CartActivity.checkGH();
                         }
                     });
@@ -139,6 +163,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                             deleteCartDetail(ct);
                             MainActivity.manggiohang.remove(position);
                             notifyDataSetChanged();
+                            tinhtt();
+                            Map<String, String> map = new HashMap<>();
+                            map.put("maGh", "" + ct.getMaGh() + "");
+                            map.put("maKh", MainActivity.makh);
+                            map.put("tongSp", "" + tongsl + "");
+                            map.put("tongTien", "" + tongtien + "");
+                            updateCart(ct.getMaGh(), map);
                             com.example.testcontentprovider.activity.CartActivity.tinhTongTien();
                             CartActivity.checkGH();
                         }
@@ -155,9 +186,38 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         });
     }
 
+    private void updateCart(int maGh, Map<String, String> map) {
+        ApiService.apiService.updateCart(maGh, map).enqueue(new Callback<GioHang>() {
+            @Override
+            public void onResponse(Call<GioHang> call, Response<GioHang> response) {
+                if(response.isSuccessful())
+                {
+                    Log.e("Message: ", response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GioHang> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void tinhtt() {
+        tongsl = 0;
+        tongtien = 0;
+        for(int i = 0; i < MainActivity.manggiohang.size(); i++)
+        {
+            tongtien += (MainActivity.manggiohang.get(i).getDonGia() * MainActivity.manggiohang.get(i).getSoLuong());
+            tongsl += MainActivity.manggiohang.get(i).getSoLuong();
+        }
+    }
+
     @Override
     public int getItemCount() {
-        return gioHangList.size();
+        if(gioHangList != null)
+            return gioHangList.size();
+        return 0;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

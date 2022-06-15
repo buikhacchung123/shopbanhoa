@@ -9,8 +9,8 @@ public class Voucher implements Serializable {
     String moTa;
     int khuyenMai;
     int soLuong;
-    Date ngayBatdau;
-    Date ngayKetthuc;
+    String ngayBatDau;
+    String ngayKetThuc;
     String hinhBanner;
 
     public Voucher() {
@@ -56,20 +56,20 @@ public class Voucher implements Serializable {
         this.soLuong = soLuong;
     }
 
-    public Date getNgayBatdau() {
-        return ngayBatdau;
+    public String getNgayBatdau() {
+        return ngayBatDau;
     }
 
-    public void setNgayBatdau(Date ngayBatdau) {
-        this.ngayBatdau = ngayBatdau;
+    public void setNgayBatdau(String ngayBatdau) {
+        this.ngayBatDau = ngayBatdau;
     }
 
-    public Date getNgayKetthuc() {
-        return ngayKetthuc;
+    public String getNgayKetthuc() {
+        return ngayKetThuc;
     }
 
-    public void setNgayKetthuc(Date ngayKetthuc) {
-        this.ngayKetthuc = ngayKetthuc;
+    public void setNgayKetthuc(String ngayKetthuc) {
+        this.ngayKetThuc = ngayKetthuc;
     }
 
     public String getHinhBanner() {

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout frameLayout;
     KhachHang kh;
     public static String makh;
-    private GioHang gioHang;
+    public static GioHang gioHang;
     public static int magh;
     public static List<ChiTietGioHang> manggiohang;
 
