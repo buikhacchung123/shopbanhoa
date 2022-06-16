@@ -157,7 +157,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             txtGia = itemView.findViewById(R.id.itemcart_gia);
             txtSL = itemView.findViewById(R.id.itemcart_sl);
             txtTensp = itemView.findViewById(R.id.itemcart_tensp);
-            txtThanhtien = itemView.findViewById(R.id.itemPayment_ThanhTien);
+            txtThanhtien = itemView.findViewById(R.id.itemVC_NgayKetThuc);
             btnCongSL = itemView.findViewById(R.id.btnThemSL);
             btnTruSL = itemView.findViewById(R.id.btnGiamSL);
             btnXoaGH = itemView.findViewById(R.id.btnXoaSP);

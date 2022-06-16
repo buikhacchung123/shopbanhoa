@@ -17,6 +17,7 @@ import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.HoaDon;
 import com.example.testcontentprovider.model.KhachHang;
 import com.example.testcontentprovider.model.SanPham;
+import com.example.testcontentprovider.model.Voucher;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -39,6 +40,7 @@ public class LoadingActivity extends AppCompatActivity {
     //public static List<KhachHang> arrayKH;
     public static List<SanPham> arraySP;
     public static List<HoaDon> arrayHD;
+    public static List<Voucher> arrayVC;
     public static String Description1;
     public static String Description2;
     public static String Description3;
@@ -54,6 +56,7 @@ public class LoadingActivity extends AppCompatActivity {
         LoadingAllDanhMucs();
         LoadingAllHoadons();
         //LoadingAllKhachHangs();
+        LoadingAllVouchers();
         LoadingAllSanPhams();
         LoadDuLieuFirebase();
 
@@ -64,7 +67,6 @@ public class LoadingActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
                 startActivity(intent);
-                //finish();
             }
         }, 4000);
     }
@@ -83,7 +85,7 @@ public class LoadingActivity extends AppCompatActivity {
         });
     }
     private void LoadingAllSanPhams(){
-        Call<List<SanPham>> call = apiService.getAllPSanPhams();
+        Call<List<SanPham>> call = apiService.getAllSanPhams();
         call.enqueue(new Callback<List<SanPham>>() {
             @Override
             public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
@@ -109,6 +111,32 @@ public class LoadingActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private void LoadingAllVouchers() {
+        Call<List<Voucher>> call = apiService.getAllVouchers();
+        call.enqueue(new Callback<List<Voucher>>() {
+            @Override
+            public void onResponse(Call<List<Voucher>> call, Response<List<Voucher>> response) {
+                arrayVC = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<Voucher>> call, Throwable t) {
+
+            }
+        });
+        /*Call<List<Voucher>> call = apiService.getAllVouchers();
+        call.enqueue(new Callback<List<Voucher>>() {
+            @Override
+            public void onResponse(Call<List<Voucher>> call, Response<List<Voucher>> response) {
+                arrayVC = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<Voucher>> call, Throwable t) {
+
+            }
+        });*/
     }
     public void LoadDuLieuFirebase(){
         // Write a message to the database
@@ -158,4 +186,5 @@ public class LoadingActivity extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -59,7 +59,7 @@ public class HoaDonAdapter extends RecyclerView.Adapter<HoaDonAdapter.MyViewHold
 
         public MyViewHolder_HoaDon(@NonNull View itemView) {
             super(itemView);
-            item_hinh = itemView.findViewById(R.id.itemHoaDon_Hinh);
+            item_hinh = itemView.findViewById(R.id.itemVC_Hinh);
             txtTongSL = itemView.findViewById(R.id.itemHoaDon_TongSoLuong);
             txtTongTien = itemView.findViewById(R.id.itemHoaDon_TongTien);
             txtMaHD = itemView.findViewById(R.id.itemHoaDon_MaHD);

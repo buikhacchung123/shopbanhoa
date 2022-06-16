@@ -68,11 +68,11 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
 
         public MyViewHolder_Payment(@NonNull View itemView) {
             super(itemView);
-            item_hinhSP = itemView.findViewById(R.id.itemHoaDon_Hinh);
-            txtGia = itemView.findViewById(R.id.itemPayment_Gia);
-            txtSL = itemView.findViewById(R.id.itemPayment_SoLuong);
-            txtTenSP = itemView.findViewById(R.id.itemPayment_TenSP);
-            txtThanhtien = itemView.findViewById(R.id.itemPayment_ThanhTien);
+            item_hinhSP = itemView.findViewById(R.id.itemVC_Hinh);
+            txtGia = itemView.findViewById(R.id.itemVC_KhuyenMai);
+            txtSL = itemView.findViewById(R.id.itemVC_NgayBatDau);
+            txtTenSP = itemView.findViewById(R.id.itemVC_TieuDe);
+            txtThanhtien = itemView.findViewById(R.id.itemVC_NgayKetThuc);
         }
 
         @Override

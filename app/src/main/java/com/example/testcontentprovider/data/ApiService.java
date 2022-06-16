@@ -6,6 +6,7 @@ import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.HoaDon;
 import com.example.testcontentprovider.model.KhachHang;
 import com.example.testcontentprovider.model.SanPham;
+import com.example.testcontentprovider.model.Voucher;
 
 import java.util.List;
 
@@ -21,8 +22,11 @@ public interface ApiService {
     @GET("/api/Danhmucs")
     Call<List<DanhMuc>> getAllDanhMucs();
 
+    @GET("/api/Vouchers")
+    Call<List<Voucher>> getAllVouchers();
+
     @GET("/api/Sanphams")
-    Call<List<SanPham>> getAllPSanPhams();
+    Call<List<SanPham>> getAllSanPhams();
 
     @GET("/api/Sanphams/GetSpByDm/{MaDM}")
     Call<List<SanPham>> getSanPhamTheoDM(@Path("MaDM") String id);
@@ -44,4 +48,7 @@ public interface ApiService {
 
     @GET("/api/Hoadons/GetHdByMaNd/{MaKH}")
     Call<List<HoaDon>> getAllHoadons(@Path("MaKH") String id);
+
+
+
 }

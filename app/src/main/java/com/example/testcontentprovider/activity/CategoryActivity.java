@@ -70,7 +70,7 @@ public class CategoryActivity extends AppCompatActivity {
         });
     }
     public void AnhXa(){
-        toolbar = findViewById(R.id.toolbar_historyOrder);
+        toolbar = findViewById(R.id.toolbar_voucher);
         btnChangeDisplay = findViewById(R.id.btn_changeDisplay);
         mlinearLayoutManager = new LinearLayoutManager(this.getBaseContext());
         gridLayoutManager = new GridLayoutManager(this.getBaseContext(), 2);

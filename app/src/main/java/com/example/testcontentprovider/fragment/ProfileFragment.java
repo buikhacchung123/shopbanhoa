@@ -20,12 +20,13 @@ import com.example.testcontentprovider.activity.LoginActivity;
 import com.example.testcontentprovider.activity.MainActivity;
 import com.example.testcontentprovider.activity.ShopInforActivity;
 import com.example.testcontentprovider.activity.UpdateUserInforActivity;
+import com.example.testcontentprovider.activity.VoucherActivity;
 import com.example.testcontentprovider.model.KhachHang;
 
 import java.io.Serializable;
 
 public class ProfileFragment extends Fragment {
-    ConstraintLayout btnThayDoiThongTin, btnDangXuat, btnDoiThuong, btnLichSuMuaHang, btnThongTinCH, btnDoiMK;
+    ConstraintLayout btnThayDoiThongTin, btnDangXuat, btnDoiThuong, btnLichSuMuaHang, btnThongTinCH, btnDoiMK, btnVoucher;
     private View view;
 
 
@@ -89,6 +90,12 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(getContext(), ErrorActivity.class));
             }
         });
+        btnVoucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), VoucherActivity.class));
+            }
+        });
         return view;
     }
     public void AnhXa(){
@@ -98,5 +105,6 @@ public class ProfileFragment extends Fragment {
         btnThayDoiThongTin = view.findViewById(R.id.btnThayDoiThongTin);
         btnThongTinCH = view.findViewById(R.id.btnThongTinCuaHang);
         btnDoiMK = view.findViewById(R.id.btnDoiMatKhau);
+        btnVoucher = view.findViewById(R.id.btnVoucher);
     }
 }

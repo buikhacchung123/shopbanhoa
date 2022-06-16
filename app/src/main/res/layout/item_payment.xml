@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/itemHoaDon_Hinh"
+            android:id="@+id/itemVC_Hinh"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginLeft="-10dp"
@@ -30,7 +30,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/itemPayment_TenSP"
+        android:id="@+id/itemVC_TieuDe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/itemPayment_Gia"
+        android:id="@+id/itemVC_KhuyenMai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -56,10 +56,10 @@
         android:text="Giá: 100,000 VND"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/itemPayment_TenSP" />
+        app:layout_constraintTop_toBottomOf="@+id/itemVC_TieuDe" />
 
     <TextView
-        android:id="@+id/itemPayment_SoLuong"
+        android:id="@+id/itemVC_NgayBatDau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -70,10 +70,10 @@
         android:text="Số lượng: 3"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/itemPayment_Gia" />
+        app:layout_constraintTop_toBottomOf="@+id/itemVC_KhuyenMai" />
 
     <TextView
-        android:id="@+id/itemPayment_ThanhTien"
+        android:id="@+id/itemVC_NgayKetThuc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -85,6 +85,6 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/itemPayment_SoLuong" />
+        app:layout_constraintTop_toBottomOf="@+id/itemVC_NgayBatDau" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

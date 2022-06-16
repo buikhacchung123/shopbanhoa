@@ -18,9 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestContentProvider">
         <activity
-            android:name=".activity.HistoryOrderActivity"
+            android:name=".activity.VoucherActivity"
             android:parentActivityName=".activity.MainActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.HistoryOrderActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.CategoryActivity"
             android:parentActivityName=".activity.MainActivity" />
@@ -74,12 +78,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.LoadingActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity android:name=".activity.MainActivity" />
 
         <meta-data

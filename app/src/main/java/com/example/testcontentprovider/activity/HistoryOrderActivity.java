@@ -38,7 +38,7 @@ public class HistoryOrderActivity extends AppCompatActivity {
         }
     }
     public void AnhXa(){
-        toolbar = findViewById(R.id.toolbar_historyOrder);
+        toolbar = findViewById(R.id.toolbar_voucher);
         txtNoHistory = findViewById(R.id.txtNoHistoryOrder);
         rv_ListOrders = findViewById(R.id.rv_listOrder);
     }
