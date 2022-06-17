@@ -12,15 +12,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.adapter.SanPhamAdapter;
-import com.example.testcontentprovider.data.ApiService;
+import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.data.Constance;
 import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.model.KhachHang;
-import com.example.testcontentprovider.model.SanPham;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

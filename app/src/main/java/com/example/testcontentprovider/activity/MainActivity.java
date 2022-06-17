@@ -1,5 +1,16 @@
 package com.example.testcontentprovider.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.adapter.DMSPAdapter;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -7,40 +18,46 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.FrameLayout;
-import android.widget.ListView;
-
-import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.adapter.DMSPAdapter;
-import com.example.testcontentprovider.data.ApiService;
+import com.example.testcontentprovider.api.ApiService;
+import com.example.testcontentprovider.data.Constance;
+import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.fragment.HomeFragment;
 import com.example.testcontentprovider.fragment.FavoriteFragment;
 import com.example.testcontentprovider.fragment.ProfileFragment;
+import com.example.testcontentprovider.model.ChiTietGioHang;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.GioHang;
+import com.example.testcontentprovider.model.KhachHang;
+import com.example.testcontentprovider.model.SanPham;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
     Fragment currentfragment;
-    public static List<GioHang> manggiohang;
     private DMSPAdapter dmspAdapter;
+    private List<DanhMuc> mangdanhmuc;
+    public static List<SanPham> dssp;
     DanhMuc dm = new DanhMuc();
     private ApiService apiService;
     ListView listView;
     DrawerLayout drawerLayout;
     FrameLayout frameLayout;
     public static String CurrentUser;
+    KhachHang kh;
+    public static String makh;
+    public static GioHang gioHang;
+    public static int magh;
+    public static List<ChiTietGioHang> manggiohang;
 
 
 
@@ -49,17 +66,65 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // lay du lieu user tu login
+        kh = (KhachHang) getIntent().getSerializableExtra("object_user");
+        makh = String.valueOf(kh.getMaND());
+        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+        //Lay gio hang
+        apiService.getCart().enqueue(new Callback<List<GioHang>>() {
+            @Override
+            public void onResponse(Call<List<GioHang>> call, Response<List<GioHang>> response) {
+                List<GioHang> list = response.body();
+                if(list != null || list.size() > 0)
+                {
+                    for (GioHang gh : list)
+                    {
+                        if(gh.getMaKh() == kh.getMaND())
+                        {
+                            gioHang = new GioHang();
+                            gioHang.setMaGh(gh.getMaGh());
+                            gioHang.setMaKh(gh.getMaKh());
+                            gioHang.setTongSp(gh.getTongSp());
+                            gioHang.setTongtien(gh.getTongtien());
+                            magh = Integer.parseInt(gioHang.getMaGh());
+                            LayDSChiTietGioHang(magh);
+                            return;
+                        }
+
+                    }
+                    Map<String, String> map = new HashMap<>();
+                    map.put("maKh", makh);
+                    map.put("tongSp", "0");
+                    map.put("tongTien", "0");
+                    addCart(map);
+                    loadCart(kh.getMaND());
+                }
+
+            }
+            @Override
+            public void onFailure(Call<List<GioHang>> call, Throwable t) {
+
+            }
+        });
+
+
+
         AnhXa();
+        //LoadDSSP();
+        dssp = LoadingActivity.arraySP;
         LoadFrame(new HomeFragment());
         if(getIntent().getSerializableExtra("CurrentUser") != null)
             CurrentUser = getIntent().getSerializableExtra("CurrentUser").toString().toLowerCase();
         dmspAdapter = new DMSPAdapter(LoadingActivity.arrayDM, getBaseContext());
         listView.setAdapter(dmspAdapter);
-
+        //LoadDMMenu();
+        dmspAdapter = new DMSPAdapter(LoadingActivity.arrayDM, getApplicationContext());
+        listView.setAdapter(dmspAdapter);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_menu);
+
 
         //Sự kiện trang Home
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -114,6 +179,67 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void loadCart(int ma)
+    {
+        apiService.getCart().enqueue(new Callback<List<GioHang>>() {
+            @Override
+            public void onResponse(Call<List<GioHang>> call, Response<List<GioHang>> response) {
+                List<GioHang> list = response.body();
+                if(list != null || list.size() > 0)
+                {
+                    for (GioHang gh : list)
+                    {
+                        if(gh.getMaKh() == ma)
+                        {
+                            gioHang = new GioHang();
+                            gioHang.setMaGh(gh.getMaGh());
+                            gioHang.setMaKh(gh.getMaKh());
+                            gioHang.setTongSp(gh.getTongSp());
+                            gioHang.setTongtien(gh.getTongtien());
+                            magh = Integer.parseInt(gioHang.getMaGh());
+                            LayDSChiTietGioHang(magh);
+                            return;
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<List<GioHang>> call, Throwable t) {
+
+            }
+        });
+    }
+    public static void LayDSChiTietGioHang(int ma) {
+        ApiService apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+        List<ChiTietGioHang> templist = new ArrayList<>();
+        apiService.getAllCartDetail().enqueue(new Callback<List<ChiTietGioHang>>() {
+            @Override
+            public void onResponse(Call<List<ChiTietGioHang>> call, Response<List<ChiTietGioHang>> response) {
+                List<ChiTietGioHang> list1 = response.body();
+                if(list1 != null)
+                {
+                    for (int i = 0; i < list1.size(); i++)
+                    {
+                        if(list1.get(i).getMaGh() == (ma))
+                        {
+                            templist.add(list1.get(i));
+                        }
+                    }
+                    manggiohang = templist;
+                }
+                else {
+                    manggiohang = null;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ChiTietGioHang>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
     private void AnhXa() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -122,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
             manggiohang = new ArrayList<>();
         listView = findViewById(R.id.lv_main);
         frameLayout = findViewById(R.id.frame_search);
+        dssp = new ArrayList<>();
     }
     public void LoadFrame(Fragment a) {
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
@@ -129,5 +256,57 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    /*private void LoadDMMenu() {
+        ApiService.apiService.getAllDanhMucs().enqueue(new Callback<List<DanhMuc>>() {
+            @Override
+            public void onResponse(Call<List<DanhMuc>> call, Response<List<DanhMuc>> response) {
+                mangdanhmuc = response.body();
+                dmspAdapter = new DMSPAdapter(mangdanhmuc, getApplicationContext());
+                listView.setAdapter(dmspAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<DanhMuc>> call, Throwable t) {
+
+            }
+        });
+    }*/
+
+    /*private void LoadDSSP() {
+        ApiService.apiService.getSanPham().enqueue(new Callback<List<SanPham>>() {
+            @Override
+            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
+                dssp = response.body();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<SanPham>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),"Call api failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }*/
+
+    public void addCart(Map <String, String> map) {
+        apiService.setCart(map).enqueue(new Callback<GioHang>() {
+            @Override
+            public void onResponse(Call<GioHang> call, Response<GioHang> response) {
+                String mess = response.message();
+                if(!mess.equals("Created"))
+                {
+                    Log.e( "Message: ",response.message().toString());
+                }
+                gioHang = response.body();
+                magh = Integer.parseInt(gioHang.getMaGh());
+            }
+
+            @Override
+            public void onFailure(Call<GioHang> call, Throwable t) {
+                Toast.makeText(getBaseContext(),"Call Api Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
 }

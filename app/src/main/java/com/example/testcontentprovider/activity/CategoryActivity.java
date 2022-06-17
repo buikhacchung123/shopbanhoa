@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.SanPhamAdapter;
-import com.example.testcontentprovider.data.ApiService;
 import com.example.testcontentprovider.data.Constance;
 import com.example.testcontentprovider.data.RetrofitClient;
+import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.SanPham;
 
@@ -39,13 +39,13 @@ public class CategoryActivity extends AppCompatActivity {
     private  int mCurrentPosition;
     DanhMuc dm;
     TextView txtCategory_name;
-
+    SanPham sanPham = new SanPham();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-
+        //dssp = onSetData();
         AnhXa();
 
         setSupportActionBar(toolbar);
@@ -60,6 +60,12 @@ public class CategoryActivity extends AppCompatActivity {
         LoadingSanPhamTheoDM();
 
 
+        setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
+        sanPhamAdapter = new SanPhamAdapter(getBaseContext(),dssp);
+        rv_category.setLayoutManager(mlinearLayoutManager);
+        rv_category.setAdapter(sanPhamAdapter);
+
+
         //Sự kiện trang Sản phẩm theo danh mục
         btnChangeDisplay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +75,31 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
     }
+
+    /*private ArrayList<SanPham> onSetData() {
+        dssp = new ArrayList<>();
+        ApiService.apiService.getSanPham().enqueue(new Callback<List<SanPham>>() {
+            @Override
+            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
+                List<SanPham> list = response.body();
+                if(list.size() > 0)
+                {
+                    for(int i = 0; i < list.size(); i++)
+                    {
+                        dssp.add(new SanPham(list.get(i)));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<SanPham>> call, Throwable t) {
+                Toast.makeText(CategoryActivity.this,"Call api failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return dssp;
+    }*/
+
+
     public void AnhXa(){
         toolbar = findViewById(R.id.toolbar_voucher);
         btnChangeDisplay = findViewById(R.id.btn_changeDisplay);

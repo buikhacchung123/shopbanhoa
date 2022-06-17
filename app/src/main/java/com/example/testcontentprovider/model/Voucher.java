@@ -1,7 +1,5 @@
 package com.example.testcontentprovider.model;
-
 import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.sql.Date;
 import java.text.DateFormat;
@@ -38,6 +36,17 @@ public class Voucher implements Serializable {
     public void setMaVC(int maVC) {
         this.maVC = maVC;
     }
+    public int getMaVc() {
+        return maVC;
+    }
+
+    public String getTieuDe() {
+        return tieuDe;
+    }
+
+    public void setTieuDe(String tieuDe) {
+        this.tieuDe = tieuDe;
+    }
 
     public String getMoTa() {
         return moTa;
@@ -61,14 +70,6 @@ public class Voucher implements Serializable {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-    }
-
-    public String getTieuDe() {
-        return tieuDe;
-    }
-
-    public void setTieuDe(String tieuDe) {
-        this.tieuDe = tieuDe;
     }
 
     public String getNgayBatDau() {

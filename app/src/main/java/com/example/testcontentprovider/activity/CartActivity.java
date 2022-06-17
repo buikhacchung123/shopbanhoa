@@ -44,7 +44,7 @@ public class CartActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        if(MainActivity.manggiohang.size() == 0)
+        if(MainActivity.manggiohang.size() == 0 || MainActivity.manggiohang == null)
         {
             giohangtrong.setVisibility(View.VISIBLE);
         }
@@ -66,9 +66,15 @@ public class CartActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     if(MainActivity.manggiohang.size()>0){
+                        int tt = 0;
                         Intent i = new Intent(CartActivity.this, ThanhToanActivity.class);
+                        for(int j = 0; j < MainActivity.manggiohang.size(); j++)
+                        {
+                            tt += (MainActivity.manggiohang.get(j).getDonGia() * MainActivity.manggiohang.get(j).getSoLuong());
+                        }
                         i.putExtra("TongTien",txtTongtien.getText());
                         i.putExtra("TongSL", txtTongSL.getText());
+                        i.putExtra("tt", tt);
                         startActivity(i);
                     }else{
                         Toast.makeText (getBaseContext(), "Không có sản phẩm để thanh toán", Toast.LENGTH_SHORT).show();
@@ -87,8 +93,8 @@ public class CartActivity extends AppCompatActivity {
         int tongsl = 0;
         for(int i = 0; i < MainActivity.manggiohang.size(); i++)
         {
-            tongtien += (MainActivity.manggiohang.get(i).getGia() * MainActivity.manggiohang.get(i).getSoluong());
-            tongsl += MainActivity.manggiohang.get(i).getSoluong();
+            tongtien += (MainActivity.manggiohang.get(i).getDonGia() * MainActivity.manggiohang.get(i).getSoLuong());
+            tongsl += MainActivity.manggiohang.get(i).getSoLuong();
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         txtTongtien.setText(decimalFormat.format(tongtien) + " VNĐ");

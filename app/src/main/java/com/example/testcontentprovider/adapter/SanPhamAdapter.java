@@ -19,13 +19,13 @@ import com.example.testcontentprovider.model.SanPham;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.MyViewHolder> {
     Context context;
-    ArrayList<SanPham> array;
+    List<SanPham> array;
 
-    public SanPhamAdapter(Context context, ArrayList<SanPham> array) {
+    public SanPhamAdapter(Context context, List<SanPham> array) {
         this.context = context;
         this.array = array;
     }

@@ -7,22 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.activity.CartActivity;
+import com.example.testcontentprovider.activity.ChiTietSanPhamActivity;
+import com.example.testcontentprovider.activity.MainActivity;
+import com.example.testcontentprovider.model.ChiTietGioHang;
 import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.IImageClickListener;
-
+import com.example.testcontentprovider.model.SanPham;
 import java.text.DecimalFormat;
 import java.util.List;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHolder_Payment> {
     Context context;
-    List<GioHang> gioHangList;
-
-    public PaymentAdapter(Context context, List<GioHang> gioHangList) {
+    List<ChiTietGioHang> gioHangList;
+    SanPham sp = new SanPham();
+    public PaymentAdapter(Context context, List<ChiTietGioHang> gioHangList) {
         this.context = context;
         this.gioHangList = gioHangList;
     }
@@ -37,24 +39,27 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder_Payment holder, int position) {
-        GioHang gh = gioHangList.get(position);
-        holder.txtTenSP.setText(gh.getTensp());
+        ChiTietGioHang gh = gioHangList.get(position);
+
+        holder.txtTenSP.setText(sp.getSPByMaSP(gh.getMaSp()).getTensp());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.txtGia.setText("Giá: "+decimalFormat.format(gh.getGia()) + " VNĐ");
-        String[] imgSplit = gh.getHinhsp().split("\\.");
+        holder.txtGia.setText("Giá: "+decimalFormat.format(gh.getDonGia()) + " VNĐ");
+        String[] imgSplit = sp.getSPByMaSP(gh.getMaSp()).getHinhsp().split("\\.");
         String imgName = imgSplit[0];
         String PACKAGE_NAME = context.getPackageName();
         int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
         holder.item_hinhSP.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
 
-        holder.txtSL.setText("Số lượng: "+gh.getSoluong()+"");
-        double thanhtien = gh.getSoluong() * gh.getGia();
+        holder.txtSL.setText("Số lượng: "+gh.getSoLuong()+"");
+        double thanhtien = gh.getSoLuong() * gh.getDonGia();
         holder.txtThanhtien.setText("Thành tiền: "+decimalFormat.format(thanhtien) + " VNĐ");
     }
 
     @Override
     public int getItemCount() {
-        return gioHangList.size();
+        if(gioHangList != null)
+            return gioHangList.size();
+        return 0;
     }
 
     public class MyViewHolder_Payment extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -1,24 +1,18 @@
 package com.example.testcontentprovider.activity;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.data.ApiService;
+import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.data.Constance;
 import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.model.KhachHang;
-import com.google.android.gms.common.api.Api;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,10 +35,10 @@ public class UpdateUserInforActivity extends AppCompatActivity {
         currentKH = LoginActivity.CURRENT_USER;
 
 
-        if(LoginActivity.CURRENT_USER != null || LoginActivity.CURRENT_USER.getMaNd().trim()!="") {
-            txtTen.setText(LoginActivity.CURRENT_USER.getHoten());
+        if(LoginActivity.CURRENT_USER != null || LoginActivity.CURRENT_USER.getMaND()+""!=null) {
+            txtTen.setText(LoginActivity.CURRENT_USER.getTenNd());
             txtSDT.setText(LoginActivity.CURRENT_USER.getSdt());
-            txtDiaChi.setText(LoginActivity.CURRENT_USER.getDiachi());
+            txtDiaChi.setText(LoginActivity.CURRENT_USER.getDiaChi());
         }
 
 
@@ -71,8 +65,8 @@ public class UpdateUserInforActivity extends AppCompatActivity {
                         txtSDT.requestFocus();
                         return;
                     }
-                    currentKH.setHoten(tenDangNhap);
-                    currentKH.setDiachi(diaChi);
+                    currentKH.setTenNd(tenDangNhap);
+                    currentKH.setDiaChi(diaChi);
                     currentKH.setSdt(sdt);
                     UpdateUser(currentKH);
                     startActivity(new Intent(getBaseContext(),MainActivity.class));
@@ -100,7 +94,7 @@ public class UpdateUserInforActivity extends AppCompatActivity {
         return false;
     }
     public void UpdateUser(KhachHang kh){
-        Call<KhachHang> call = apiService.updateKhachHang(kh.getMaNd().toString(),kh);
+        Call<KhachHang> call = apiService.updateKhachHang(kh.getMaND()+"",kh);
         call.enqueue(new Callback<KhachHang>() {
             @Override
             public void onResponse(Call<KhachHang> call, Response<KhachHang> response) {

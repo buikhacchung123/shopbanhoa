@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class ChiTietGioHang {
     @SerializedName("maGh")
-    String maGH;
+    int maGH;
 
     @SerializedName("maSp")
-    String maSP;
+    int maSP;
 
     @SerializedName("thanhTien")
     int thanhTien;
@@ -18,29 +18,30 @@ public class ChiTietGioHang {
     @SerializedName("donGia")
     int donGia;
 
-    public String getMaGH() {
+    public ChiTietGioHang() {
+    }
+
+    public ChiTietGioHang(int maGh, int maSp, int soLuong, int donGia, int thanhTien) {
+        this.maGH = maGh;
+        this.maSP = maSp;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
+        this.thanhTien = thanhTien;
+    }
+
+    public int getMaGh() {
         return maGH;
     }
 
-    public void setMaGH(String maGH) {
-        this.maGH = maGH;
+    public void setMaGh(int maGh) {
+        this.maGH = maGh;
     }
 
-    public String getMaSP() {
+    public int getMaSp() {
         return maSP;
     }
 
-    public void setMaSP(String maSP) {
-        this.maSP = maSP;
-    }
-
-    public int getThanhTien() {
-        return thanhTien;
-    }
-
-    public void setThanhTien(int thanhTien) {
-        this.thanhTien = thanhTien;
-    }
+    public void setMaSp(int maSp) { this.maSP = maSp; }
 
     public int getSoLuong() {
         return soLuong;
@@ -58,13 +59,11 @@ public class ChiTietGioHang {
         this.donGia = donGia;
     }
 
-    public ChiTietGioHang(){}
+    public int getThanhTien() {
+        return thanhTien;
+    }
 
-    public ChiTietGioHang(String maGH, String maSP, int thanhTien, int soLuong, int donGia) {
-        this.maGH = maGH;
-        this.maSP = maSP;
+    public void setThanhTien(int thanhTien) {
         this.thanhTien = thanhTien;
-        this.soLuong = soLuong;
-        this.donGia = donGia;
     }
 }

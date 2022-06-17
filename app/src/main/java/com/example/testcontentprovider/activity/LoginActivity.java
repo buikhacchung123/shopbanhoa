@@ -1,7 +1,5 @@
 package com.example.testcontentprovider.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,18 +9,17 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.data.ApiService;
 import com.example.testcontentprovider.data.Constance;
 import com.example.testcontentprovider.data.RetrofitClient;
-import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.KhachHang;
-
 import java.io.Serializable;
+import com.example.testcontentprovider.api.ApiService;
+import com.example.testcontentprovider.model.GioHang;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,6 +32,10 @@ public class LoginActivity extends AppCompatActivity {
     private ApiService apiService;
     public static KhachHang CURRENT_USER;
     public static List<KhachHang> arrayKH;
+    private List<KhachHang> user;
+    private KhachHang mkh;
+    static GioHang cart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,45 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    /*else
+                    {
+                        ApiService.apiService.getUser(un).enqueue(new Callback<List<KhachHang>>() {
+                            @Override
+                            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
+                                user = response.body();
+                                if(user == null || user.isEmpty()){
+                                    Toast.makeText(LoginActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                boolean isHasUser = false;
+                                for (KhachHang kh : user)
+                                {
+                                    if(un.equals(kh.getUsername()) && pw.equals(kh.getPassWord())){
+                                        isHasUser = true;
+                                        mkh = kh;
+                                        break;
+                                    }
+                                }
+
+                                if(isHasUser){
+                                    LuuTT(un,pw,check);
+                                    Intent intent = new Intent(LoginActivity.this, LoadingActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("object_user", (Serializable) mkh);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu sai!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
+                                Toast.makeText(LoginActivity.this, "Call api failed", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }*/
                     KhachHang userLogin =GetKhachHangByUsername(un);
                     if(!IsUsernameExist(un) || userLogin == null){
                         username.setError("Tài khoản không tồn tại.");
@@ -76,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                         return;
                     }
 
-                    if(!userLogin.getPassword().trim().equals(pw))
+                    if(!userLogin.getPassWord().trim().equals(pw))
                     {
                         password.setError("Mật khẩu không đúng.");
                         password.requestFocus();
@@ -91,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                 }catch (Exception ex) {
                     startActivity(new Intent(LoginActivity.this,ErrorActivity.class));
                 }
+
             }
         });
         linkDangKyNgay.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         checkBox  = findViewById(R.id.rememberme);
+        user = new ArrayList<>();
         linkQuenMatKhau = findViewById(R.id.linkQuenMatKhau);
         linkDangKyNgay = findViewById(R.id.linkDangKyNgay);
     }

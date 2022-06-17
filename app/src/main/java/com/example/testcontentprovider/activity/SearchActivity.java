@@ -1,10 +1,7 @@
 package com.example.testcontentprovider.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,27 +9,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.SanPhamAdapter;
-import com.example.testcontentprovider.data.ApiService;
+import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.data.Constance;
 import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.model.SanPham;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import me.gujun.android.taggroup.TagGroup;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
     TextView txtNoContent;

@@ -32,7 +32,7 @@ public class FavoriteHistory {
     public void removeFavoriteHistory(SanPham s){
         if (checkExist(s)) {
             for (int i = 0;i<favorHistory.size(); i++)
-                if(s.getMasp().trim().equals(favorHistory.get(i).getMasp().trim()))
+                if(s.getMasp()==favorHistory.get(i).getMasp())
                     favorHistory.remove(i);
 
         }
@@ -41,8 +41,8 @@ public class FavoriteHistory {
     public boolean checkExist(SanPham s){
         if(favorHistory == null || favorHistory.size()==0)
             return false;
-        for(SanPham i : favorHistory)
-            if (i.getMasp().trim().equals(s.getMasp().trim()))
+        for(int i = 0;i<favorHistory.size(); i++)
+            if(s.getMasp()==favorHistory.get(i).getMasp())
                 return true;
             return false;
     }

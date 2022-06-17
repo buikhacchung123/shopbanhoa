@@ -51,9 +51,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.MyViewHo
         int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/"+imgName, null, null);
         holder.item_hinh.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
 
-        //Format ngày
-//Date startDate = SimpleDateFormat.parse(vc.getNgayBatDau());
-        //Date date = SimpleDateFormat.parse();
+
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         holder.txtNgayBatDau.setText("Ngày bắt đầu: "+vc.getNgayBatDau());
         holder.txtNgayKetThuc.setText("Ngày kết thúc: "+vc.getNgayKetThuc());

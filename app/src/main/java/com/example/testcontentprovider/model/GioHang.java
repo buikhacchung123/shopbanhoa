@@ -1,61 +1,58 @@
 package com.example.testcontentprovider.model;
 
-public class GioHang {
-    String masp, tensp, hinhsp;
-    double thanhtien;
-    int soluong;
-    double gia;
+import java.io.Serializable;
+
+public class GioHang implements Serializable {
+    String maGh;
+    int maKh;
+    int tongSp;
+    double tongtien;
 
     public GioHang(){
     }
 
-    public String getMasp() {
-        return masp;
+    public GioHang(int maKh, int tongSp, double tongtien) {
+        this.maKh = maKh;
+        this.tongSp = tongSp;
+        this.tongtien = tongtien;
     }
 
-    public void setMasp(String masp) {
-        this.masp = masp;
+    public GioHang(String maGh, int maKh, int tongSp, double tongtien) {
+        this.maGh = maGh;
+        this.maKh = maKh;
+        this.tongSp = tongSp;
+        this.tongtien = tongtien;
     }
 
-    public String getTensp() {
-        return tensp;
+    public String getMaGh() {
+        return maGh;
     }
 
-    public void setTensp(String tensp) {
-        this.tensp = tensp;
+    public void setMaGh(String maGh) {
+        this.maGh = maGh;
     }
 
-    public String getHinhsp() {
-        return hinhsp;
+    public int getMaKh() {
+        return maKh;
     }
 
-    public void setHinhsp(String hinhsp) {
-        this.hinhsp = hinhsp;
+    public void setMaKh(int maKh) {
+        this.maKh = maKh;
     }
 
-    public double getGia() {
-        return gia;
+    public double getTongtien() {
+        return tongtien;
     }
 
-    public void setGia(double gia) {
-        this.gia = gia;
+    public void setTongtien(double tongtien) {
+        this.tongtien = tongtien;
     }
 
-    public int getSoluong() {
-        return soluong;
+    public int getTongSp() {
+        return tongSp;
     }
 
-    public void setSoluong(int soluong) {
-        this.soluong = soluong;
+    public void setTongSp(int tongSp) {
+        this.tongSp = tongSp;
     }
-
-    public double getThanhtien() {
-        return thanhtien;
-    }
-
-    public void setThanhtien(double thanhtien) {
-        this.thanhtien = thanhtien;
-    }
-
-
 }

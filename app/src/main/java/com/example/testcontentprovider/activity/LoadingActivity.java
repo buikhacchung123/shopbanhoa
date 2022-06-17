@@ -5,30 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 
 import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.adapter.DMSPAdapter;
-import com.example.testcontentprovider.adapter.SanPhamAdapter;
-import com.example.testcontentprovider.data.ApiService;
+import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.data.Constance;
 import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.HoaDon;
-import com.example.testcontentprovider.model.KhachHang;
 import com.example.testcontentprovider.model.SanPham;
 import com.example.testcontentprovider.model.Voucher;
-import com.firebase.client.ChildEventListener;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.snapshot.ChildKey;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,14 +27,12 @@ import retrofit2.Response;
 public class LoadingActivity extends AppCompatActivity {
     private ApiService apiService;
     public static List<DanhMuc> arrayDM;
-    //public static List<KhachHang> arrayKH;
     public static List<SanPham> arraySP;
     public static List<HoaDon> arrayHD;
     public static List<Voucher> arrayVC;
     public static String Description1;
     public static String Description2;
     public static String Description3;
-
 
 
     @Override
@@ -68,7 +56,7 @@ public class LoadingActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
                 startActivity(intent);
             }
-        }, 4000);
+        }, 10000);
     }
     private void LoadingAllDanhMucs() {
         Call<List<DanhMuc>> call = apiService.getAllDanhMucs();
@@ -83,6 +71,7 @@ public class LoadingActivity extends AppCompatActivity {
 
             }
         });
+
     }
     private void LoadingAllSanPhams(){
         Call<List<SanPham>> call = apiService.getAllSanPhams();
@@ -99,7 +88,7 @@ public class LoadingActivity extends AppCompatActivity {
         });
     }
     private void LoadingAllHoadons(){
-        Call<List<HoaDon>> call = apiService.getAllHoadons(LoginActivity.CURRENT_USER.getMaNd());
+        Call<List<HoaDon>> call = apiService.getAllHoadons(LoginActivity.CURRENT_USER.getMaND()+"");
         call.enqueue(new Callback<List<HoaDon>>() {
             @Override
             public void onResponse(Call<List<HoaDon>> call, Response<List<HoaDon>> response) {
@@ -125,18 +114,6 @@ public class LoadingActivity extends AppCompatActivity {
 
             }
         });
-        /*Call<List<Voucher>> call = apiService.getAllVouchers();
-        call.enqueue(new Callback<List<Voucher>>() {
-            @Override
-            public void onResponse(Call<List<Voucher>> call, Response<List<Voucher>> response) {
-                arrayVC = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<List<Voucher>> call, Throwable t) {
-
-            }
-        });*/
     }
     public void LoadDuLieuFirebase(){
         // Write a message to the database

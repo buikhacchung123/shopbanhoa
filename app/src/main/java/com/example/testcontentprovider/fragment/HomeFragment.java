@@ -1,12 +1,10 @@
 package com.example.testcontentprovider.fragment;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,27 +12,25 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
-
 import com.bumptech.glide.Glide;
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.activity.LoadingActivity;
 import com.example.testcontentprovider.adapter.DMAdapter;
 import com.example.testcontentprovider.adapter.SanPhamAdapter;
-import com.example.testcontentprovider.data.ApiService;
 import com.example.testcontentprovider.data.Constance;
 import com.example.testcontentprovider.data.RetrofitClient;
+import com.example.testcontentprovider.activity.MainActivity;
+import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.SanPham;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class HomeFragment extends Fragment {
     private View view;
@@ -42,19 +38,23 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView, rvDM;
     private DMAdapter adapter;
     private ApiService apiService;
+    //private List<SanPham> dssp;
+    //private List<DanhMuc> dsdm;
+    //SanPham sp = new SanPham();
+    //DanhMuc dm = new DanhMuc();
+    MainActivity mMain = new MainActivity();
     private SanPhamAdapter sanPhamAdapter;
     private LinearLayoutManager mlinearLayoutManager;
     private GridLayoutManager gridLayoutManager;
     ImageButton button;
-
     private int mCurrentType = SanPham.TYPE_LIST;
     private int mCurrentPosition;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         AnhXa();
         ActionViewFlipper();
+
 
 
         apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
@@ -73,6 +73,9 @@ public class HomeFragment extends Fragment {
         rvDM.setAdapter(adapter);
 
 
+
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +85,37 @@ public class HomeFragment extends Fragment {
         });
         return view;
     }
+
+    /*private void LoadDMHomePage() {
+        ApiService.apiService.getAllDanhMucs().enqueue(new Callback<List<DanhMuc>>() {
+            @Override
+            public void onResponse(Call<List<DanhMuc>> call, Response<List<DanhMuc>> response) {
+                dsdm = response.body();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<DanhMuc>> call, Throwable t) {
+
+            }
+        });
+    }*/
+
+    /*private void LoadSPHomePage() {
+        ApiService.apiService.getSanPham().enqueue(new Callback<List<SanPham>>() {
+            @Override
+            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
+                dssp = response.body();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<SanPham>> call, Throwable t) {
+                Toast.makeText(getContext(),"Call api failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }*/
+
 
     private void setTypeDisplayRecyclerView(int typeDisplay) {
         if(LoadingActivity.arraySP == null || LoadingActivity.arraySP.isEmpty())
@@ -151,5 +185,4 @@ public class HomeFragment extends Fragment {
                 break;
         }
     }
-
 }

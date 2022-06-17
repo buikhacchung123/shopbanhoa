@@ -2,12 +2,14 @@ package com.example.testcontentprovider.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class KhachHang {
+import java.io.Serializable;
+
+public class KhachHang implements Serializable {
     @SerializedName("maNd")
-    String maNd;
+    int maNd;
 
     @SerializedName("tenNd")
-    String hoten;
+    String tenNd;
 
     @SerializedName("sdt")
     String sdt;
@@ -21,35 +23,37 @@ public class KhachHang {
     @SerializedName("diaChi")
     String diachi;
 
-    @SerializedName("trangThai")
+    //@SerializedName("trangThai")
     Boolean trangThai;
+
+    @SerializedName("maNnd")
+    int maNnd;
 
     public KhachHang(){
     }
 
-    public KhachHang( String hoten, String sdt, String username, String password, String diachi, Boolean trangThai) {
-        this.hoten = hoten;
+    public KhachHang( String tenNd, String sdt, String username, String password, String diachi, Boolean trangThai) {
+        this.tenNd = tenNd;
         this.sdt = sdt;
         this.username = username;
         this.password = password;
         this.diachi = diachi;
         this.trangThai = trangThai;
     }
-
-    public String getHoten() {
-        return hoten;
+    public int getMaND() {
+        return maNd;
     }
 
-    public void setHoten(String hoten) {
-        this.hoten = hoten;
+    public void setMaND(int maND) {
+        this.maNd = maND;
     }
 
-    public String getSdt() {
-        return sdt;
+    public String getTenNd() {
+        return tenNd;
     }
 
-    public void setSdt(String sdt) {
-        this.sdt = sdt;
+    public void setTenNd(String tenNd) {
+        this.tenNd = tenNd;
     }
 
     public String getUsername() {
@@ -60,28 +64,28 @@ public class KhachHang {
         this.username = username;
     }
 
-    public String getPassword() {
+    public String getPassWord() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassWord(String passWord) {
+        this.password = passWord;
     }
 
-    public String getDiachi() {
+    public String getDiaChi() {
         return diachi;
     }
 
-    public void setDiachi(String diachi) {
-        this.diachi = diachi;
+    public void setDiaChi(String diaChi) {
+        this.diachi = diaChi;
     }
 
-    public String getMaNd() {
-        return maNd;
+    public String getSdt() {
+        return sdt;
     }
 
-    public void setMaNd(String maNd) {
-        this.maNd = maNd;
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
     }
 
     public Boolean getTrangThai() {
@@ -90,5 +94,13 @@ public class KhachHang {
 
     public void setTrangThai(Boolean trangThai) {
         this.trangThai = trangThai;
+    }
+
+    public int getMaNnd() {
+        return maNnd;
+    }
+
+    public void setMaNnd(int maNnd) {
+        this.maNnd = maNnd;
     }
 }

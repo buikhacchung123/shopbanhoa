@@ -13,12 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.data.ApiService;
+import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.data.Constance;
 import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.model.KhachHang;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,7 +67,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
                     KhachHang k = GetKhachHangByUsername(username);
                     if(k != null) {
-                        k.setPassword(password);
+                        k.setPassWord(password);
                         ChangePassword(k);
                     }
                 }catch (Exception ex){
@@ -107,7 +105,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         return new KhachHang();
     }
     public void ChangePassword(KhachHang kh){
-        Call<KhachHang> call = apiService.updateKhachHang(kh.getMaNd().toString(),kh);
+        Call<KhachHang> call = apiService.updateKhachHang(kh.getMaND()+"",kh);
         call.enqueue(new Callback<KhachHang>() {
             @Override
             public void onResponse(Call<KhachHang> call, Response<KhachHang> response) {

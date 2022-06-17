@@ -26,7 +26,9 @@ public class DMSPAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return array.size();
+        if(array != null)
+            return array.size();
+        return 0;
     }
 
     @Override
@@ -43,10 +45,7 @@ public class DMSPAdapter extends BaseAdapter {
         TextView tendm_menu;
         ImageView hinhdm_menu;
 
-        public ViewHolder(){
-
-        }
-
+        public ViewHolder(){ }
     }
 
     @Override
@@ -63,7 +62,6 @@ public class DMSPAdapter extends BaseAdapter {
         }
         else
             viewHolder = (ViewHolder) convertView.getTag();
-
         viewHolder.tendm_menu.setText(array.get(position).getTenDM());
         String PACKAGE_NAME = context.getPackageName();
         int imgId;
@@ -79,5 +77,4 @@ public class DMSPAdapter extends BaseAdapter {
         viewHolder.hinhdm_menu.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
         return convertView;
     }
-
 }

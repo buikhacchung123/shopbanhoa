@@ -7,7 +7,7 @@ public class HoaDon {
     String maHD;
 
     @SerializedName("maKh")
-    String maKH;
+    int maKH;
 
     @SerializedName("ngayLap")
     String ngayLap;
@@ -19,7 +19,7 @@ public class HoaDon {
     String diaChiGiao;
 
     @SerializedName("trangThai")
-    int trangThai;
+    boolean trangThai;
 
     @SerializedName("tongTien")
     int tongTien;
@@ -30,6 +30,21 @@ public class HoaDon {
     @SerializedName("maVc")
     String maVC;
 
+
+    public HoaDon() {
+    }
+
+    public HoaDon(String ngayLap, String ngayGiao, int maKh, String maVc, String diaChigiao, Boolean trangThai, int tongTien, int tongSoluong) {
+        this.ngayLap = ngayLap;
+        this.ngayGiao = ngayGiao;
+        this.maKH = maKh;
+        this.maVC = maVc;
+        this.diaChiGiao = diaChigiao;
+        this.trangThai = trangThai;
+        this.tongTien = tongTien;
+        this.tongSoLuong = tongSoluong;
+    }
+
     public String getMaHD() {
         return maHD;
     }
@@ -38,11 +53,11 @@ public class HoaDon {
         this.maHD = maHD;
     }
 
-    public String getMaKH() {
+    public int getMaKH() {
         return maKH;
     }
 
-    public void setMaKH(String maKH) {
+    public void setMaKH(int maKH) {
         this.maKH = maKH;
     }
 
@@ -70,11 +85,11 @@ public class HoaDon {
         this.diaChiGiao = diaChiGiao;
     }
 
-    public int getTrangThai() {
+    public boolean isTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(int trangThai) {
+    public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
 
@@ -99,20 +114,6 @@ public class HoaDon {
     }
 
     public void setMaVC(String maVC) {
-        this.maVC = maVC;
-    }
-
-    public HoaDon(){}
-
-    public HoaDon(String maHD, String maKH, String ngayLap, String ngayGiao, String diaChiGiao, int trangThai, int tongTien, int tongSoLuong, String maVC) {
-        this.maHD = maHD;
-        this.maKH = maKH;
-        this.ngayLap = ngayLap;
-        this.ngayGiao = ngayGiao;
-        this.diaChiGiao = diaChiGiao;
-        this.trangThai = trangThai;
-        this.tongTien = tongTien;
-        this.tongSoLuong = tongSoLuong;
         this.maVC = maVC;
     }
 }

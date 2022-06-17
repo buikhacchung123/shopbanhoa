@@ -2,24 +2,32 @@ package com.example.testcontentprovider.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.example.testcontentprovider.R;
+import com.example.testcontentprovider.data.Constance;
+import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.model.FavoriteHistory;
+import com.example.testcontentprovider.api.ApiService;
+import com.example.testcontentprovider.model.ChiTietGioHang;
 import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.SanPham;
 import com.nex3z.notificationbadge.NotificationBadge;
-
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChiTietSanPhamActivity extends AppCompatActivity {
     ImageView imgChiTiet;
@@ -30,6 +38,8 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     static NotificationBadge badge;
     FrameLayout frameLayout;
     Toolbar toolbar;
+    int tongtien, tongsl;
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +60,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         imgChiTiet.setImageBitmap(BitmapFactory.decodeResource(getResources(),imgId));
         MoTa.setText(sp.getMota());
         FavoriteHistory utils = new FavoriteHistory(getBaseContext());
+        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
 
 
         if(!utils.checkExist(sp))
@@ -109,40 +120,100 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             int sl = 1;
             for(int i = 0; i < MainActivity.manggiohang.size(); i++)
             {
-                if(MainActivity.manggiohang.get(i).getMasp().equals(sp.getMasp())){
-                    MainActivity.manggiohang.get(i).setSoluong(MainActivity.manggiohang.get(i).getSoluong()+sl);
-                    double thanhtien = sp.getGiaban() * MainActivity.manggiohang.get(i).getSoluong();
-                    MainActivity.manggiohang.get(i).setThanhtien(thanhtien);
+                if(MainActivity.manggiohang.get(i).getMaSp() == sp.getMasp()){
+                    MainActivity.manggiohang.get(i).setSoLuong(MainActivity.manggiohang.get(i).getSoLuong()+sl);
+                    int thanhtien = sp.getGiaban() * MainActivity.manggiohang.get(i).getSoLuong();
+                    MainActivity.manggiohang.get(i).setThanhTien(thanhtien);
+                    ChiTietGioHang ct = MainActivity.manggiohang.get(i);
+                    updateCartDetail(ct.getMaGh(), ct);
+                    tinhtt();
+                    Map<String, String> map = new HashMap<>();
+                    map.put("maGh", "" + ct.getMaGh() + "");
+                    map.put("maKh", MainActivity.makh);
+                    map.put("tongSp", "" + tongsl + "");
+                    map.put("tongTien", "" + tongtien + "");
+                    updateCart(ct.getMaGh(), map);
                     flag = true;
                 }
 
             }
             if(flag == false)
             {
-                double thanhtien = sp.getGiaban() * sl;
-                GioHang gh = new GioHang();
-                gh.setMasp(sp.getMasp());
-                gh.setTensp(sp.getTensp());
-                gh.setHinhsp(sp.getHinhsp());
-                gh.setGia(sp.getGiaban());
-                gh.setSoluong(sl);
-                gh.setThanhtien(thanhtien);
-                MainActivity.manggiohang.add(gh);
+                int thanhtien = sp.getGiaban() * sl;
+                ChiTietGioHang ctgh = new ChiTietGioHang(MainActivity.magh,
+                                                            sp.getMasp(),
+                                                            sl,
+                                                            sp.getGiaban(),
+                                                            thanhtien);
+                MainActivity.manggiohang.add(ctgh);
+                addCartDetail(ctgh);
+                tinhtt();
+                Map<String, String> map = new HashMap<>();
+                map.put("maGh", "" + ctgh.getMaGh() + "");
+                map.put("maKh", MainActivity.makh);
+                map.put("tongSp", "" + tongsl + "");
+                map.put("tongTien", "" + tongtien + "");
+                updateCart(ctgh.getMaGh(), map);
             }
         }
         else {
             int sl = 1;
-            double thanhtien = sp.getGiaban() * sl;
-            GioHang gh = new GioHang();
-            gh.setMasp(sp.getMasp());
-            gh.setTensp(sp.getTensp());
-            gh.setHinhsp(sp.getHinhsp());
-            gh.setGia(sp.getGiaban());
-            gh.setSoluong(sl);
-            gh.setThanhtien(thanhtien);
+            int thanhtien = sp.getGiaban() * sl;
+            ChiTietGioHang gh = new ChiTietGioHang(MainActivity.magh,
+                    sp.getMasp(),
+                    sl,
+                    sp.getGiaban(),
+                    thanhtien);
+            gh.setMaGh(MainActivity.magh);
             MainActivity.manggiohang.add(gh);
+            addCartDetail(gh);
+            tinhtt();
+            Map<String, String> map = new HashMap<>();
+            map.put("maGh", "" + gh.getMaGh() + "");
+            map.put("maKh", MainActivity.makh);
+            map.put("tongSp", "" + tongsl + "");
+            map.put("tongTien", "" + tongtien + "");
+            updateCart(gh.getMaGh(), map);
         }
     }
+
+    private void updateCartDetail(int maGh, ChiTietGioHang ct) {
+        apiService.updateCartDetail(maGh, ct).enqueue(new Callback<ChiTietGioHang>() {
+            @Override
+            public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
+                if(response.code() != 204)
+                {
+                    Log.e("Error: ", response.raw() + "");
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChiTietGioHang> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void addCartDetail(ChiTietGioHang map) {
+       apiService.setCartDetail(map).enqueue(new Callback<ChiTietGioHang>() {
+            @Override
+            public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
+                if(!response.message().equals("Created")){
+                    Log.e("Error: ", response.raw() + "");
+                    Toast.makeText(getBaseContext(),"Code: " + response.code(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChiTietGioHang> call, Throwable t) {
+
+            }
+        });
+    }
+
+
     public void chuyenGioHang() {
         Intent giohang = new Intent(ChiTietSanPhamActivity.this, CartActivity.class);
         startActivity(giohang);
@@ -162,10 +233,36 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     public static void checkSLSP(){
         if(MainActivity.manggiohang != null)
         {
-            badge.setText(String.valueOf(MainActivity.manggiohang.size()));
+            String sl = String.valueOf(MainActivity.manggiohang.size());
+            badge.setText(sl+"");
         }
         else {
             badge.setText(String.valueOf(0));
+        }
+    }
+
+    private void updateCart(int maGh, Map<String, String> map) {
+        apiService.updateCart(maGh, map).enqueue(new Callback<GioHang>() {
+            @Override
+            public void onResponse(Call<GioHang> call, Response<GioHang> response) {
+                if(response.isSuccessful())
+                    Log.e("Message: ", response.message());
+            }
+
+            @Override
+            public void onFailure(Call<GioHang> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void tinhtt() {
+        tongtien = 0;
+        tongsl = 0;
+        for(int i = 0; i < MainActivity.manggiohang.size(); i++)
+        {
+            tongtien += (MainActivity.manggiohang.get(i).getDonGia() * MainActivity.manggiohang.get(i).getSoLuong());
+            tongsl += MainActivity.manggiohang.get(i).getSoLuong();
         }
     }
 }
