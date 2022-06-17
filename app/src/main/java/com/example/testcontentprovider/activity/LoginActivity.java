@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText username, password;
     CheckBox checkBox;
     TextView linkDangKyNgay, linkQuenMatKhau;
-    private ApiService apiService;
+    //private ApiService apiService;
     public static KhachHang CURRENT_USER;
     public static List<KhachHang> arrayKH;
     private List<KhachHang> user;
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+        //apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
         LoadingAllKhachHangs();
         AnhXa();
         loadData();
@@ -200,7 +200,7 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
     private void LoadingAllKhachHangs() {
-        Call<List<KhachHang>> call = apiService.getAllKhachHangs();
+        Call<List<KhachHang>> call = ApiService.apiService.getAllKhachHangs();
         call.enqueue(new Callback<List<KhachHang>>() {
             @Override
             public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {

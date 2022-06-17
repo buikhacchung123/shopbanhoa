@@ -26,13 +26,13 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiService {
-    //Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
+    Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
 
-    /*ApiService apiService = new Retrofit.Builder()
-            .baseUrl("http://chhoa.somee.com/api/")
+    ApiService apiService = new Retrofit.Builder()
+            .baseUrl("http://chhoa.somee.com/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-            .create(ApiService.class);*/
+            .create(ApiService.class);
     // xu ly dang nhap
     @GET("/api/Nguoidungs/GetUserByUsername/{tenNd}")
     Call<List<KhachHang>> getUser(@Path("tenNd") String username);
