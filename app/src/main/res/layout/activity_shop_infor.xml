@@ -67,10 +67,10 @@
                     android:background="@color/dark_blue"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/txtPara2" />
+                    app:layout_constraintTop_toTopOf="@+id/txtPara" />
 
                 <TextView
-                    android:id="@+id/txtPara2"
+                    android:id="@+id/txtPara"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -85,7 +85,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/txtPara3"
+                android:id="@+id/txtPara2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

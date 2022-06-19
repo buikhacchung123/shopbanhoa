@@ -21,15 +21,12 @@ import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.activity.CartActivity;
 import com.example.testcontentprovider.activity.ChiTietSanPhamActivity;
 import com.example.testcontentprovider.api.ApiService;
-import com.example.testcontentprovider.data.Constance;
-import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.fragment.HomeFragment;
 import com.example.testcontentprovider.model.ChiTietGioHang;
 import com.example.testcontentprovider.model.IImageClickListener;
 import com.example.testcontentprovider.activity.MainActivity;
 import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.SanPham;
-import com.google.android.gms.common.api.Api;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -46,7 +43,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     SanPham sp = new SanPham();
     int tongtien;
     int tongsl;
-    private ApiService apiService;
     public CartAdapter(Context context, List<ChiTietGioHang> gioHangList) {
         this.context = context;
         this.gioHangList = gioHangList;
@@ -56,19 +52,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart, parent, false);
-        //apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+
         return new MyViewHolder(view);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
         ChiTietGioHang gh = gioHangList.get(position);
-        holder.txtTensp.setText(sp.getSPByMaSP(gh.getMaSp()).getTensp());
+        holder.txtTensp.setText(sp.getSPByMaSP(gh.getMaSp()).getTenSp());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.txtGia.setText(decimalFormat.format(gh.getDonGia()) + " VNĐ");
-        String[] imgSplit = sp.getSPByMaSP(gh.getMaSp()).getHinhsp().split("\\.");
+        String[] imgSplit = sp.getSPByMaSP(gh.getMaSp()).getHinhSp().split("\\.");
         String imgName = imgSplit[0];
         String PACKAGE_NAME = context.getPackageName();
         int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
@@ -192,7 +187,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
     private void updateCart(int maGh, Map<String, String> map) {
-        apiService.updateCart(maGh, map).enqueue(new Callback<GioHang>() {
+        ApiService.apiService.updateCart(maGh, map).enqueue(new Callback<GioHang>() {
             @Override
             public void onResponse(Call<GioHang> call, Response<GioHang> response) {
                 if(response.isSuccessful())
@@ -241,7 +236,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             txtGia = itemView.findViewById(R.id.itemcart_gia);
             txtSL = itemView.findViewById(R.id.itemcart_sl);
             txtTensp = itemView.findViewById(R.id.itemcart_tensp);
-            txtThanhtien = itemView.findViewById(R.id.itemVC_NgayKetThuc);
+            txtThanhtien = itemView.findViewById(R.id.itemPayment_ThanhTien);
             btnCongSL = itemView.findViewById(R.id.btnThemSL);
             btnTruSL = itemView.findViewById(R.id.btnGiamSL);
             btnXoaGH = itemView.findViewById(R.id.btnXoaSP);
@@ -257,7 +252,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
     public void updateCartDetail(ChiTietGioHang ct) {
-        apiService.updateCartDetail(ct.getMaGh(), ct)
+        ApiService.apiService.updateCartDetail(ct.getMaGh(), ct)
                 .enqueue(new Callback<ChiTietGioHang>() {
                     @Override
                     public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
@@ -273,7 +268,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
     public void deleteCartDetail(ChiTietGioHang ct) {
-        apiService.deleteCartDetail(ct.getMaGh(), ct.getMaSp())
+        ApiService.apiService.deleteCartDetail(ct.getMaGh(), ct.getMaSp())
                 .enqueue(new Callback<ChiTietGioHang>() {
                     @Override
                     public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {

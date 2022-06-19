@@ -9,17 +9,17 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.data.Constance;
-import com.example.testcontentprovider.data.RetrofitClient;
-import com.example.testcontentprovider.model.KhachHang;
-import java.io.Serializable;
 import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.model.GioHang;
+import com.example.testcontentprovider.model.KhachHang;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,36 +29,16 @@ public class LoginActivity extends AppCompatActivity {
     EditText username, password;
     CheckBox checkBox;
     TextView linkDangKyNgay, linkQuenMatKhau;
-    //private ApiService apiService;
-    public static KhachHang CURRENT_USER;
-    public static List<KhachHang> arrayKH;
     private List<KhachHang> user;
     private KhachHang mkh;
     static GioHang cart;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        //apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-        LoadingAllKhachHangs();
         AnhXa();
         loadData();
 
-
-
-        if(getIntent().getSerializableExtra("intentUser")!=null && getIntent().getSerializableExtra("intentPass")!=null) {
-            String user = getIntent().getSerializableExtra("intentUser").toString();
-            String pass = getIntent().getSerializableExtra("intentPass").toString();
-            if(user != null && pass != null){
-                username.setText("user");
-                password.setText("pass");
-            }
-        }
-
-        //Sự kiện trang đăng nhập
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,11 +46,9 @@ public class LoginActivity extends AppCompatActivity {
                     String un = username.getText().toString().trim();
                     String pw = password.getText().toString().trim();
                     boolean check = checkBox.isChecked();
-                    if(un.length() == 0 || pw.length() == 0) {
+                    if(un.length() == 0 || pw.length() == 0)
                         Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    /*else
+                    else
                     {
                         ApiService.apiService.getUser(un).enqueue(new Callback<List<KhachHang>>() {
                             @Override
@@ -93,9 +71,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                 if(isHasUser){
                                     LuuTT(un,pw,check);
-                                    Intent intent = new Intent(LoginActivity.this, LoadingActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     Bundle bundle = new Bundle();
-                                    bundle.putSerializable("object_user", (Serializable) mkh);
+                                    bundle.putSerializable("object_user", mkh);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                 } else {
@@ -108,26 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Call api failed", Toast.LENGTH_LONG).show();
                             }
                         });
-                    }*/
-                    KhachHang userLogin =GetKhachHangByUsername(un);
-                    if(!IsUsernameExist(un) || userLogin == null){
-                        username.setError("Tài khoản không tồn tại.");
-                        username.requestFocus();
-                        return;
                     }
-
-                    if(!userLogin.getPassWord().trim().equals(pw))
-                    {
-                        password.setError("Mật khẩu không đúng.");
-                        password.requestFocus();
-                        return;
-                    }
-                    LuuTT(un,pw,check);
-                    Toast.makeText(LoginActivity.this,"Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                    CURRENT_USER = userLogin;
-                    Intent intent = new Intent(LoginActivity.this, LoadingActivity.class);
-                    intent.putExtra("CurrentUser", userLogin.getUsername());
-                    startActivity(intent);
                 }catch (Exception ex) {
                     startActivity(new Intent(LoginActivity.this,ErrorActivity.class));
                 }
@@ -171,7 +130,6 @@ public class LoginActivity extends AppCompatActivity {
         }
         editor.commit();
     }
-
     // đọc thông tin từ file thongtin.dat
     private void loadData(){
         SharedPreferences pref = getSharedPreferences("thongtin.dat",MODE_PRIVATE);
@@ -182,35 +140,5 @@ public class LoginActivity extends AppCompatActivity {
             checkBox.setChecked(check);
         }
     }
-    public KhachHang GetKhachHangByUsername(String userKH){
-        if(LoginActivity.arrayKH.size()!=0 ||LoginActivity.arrayKH!=null)
-            for (KhachHang k : LoginActivity.arrayKH){
-                if(k != null)
-                    if(k.getUsername()!= null && userKH.toLowerCase().trim().equals(k.getUsername().toLowerCase()))
-                        return k;
-            }
-        return new KhachHang();
-    }
-    public boolean IsUsernameExist(String mail){
-        for (KhachHang k : LoginActivity.arrayKH){
-            if(k.getUsername() != null && !k.getUsername().isEmpty())
-                if(k.getUsername().toLowerCase().trim().equals(mail.toLowerCase().trim()))
-                    return true;
-        }
-        return false;
-    }
-    private void LoadingAllKhachHangs() {
-        Call<List<KhachHang>> call = ApiService.apiService.getAllKhachHangs();
-        call.enqueue(new Callback<List<KhachHang>>() {
-            @Override
-            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
-                arrayKH = response.body();
-            }
 
-            @Override
-            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
-
-            }
-        });
-    }
 }

@@ -29,99 +29,66 @@ public interface ApiService {
     Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
 
     ApiService apiService = new Retrofit.Builder()
-            .baseUrl("http://chhoa.somee.com/")
+            .baseUrl("http://chhoa.somee.com/api/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
     // xu ly dang nhap
-    @GET("/api/Nguoidungs/GetUserByUsername/{tenNd}")
+    @GET("Nguoidungs/GetUserByUsername/{tenNd}")
     Call<List<KhachHang>> getUser(@Path("tenNd") String username);
-
-    @GET("/Danhmucs")
+    //
+    @GET("Danhmucs")
     Call<List<DanhMuc>> getAllDanhMucs();
-
-    @GET("/api/Vouchers")
-    Call<List<Voucher>> getAllVouchers();
-
-    @GET("/api/Sanphams")
-    Call<List<SanPham>> getAllSanPhams();
-
-    @GET("/api/Sanphams/GetSpByDm/{MaDM}")
+    // xu ly san pham
+    @GET("Sanphams")
+    Call<List<SanPham>> getSanPham();
+    @GET("Sanphams/GetSpByDm/{MaDM}")
     Call<List<SanPham>> getSanPhamTheoDM(@Path("MaDM") String id);
-
-    @POST("/api/Nguoidungs")
-    Call<KhachHang> insertKhachHang(@Body KhachHang khachHang);
-
-    @GET("/api/Nguoidungs")
-    Call<List<KhachHang>> getAllKhachHangs();
-
-    @PUT("/api/Nguoidungs/{MaND}")
-    Call<KhachHang> updateKhachHang(@Path("MaND") String id,@Body KhachHang khachHang);
-
-    /*@GET("GioHang")
-    Call<GioHang> getGioHang();
-
-    @GET("ChitietGiohang/{maGH}&{maKH}")
-    Call<List<ChiTietGioHang>> getAllChiTietGioHang(@Path("MaGH") String maGH,@Path("MaKH") String maKH);*/
-
-    @GET("/api/Hoadons/GetHdByMaNd/{MaKH}")
-    Call<List<HoaDon>> getAllHoadons(@Path("MaKH") String id);
-
     // xu ly gio hang
-    @GET("/api/Giohangs")
+    @GET("Giohangs")
     Call<List<GioHang>> getCart();
-
     @Headers({"Accept: application/json"})
-    @POST("/api/Giohangs")
+    @POST("Giohangs")
     Call<GioHang> setCart(@Body Map<String, String> body);
-
     @Headers({"Accept: application/json"})
-    @PUT("/api/Giohangs/{maGh}")
+    @PUT("Giohangs/{maGh}")
     Call<GioHang> updateCart(@Path("maGh") int ma,
                              @Body Map<String, String> body);
-
     @Headers({"Accept: application/json"})
-    @PUT("/api/Giohangs/{maGh}")
+    @PUT("Giohangs/{maGh}")
     Call<GioHang> updateCart(@Path("maGh") int ma,
                              @Body GioHang body);
-
-    @DELETE("/api/Giohangs/{maGh}")
+    @DELETE("Giohangs/{maGh}")
     Call<GioHang> deleteCart(@Path("maGh") int ma);
-
     // xu ly chi tiet gio hang
-    @GET("/api/ChitietGiohangs")
+    @GET("ChitietGiohangs")
     Call<List<ChiTietGioHang>> getAllCartDetail();
-
     @Headers({"Accept: application/json"})
-    @POST("/api/ChitietGiohangs")
+    @POST("ChitietGiohangs")
     Call<ChiTietGioHang> setCartDetail(@Body ChiTietGioHang body);
-
-    @PUT("/api/ChitietGiohangs/{maGh}")
+    @PUT("ChitietGiohangs/{maGh}")
     Call<ChiTietGioHang> updateCartDetail(@Path("maGh") int magh,
                                           @Body ChiTietGioHang detail);
-
-    @DELETE("/api/ChitietGiohangs/{maGh}/{maSp}")
+    @DELETE("ChitietGiohangs/{maGh}/{maSp}")
     Call<ChiTietGioHang> deleteCartDetail(@Path("maGh") int magh,
                                           @Path("maSp") int masp);
     // xu ly voucher
-    @GET("/api/Vouchers/{maVc}")
+    @GET("Vouchers/{maVc}")
     Call<Voucher> getVoucher(@Path("maVc") String ma);
-
-    @PUT("/api/Vouchers/{maVc}")
+    @PUT("Vouchers/{maVc}")
     Call<Voucher> updateVoucher(@Path("maVc") String ma, @Body Voucher gh);
-
     // hoa don
-    @GET("/api/Hoadons/GetHdByMaNd/{maNd}")
+    @GET("Hoadons/GetHdByMaNd/{maNd}")
     Call<List<HoaDon>> getHoaDon(@Path("maNd") int ma);
-
     @Headers({"Accept: application/json"})
-    @POST("/api/Hoadons")
+    @POST("Hoadons")
     Call<HoaDon> setHD(@Body HoaDon hd);
 
-    @GET("/api/ChitietHoadons")
+    @GET("ChitietHoadons")
     Call<List<ChiTietHoaDon>> getHoaDon();
 
+
     @Headers({"Accept: application/json"})
-    @POST("/api/ChitietHoadons")
+    @POST("ChitietHoadons")
     Call<ChiTietHoaDon> setCTHD(@Body ChiTietHoaDon cthd);
 }

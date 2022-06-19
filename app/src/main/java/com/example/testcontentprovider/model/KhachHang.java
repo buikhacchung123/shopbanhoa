@@ -1,45 +1,18 @@
 package com.example.testcontentprovider.model;
 
-import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
 public class KhachHang implements Serializable {
-    @SerializedName("maNd")
     int maNd;
-
-    @SerializedName("tenNd")
     String tenNd;
-
-    @SerializedName("sdt")
-    String sdt;
-
-    @SerializedName("username")
     String username;
-
-    @SerializedName("passWord")
-    String password;
-
-    @SerializedName("diaChi")
-    String diachi;
-
-    //@SerializedName("trangThai")
+    String passWord;
+    String diaChi;
+    String sdt;
     Boolean trangThai;
-
-    @SerializedName("maNnd")
     int maNnd;
 
-    public KhachHang(){
-    }
-
-    public KhachHang( String tenNd, String sdt, String username, String password, String diachi, Boolean trangThai) {
-        this.tenNd = tenNd;
-        this.sdt = sdt;
-        this.username = username;
-        this.password = password;
-        this.diachi = diachi;
-        this.trangThai = trangThai;
-    }
     public int getMaND() {
         return maNd;
     }
@@ -65,19 +38,19 @@ public class KhachHang implements Serializable {
     }
 
     public String getPassWord() {
-        return password;
+        return passWord;
     }
 
     public void setPassWord(String passWord) {
-        this.password = passWord;
+        this.passWord = passWord;
     }
 
     public String getDiaChi() {
-        return diachi;
+        return diaChi;
     }
 
     public void setDiaChi(String diaChi) {
-        this.diachi = diaChi;
+        this.diaChi = diaChi;
     }
 
     public String getSdt() {
@@ -103,4 +76,9 @@ public class KhachHang implements Serializable {
     public void setMaNnd(int maNnd) {
         this.maNnd = maNnd;
     }
+
+    public KhachHang(){
+
+    }
+
 }

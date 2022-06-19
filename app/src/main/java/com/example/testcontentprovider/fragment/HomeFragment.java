@@ -1,10 +1,12 @@
 package com.example.testcontentprovider.fragment;
 
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,67 +16,49 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+
 import com.bumptech.glide.Glide;
 import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.activity.LoadingActivity;
+import com.example.testcontentprovider.activity.MainActivity;
 import com.example.testcontentprovider.adapter.DMAdapter;
 import com.example.testcontentprovider.adapter.SanPhamAdapter;
-import com.example.testcontentprovider.data.Constance;
-import com.example.testcontentprovider.data.RetrofitClient;
-import com.example.testcontentprovider.activity.MainActivity;
 import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.model.DanhMuc;
 import com.example.testcontentprovider.model.SanPham;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class HomeFragment extends Fragment {
     private View view;
     private ViewFlipper viewFlipper;
     private RecyclerView recyclerView, rvDM;
+    private List<SanPham> dssp;
+    private List<DanhMuc> dsdm;
     private DMAdapter adapter;
-    private ApiService apiService;
-    //private List<SanPham> dssp;
-    //private List<DanhMuc> dsdm;
-    //SanPham sp = new SanPham();
-    //DanhMuc dm = new DanhMuc();
+    SanPham sp = new SanPham();
+    DanhMuc dm = new DanhMuc();
     MainActivity mMain = new MainActivity();
     private SanPhamAdapter sanPhamAdapter;
     private LinearLayoutManager mlinearLayoutManager;
     private GridLayoutManager gridLayoutManager;
     ImageButton button;
-    private int mCurrentType = SanPham.TYPE_LIST;
-    private int mCurrentPosition;
+
+    private  int mCurrentType = SanPham.TYPE_LIST;
+    private  int mCurrentPosition;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         AnhXa();
         ActionViewFlipper();
 
-
-
-        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-
-        //Set giao diện list SP
-        sanPhamAdapter = new SanPhamAdapter(getContext(),(ArrayList<SanPham>) LoadingActivity.arraySP);
-        recyclerView.setLayoutManager(mlinearLayoutManager);
-        recyclerView.setAdapter(sanPhamAdapter);
-        setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
-
-        //Set giao diện list DM
-        adapter = new DMAdapter(getContext(), (ArrayList<DanhMuc>) LoadingActivity.arrayDM);
-        LinearLayoutManager layoutManager
-                = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        rvDM.setLayoutManager(layoutManager);
-        rvDM.setAdapter(adapter);
-
-
-
-
+        LoadSPHomePage();
+        LoadDMHomePage();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,12 +70,16 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    /*private void LoadDMHomePage() {
+    private void LoadDMHomePage() {
         ApiService.apiService.getAllDanhMucs().enqueue(new Callback<List<DanhMuc>>() {
             @Override
             public void onResponse(Call<List<DanhMuc>> call, Response<List<DanhMuc>> response) {
                 dsdm = response.body();
-
+                adapter = new DMAdapter(getContext(),dsdm);
+                LinearLayoutManager layoutManager
+                        = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+                rvDM.setLayoutManager(layoutManager);
+                rvDM.setAdapter(adapter);
             }
 
             @Override
@@ -99,14 +87,17 @@ public class HomeFragment extends Fragment {
 
             }
         });
-    }*/
+    }
 
-    /*private void LoadSPHomePage() {
+    private void LoadSPHomePage() {
         ApiService.apiService.getSanPham().enqueue(new Callback<List<SanPham>>() {
             @Override
             public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
                 dssp = response.body();
-
+                sanPhamAdapter = new SanPhamAdapter(getContext(),dssp);
+                recyclerView.setLayoutManager(mlinearLayoutManager);
+                recyclerView.setAdapter(sanPhamAdapter);
+                setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
             }
 
             @Override
@@ -114,16 +105,17 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(),"Call api failed", Toast.LENGTH_SHORT).show();
             }
         });
-    }*/
+    }
 
 
     private void setTypeDisplayRecyclerView(int typeDisplay) {
-        if(LoadingActivity.arraySP == null || LoadingActivity.arraySP.isEmpty())
+        if(dssp == null || dssp.isEmpty())
             return;
         mCurrentType = typeDisplay;
-        for(SanPham sp : LoadingActivity.arraySP)
+        for(SanPham sp : dssp)
             sp.setTypeDisplay(typeDisplay);
     }
+
     private void AnhXa() {
         viewFlipper = view.findViewById(R.id.viewflipperhome);
         recyclerView = view.findViewById(R.id.recyclerview);
@@ -132,6 +124,7 @@ public class HomeFragment extends Fragment {
         gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
         button = view.findViewById(R.id.btn_changeDisplay);
     }
+
     private void ActionViewFlipper() {
         List<String> quangcao = new ArrayList<>();
         quangcao.add("https://hyt.r.worldssl.net/cms-images/banner/434410_dong-hanh-cung-nong-dan-viet-nam.jpg");
@@ -151,6 +144,7 @@ public class HomeFragment extends Fragment {
         viewFlipper.setInAnimation(slidein);
         viewFlipper.setOutAnimation(slideout);
     }
+
     private void onClickChangeTypeDisplay() {
         if(mCurrentType == SanPham.TYPE_LIST){
             setTypeDisplayRecyclerView(SanPham.TYPE_GRID);
@@ -164,6 +158,7 @@ public class HomeFragment extends Fragment {
         setIconButton();
         recyclerView.scrollToPosition(mCurrentPosition);
     }
+
     private void setIconButton() {
         switch (mCurrentType){
             case SanPham.TYPE_LIST:
@@ -174,6 +169,7 @@ public class HomeFragment extends Fragment {
                 break;
         }
     }
+
     private void setCurrentPosition(){
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         switch (mCurrentType){

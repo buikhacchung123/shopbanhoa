@@ -1,47 +1,40 @@
 package com.example.testcontentprovider.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
-public class ChiTietGioHang {
-    @SerializedName("maGh")
-    int maGH;
-
-    @SerializedName("maSp")
-    int maSP;
-
-    @SerializedName("thanhTien")
-    int thanhTien;
-
-    @SerializedName("soLuong")
+public class ChiTietGioHang implements Serializable{
+    int maGh;
+    int maSp;
     int soLuong;
-
-    @SerializedName("donGia")
     int donGia;
+    int thanhTien;
 
     public ChiTietGioHang() {
     }
 
     public ChiTietGioHang(int maGh, int maSp, int soLuong, int donGia, int thanhTien) {
-        this.maGH = maGh;
-        this.maSP = maSp;
+        this.maGh = maGh;
+        this.maSp = maSp;
         this.soLuong = soLuong;
         this.donGia = donGia;
         this.thanhTien = thanhTien;
     }
 
     public int getMaGh() {
-        return maGH;
+        return maGh;
     }
 
     public void setMaGh(int maGh) {
-        this.maGH = maGh;
+        this.maGh = maGh;
     }
 
     public int getMaSp() {
-        return maSP;
+        return maSp;
     }
 
-    public void setMaSp(int maSp) { this.maSP = maSp; }
+    public void setMaSp(int maSp) {
+        this.maSp = maSp;
+    }
 
     public int getSoLuong() {
         return soLuong;

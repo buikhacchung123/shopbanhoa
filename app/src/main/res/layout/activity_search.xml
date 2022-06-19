@@ -56,26 +56,23 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/lv_SearchResult"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_SearchSP"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-    </LinearLayout>
+    </ListView>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_SearchSP"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/txtNoContent"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:fontFamily="@font/cerapro_regular"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:text="Không có sản phẩm nào"
-        android:textSize="15sp"
-        android:visibility="visible" />
+        android:textSize="24sp" />
 </LinearLayout>

@@ -3,12 +3,13 @@ package com.example.testcontentprovider.fragment;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,29 +17,27 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.activity.ChangePasswordActivity;
 import com.example.testcontentprovider.activity.ErrorActivity;
-import com.example.testcontentprovider.activity.HistoryOrderActivity;
-import com.example.testcontentprovider.activity.LoginActivity;
-import com.example.testcontentprovider.activity.MainActivity;
 import com.example.testcontentprovider.activity.LoginActivity;
 import com.example.testcontentprovider.activity.ShopInforActivity;
 import com.example.testcontentprovider.activity.UpdateUserInforActivity;
-import com.example.testcontentprovider.activity.VoucherActivity;
-import com.example.testcontentprovider.model.KhachHang;
-import java.io.Serializable;
 
 public class ProfileFragment extends Fragment {
-    ConstraintLayout btnThayDoiThongTin, btnDangXuat, btnDoiThuong, btnLichSuMuaHang, btnThongTinCH, btnDoiMK, btnVoucher;
+    ConstraintLayout btnThayDoiThongTin, btnDangXuat, btnDoiThuong, btnLichSuMuaHang, btnThongTinCH, btnDoiMK;
     private View view;
 
 
-    public ProfileFragment() {}
+    public ProfileFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
 
         }
@@ -74,30 +73,19 @@ public class ProfileFragment extends Fragment {
         btnDangXuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences settings = getContext().getSharedPreferences("thongtin.dat", getContext().MODE_PRIVATE);
-                settings.edit().remove("username").commit();
-                settings.edit().remove("password").commit();
-                LoginActivity.CURRENT_USER=new KhachHang();
-                startActivity(new Intent(getContext(), LoginActivity.class));
 
             }
         });
         btnLichSuMuaHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), HistoryOrderActivity.class));
+
             }
         });
         btnDoiThuong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), ErrorActivity.class));
-            }
-        });
-        btnVoucher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), VoucherActivity.class));
+
             }
         });
 
@@ -110,7 +98,6 @@ public class ProfileFragment extends Fragment {
         btnThayDoiThongTin = view.findViewById(R.id.btnThayDoiThongTin);
         btnThongTinCH = view.findViewById(R.id.btnThongTinCuaHang);
         btnDoiMK = view.findViewById(R.id.btnDoiMatKhau);
-        btnVoucher = view.findViewById(R.id.btnVoucher);
     }
 
     void showCustomDialog(){

@@ -2,6 +2,7 @@ package com.example.testcontentprovider.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,18 +14,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.testcontentprovider.R;
-import com.example.testcontentprovider.data.Constance;
-import com.example.testcontentprovider.data.RetrofitClient;
-import com.example.testcontentprovider.model.FavoriteHistory;
 import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.model.ChiTietGioHang;
 import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.SanPham;
 import com.nex3z.notificationbadge.NotificationBadge;
+
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,37 +40,23 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     FrameLayout frameLayout;
     Toolbar toolbar;
     int tongtien, tongsl;
-    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitietsanpham);
         AnhXa();
-
-
-        //Nhận dữ liệu, gán vào trang
-        sp = (SanPham) getIntent().getSerializableExtra("SPItem");
+        Intent intent = getIntent();
+        sp = (SanPham) intent.getSerializableExtra("SPItem");
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        TenSP.setText(sp.getTensp());
-        Gia.setText(decimalFormat.format(sp.getGiaban())+" VNĐ");
-        String[] imgSplit= sp.getHinhsp().split("\\.");
+        TenSP.setText(sp.getTenSp());
+        Gia.setText(decimalFormat.format(sp.getGiaBan())+" VNĐ");
+        String[] imgSplit= sp.getHinhSp().split("\\.");
         String imgName = imgSplit[0];
         String PACKAGE_NAME = getPackageName();
         int imgId = getResources().getIdentifier(PACKAGE_NAME+":drawable/"+imgName , null, null);
         imgChiTiet.setImageBitmap(BitmapFactory.decodeResource(getResources(),imgId));
-        MoTa.setText(sp.getMota());
-        FavoriteHistory utils = new FavoriteHistory(getBaseContext());
-        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
-
-
-        if(!utils.checkExist(sp))
-            btnLove.setImageResource(R.drawable.ic_unfavorite);
-        else
-            btnLove.setImageResource(R.drawable.ic_favorite);
-
-
-        //Sự kiện trang Chi tiết sản phẩm
+        MoTa.setText(sp.getMoTa());
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,14 +81,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         btnLove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(utils.checkExist(sp)) {
-                    btnLove.setImageResource(R.drawable.ic_unfavorite);
-                    utils.removeFavoriteHistory(sp);
-                }
-                else {
-                    btnLove.setImageResource(R.drawable.ic_favorite);
-                    utils.addFavoriteHistorry(sp);
-                }
+                btnLove.setImageResource(R.drawable.ic_favorite);
             }
         });
         setSupportActionBar(toolbar);
@@ -120,9 +100,9 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             int sl = 1;
             for(int i = 0; i < MainActivity.manggiohang.size(); i++)
             {
-                if(MainActivity.manggiohang.get(i).getMaSp() == sp.getMasp()){
+                if(MainActivity.manggiohang.get(i).getMaSp() == sp.getMaSp()){
                     MainActivity.manggiohang.get(i).setSoLuong(MainActivity.manggiohang.get(i).getSoLuong()+sl);
-                    int thanhtien = sp.getGiaban() * MainActivity.manggiohang.get(i).getSoLuong();
+                    int thanhtien = sp.getGiaBan() * MainActivity.manggiohang.get(i).getSoLuong();
                     MainActivity.manggiohang.get(i).setThanhTien(thanhtien);
                     ChiTietGioHang ct = MainActivity.manggiohang.get(i);
                     updateCartDetail(ct.getMaGh(), ct);
@@ -139,11 +119,11 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             }
             if(flag == false)
             {
-                int thanhtien = sp.getGiaban() * sl;
+                int thanhtien = sp.getGiaBan() * sl;
                 ChiTietGioHang ctgh = new ChiTietGioHang(MainActivity.magh,
-                                                            sp.getMasp(),
+                                                            sp.getMaSp(),
                                                             sl,
-                                                            sp.getGiaban(),
+                                                            sp.getGiaBan(),
                                                             thanhtien);
                 MainActivity.manggiohang.add(ctgh);
                 addCartDetail(ctgh);
@@ -158,11 +138,11 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         }
         else {
             int sl = 1;
-            int thanhtien = sp.getGiaban() * sl;
+            int thanhtien = sp.getGiaBan() * sl;
             ChiTietGioHang gh = new ChiTietGioHang(MainActivity.magh,
-                    sp.getMasp(),
+                    sp.getMaSp(),
                     sl,
-                    sp.getGiaban(),
+                    sp.getGiaBan(),
                     thanhtien);
             gh.setMaGh(MainActivity.magh);
             MainActivity.manggiohang.add(gh);
@@ -178,7 +158,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     }
 
     private void updateCartDetail(int maGh, ChiTietGioHang ct) {
-        apiService.updateCartDetail(maGh, ct).enqueue(new Callback<ChiTietGioHang>() {
+        ApiService.apiService.updateCartDetail(maGh, ct).enqueue(new Callback<ChiTietGioHang>() {
             @Override
             public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
                 if(response.code() != 204)
@@ -196,7 +176,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     }
 
     private void addCartDetail(ChiTietGioHang map) {
-       apiService.setCartDetail(map).enqueue(new Callback<ChiTietGioHang>() {
+        ApiService.apiService.setCartDetail(map).enqueue(new Callback<ChiTietGioHang>() {
             @Override
             public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
                 if(!response.message().equals("Created")){
@@ -213,7 +193,6 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         });
     }
 
-
     public void chuyenGioHang() {
         Intent giohang = new Intent(ChiTietSanPhamActivity.this, CartActivity.class);
         startActivity(giohang);
@@ -228,6 +207,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbarct);
         badge = findViewById(R.id.cart_sl);
         btnLove = findViewById(R.id.btnLove);
+
         frameLayout = findViewById(R.id.shopingcart);
     }
     public static void checkSLSP(){
@@ -242,11 +222,13 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
     }
 
     private void updateCart(int maGh, Map<String, String> map) {
-        apiService.updateCart(maGh, map).enqueue(new Callback<GioHang>() {
+        ApiService.apiService.updateCart(maGh, map).enqueue(new Callback<GioHang>() {
             @Override
             public void onResponse(Call<GioHang> call, Response<GioHang> response) {
                 if(response.isSuccessful())
+                {
                     Log.e("Message: ", response.message());
+                }
             }
 
             @Override
@@ -255,6 +237,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void tinhtt() {
         tongtien = 0;
@@ -265,4 +248,6 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             tongsl += MainActivity.manggiohang.get(i).getSoLuong();
         }
     }
+
+
 }

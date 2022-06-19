@@ -24,8 +24,6 @@ public class CartActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Button btnTiepTucMuahang, btnThanhToan;
     static CartAdapter adapter;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -8,67 +8,55 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context=".fragment.HomeFragment">
-
-    <ScrollView
+    <ViewFlipper
+        android:id="@+id/viewflipperhome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="200dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    </ViewFlipper>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/cerapro_regular"
+        android:text="Danh mục"
+        android:textColor="@color/dark_blue"
+        android:textSize="20dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvdanhmuc"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="10dp">
+    </androidx.recyclerview.widget.RecyclerView>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:text="Sản phẩm hot"
+            android:textSize="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/dark_blue"
+            android:fontFamily="@font/cerapro_regular"/>
 
-            <ViewFlipper
-                android:id="@+id/viewflipperhome"
-                android:layout_width="match_parent"
-                android:layout_height="200dp">
+        <ImageButton
+            android:id="@+id/btn_changeDisplay"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_list"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+    </LinearLayout>
 
-            </ViewFlipper>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/cerapro_regular"
-                android:text="Danh mục"
-                android:textColor="@color/dark_blue"
-                android:textSize="20dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvdanhmuc"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_margin="10dp"></androidx.recyclerview.widget.RecyclerView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="350dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/cerapro_regular"
-                    android:text="Sản phẩm hot"
-                    android:textColor="@color/dark_blue"
-                    android:textSize="20dp" />
-
-                <ImageButton
-                    android:id="@+id/btn_changeDisplay"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_list"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"></androidx.recyclerview.widget.RecyclerView>
-        </LinearLayout>
-    </ScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

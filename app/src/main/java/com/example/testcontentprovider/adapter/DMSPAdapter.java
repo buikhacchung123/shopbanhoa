@@ -18,6 +18,7 @@ public class DMSPAdapter extends BaseAdapter {
 
     List<DanhMuc> array;
     Context context;
+    DanhMuc danhMuc;
 
     public DMSPAdapter(List<DanhMuc> array, Context context) {
         this.array = array;
@@ -45,7 +46,10 @@ public class DMSPAdapter extends BaseAdapter {
         TextView tendm_menu;
         ImageView hinhdm_menu;
 
-        public ViewHolder(){ }
+        public ViewHolder(){
+
+        }
+
     }
 
     @Override
@@ -62,19 +66,15 @@ public class DMSPAdapter extends BaseAdapter {
         }
         else
             viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.tendm_menu.setText(array.get(position).getTenDM());
-        String PACKAGE_NAME = context.getPackageName();
-        int imgId;
-        if(array.get(position).getHinhDM() != null) {
-            String[] imgSplit = array.get(position).getHinhDM().split("\\.");
-            String imgName = imgSplit[0];
-            if (imgName.isEmpty())
-                imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/hoatangme", null, null);
-            else
-                imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
-        }else
-            imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/hoatangme", null, null);
-        viewHolder.hinhdm_menu.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
+
+        viewHolder.tendm_menu.setText(array.get(position).getTenDm());
+//        String[] imgSplit = array.get(position).getHinhDM().split("\\.");
+//        String imgName = imgSplit[0];
+//        String PACKAGE_NAME = context.getPackageName();
+//        int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
+//
+//        viewHolder.hinhdm_menu.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
         return convertView;
     }
+
 }

@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_voucher"
+        android:id="@+id/toolbar_category"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/light_yellow"
@@ -30,7 +30,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/txtHistoryOrder"
+                    android:id="@+id/txtCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -57,14 +57,14 @@
                     tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_listOrder"
+                android:id="@+id/rv_category"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp">
             </androidx.recyclerview.widget.RecyclerView>
 
             <TextView
-                android:id="@+id/txtNoHistoryOrder"
+                android:id="@+id/txtNoProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cerapro_regular"

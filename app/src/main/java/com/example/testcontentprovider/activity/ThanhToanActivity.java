@@ -19,8 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.PaymentAdapter;
 import com.example.testcontentprovider.api.ApiService;
-import com.example.testcontentprovider.data.Constance;
-import com.example.testcontentprovider.data.RetrofitClient;
 import com.example.testcontentprovider.model.ChiTietGioHang;
 import com.example.testcontentprovider.model.ChiTietHoaDon;
 import com.example.testcontentprovider.model.GioHang;
@@ -49,17 +47,13 @@ public class ThanhToanActivity extends AppCompatActivity {
     static HoaDon invoice;
     int tongtien;
     static String ma;
-    private ApiService apiService;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thanh_toan);
 
         AnhXa();
-        apiService = RetrofitClient.getClient(Constance.API_URL).create(ApiService.class);
+
         adapter = new PaymentAdapter(getApplicationContext(), MainActivity.manggiohang);
         rvThanhToan.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -77,7 +71,7 @@ public class ThanhToanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String ma = edmavc.getText().toString();
-                apiService.getVoucher(ma).enqueue(new Callback<Voucher>() {
+                ApiService.apiService.getVoucher(ma).enqueue(new Callback<Voucher>() {
                     @Override
                     public void onResponse(Call<Voucher> call, Response<Voucher> response) {
                         Voucher vc = response.body();
@@ -91,7 +85,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                                 mavc = null;
                                 giamgia = 0;
                             }
-                            if(checkNgayBd(vc.getNgayBatDau()) == false)
+                            if(checkNgayBd(vc.getNgayBatdau()) == false)
                             {
                                 txtResult_VC.setText("Mã voucher chưa hoạt động");
                                 txtGiamGia.setText("0 VNĐ");
@@ -99,7 +93,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                                 mavc = null;
                                 giamgia = 0;
                             }
-                            if(checkNgayKt(vc.getNgayKetThuc()) == false)
+                            if(checkNgayKt(vc.getNgayKetthuc()) == false)
                             {
                                 txtResult_VC.setText("Mã voucher đã hết hạn");
                                 txtGiamGia.setText("0 VNĐ");
@@ -166,7 +160,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                             false,
                             Integer.parseInt(tong),
                             tongsl);
-                    apiService.setHD(hd).enqueue(new Callback<HoaDon>() {
+                    ApiService.apiService.setHD(hd).enqueue(new Callback<HoaDon>() {
                         @Override
                         public void onResponse(Call<HoaDon> call, Response<HoaDon> response) {
                             if(response.isSuccessful())
@@ -176,7 +170,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                                 for(int i = 0; i < MainActivity.manggiohang.size(); i++)
                                 {
                                     ChiTietHoaDon cthd = new ChiTietHoaDon();
-                                    cthd.setMaHd(Integer.parseInt(invoice.getMaHD()));
+                                    cthd.setMaHd(Integer.parseInt(invoice.getMaHd()));
                                     cthd.setMaSp(MainActivity.manggiohang.get(i).getMaSp());
                                     cthd.setSoLuong(MainActivity.manggiohang.get(i).getSoLuong());
                                     cthd.setDonGia(MainActivity.manggiohang.get(i).getDonGia());
@@ -208,7 +202,7 @@ public class ThanhToanActivity extends AppCompatActivity {
     }
 
     private void updateVoucher(String mavc, Voucher vc) {
-        apiService.updateVoucher(mavc, vc).enqueue(new Callback<Voucher>() {
+        ApiService.apiService.updateVoucher(mavc, vc).enqueue(new Callback<Voucher>() {
             @Override
             public void onResponse(Call<Voucher> call, Response<Voucher> response) {
                 if(response.isSuccessful())
@@ -226,7 +220,7 @@ public class ThanhToanActivity extends AppCompatActivity {
     }
 
     private void addInvoiceDetail(ChiTietHoaDon ct){
-        apiService.setCTHD(ct).enqueue(new Callback<ChiTietHoaDon>() {
+        ApiService.apiService.setCTHD(ct).enqueue(new Callback<ChiTietHoaDon>() {
             @Override
             public void onResponse(Call<ChiTietHoaDon> call, Response<ChiTietHoaDon> response) {
                 if(response.isSuccessful())
@@ -243,7 +237,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         });
     }
     public void deleteCartDetail(ChiTietGioHang ct) {
-        apiService.deleteCartDetail(ct.getMaGh(), ct.getMaSp())
+        ApiService.apiService.deleteCartDetail(ct.getMaGh(), ct.getMaSp())
                 .enqueue(new Callback<ChiTietGioHang>() {
                     @Override
                     public void onResponse(Call<ChiTietGioHang> call, Response<ChiTietGioHang> response) {
@@ -259,7 +253,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                 });
     }
     private void deleteCart(int ma) {
-        apiService.deleteCart(ma).enqueue(new Callback<GioHang>() {
+        ApiService.apiService.deleteCart(ma).enqueue(new Callback<GioHang>() {
             @Override
             public void onResponse(Call<GioHang> call, Response<GioHang> response) {
                 if (response.isSuccessful()) {

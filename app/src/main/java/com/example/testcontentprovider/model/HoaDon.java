@@ -1,35 +1,18 @@
 package com.example.testcontentprovider.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
+import java.util.Date;
 
-public class HoaDon {
-    @SerializedName("maHd")
-    String maHD;
-
-    @SerializedName("maKh")
-    int maKH;
-
-    @SerializedName("ngayLap")
+public class HoaDon implements Serializable {
+    String maHd;
     String ngayLap;
-
-    @SerializedName("ngayGiao")
     String ngayGiao;
-
-    @SerializedName("diaChiGiao")
+    int maKh;
+    String maVc;
     String diaChiGiao;
-
-    @SerializedName("trangThai")
-    boolean trangThai;
-
-    @SerializedName("tongTien")
+    Boolean trangThai;
     int tongTien;
-
-    @SerializedName("tongSoLuong")
     int tongSoLuong;
-
-    @SerializedName("maVc")
-    String maVC;
-
 
     public HoaDon() {
     }
@@ -37,28 +20,20 @@ public class HoaDon {
     public HoaDon(String ngayLap, String ngayGiao, int maKh, String maVc, String diaChigiao, Boolean trangThai, int tongTien, int tongSoluong) {
         this.ngayLap = ngayLap;
         this.ngayGiao = ngayGiao;
-        this.maKH = maKh;
-        this.maVC = maVc;
+        this.maKh = maKh;
+        this.maVc = maVc;
         this.diaChiGiao = diaChigiao;
         this.trangThai = trangThai;
         this.tongTien = tongTien;
         this.tongSoLuong = tongSoluong;
     }
 
-    public String getMaHD() {
-        return maHD;
+    public String getMaHd() {
+        return maHd;
     }
 
-    public void setMaHD(String maHD) {
-        this.maHD = maHD;
-    }
-
-    public int getMaKH() {
-        return maKH;
-    }
-
-    public void setMaKH(int maKH) {
-        this.maKH = maKH;
+    public void setMaHd(String maHd) {
+        this.maHd = maHd;
     }
 
     public String getNgayLap() {
@@ -77,19 +52,35 @@ public class HoaDon {
         this.ngayGiao = ngayGiao;
     }
 
-    public String getDiaChiGiao() {
+    public int getMaKh() {
+        return maKh;
+    }
+
+    public void setMaKh(int maKh) {
+        this.maKh = maKh;
+    }
+
+    public String getMaVc() {
+        return maVc;
+    }
+
+    public void setMaVc(String maVc) {
+        this.maVc = maVc;
+    }
+
+    public String getDiaChigiao() {
         return diaChiGiao;
     }
 
-    public void setDiaChiGiao(String diaChiGiao) {
-        this.diaChiGiao = diaChiGiao;
+    public void setDiaChigiao(String diaChigiao) {
+        this.diaChiGiao = diaChigiao;
     }
 
-    public boolean isTrangThai() {
+    public Boolean getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(boolean trangThai) {
+    public void setTrangThai(Boolean trangThai) {
         this.trangThai = trangThai;
     }
 
@@ -101,19 +92,11 @@ public class HoaDon {
         this.tongTien = tongTien;
     }
 
-    public int getTongSoLuong() {
+    public int getTongSoluong() {
         return tongSoLuong;
     }
 
-    public void setTongSoLuong(int tongSoLuong) {
-        this.tongSoLuong = tongSoLuong;
-    }
-
-    public String getMaVC() {
-        return maVC;
-    }
-
-    public void setMaVC(String maVC) {
-        this.maVC = maVC;
+    public void setTongSoluong(int tongSoluong) {
+        this.tongSoLuong = tongSoluong;
     }
 }
