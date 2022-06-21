@@ -116,9 +116,14 @@ public class RegisterActivity extends AppCompatActivity {
                     });
                     AlertDialog al = b.create();
                     al.show();
+                } else if(result.equals("Internal Server Error")){
+                    Toast.makeText(getBaseContext(), "Lỗi mạng.", Toast.LENGTH_LONG).show();
+                    return;
                 }
-                else
-                    Toast.makeText(getBaseContext(),"Đăng kí không thành công, vui lòng thử lại sau.",Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(getBaseContext(), "Đăng kí không thành công, vui lòng thử lại sau.", Toast.LENGTH_LONG).show();
+                    return;
+                }
             }
 
             @Override

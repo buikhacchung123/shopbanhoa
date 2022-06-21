@@ -100,7 +100,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         return new KhachHang();
     }
     public void ChangePassword(KhachHang kh){
-        ApiService.apiService.updateKhachHang(kh.getMaND()+"",kh).enqueue(new Callback<KhachHang>() {
+        ApiService.apiService.updateKhachHang(kh.getMaND(),kh).enqueue(new Callback<KhachHang>() {
             @Override
             public void onResponse(Call<KhachHang> call, Response<KhachHang> response) {
                 String s = response.message();
@@ -116,6 +116,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     });
                     AlertDialog al = b.create();
                     al.show();
+                } else if(s.equals("Internal Server Error"))
+                {
+                    Toast.makeText(getBaseContext(),"Lỗi mạng.",Toast.LENGTH_LONG).show();
+                    return;
                 }
                 else
                     Toast.makeText(getBaseContext(),"Đổi mật khẩu không thành công, vui lòng thử lại sau.",Toast.LENGTH_LONG).show();

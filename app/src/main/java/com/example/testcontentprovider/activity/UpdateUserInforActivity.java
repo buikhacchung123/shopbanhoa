@@ -92,7 +92,7 @@ public class UpdateUserInforActivity extends AppCompatActivity {
         return false;
     }
     public void UpdateUser(KhachHang kh){
-        ApiService.apiService.updateKhachHang(kh.getMaND()+"",kh).enqueue(new Callback<KhachHang>() {
+        ApiService.apiService.updateKhachHang(kh.getMaND(),kh).enqueue(new Callback<KhachHang>() {
             @Override
             public void onResponse(Call<KhachHang> call, Response<KhachHang> response) {
                 String s = response.message();

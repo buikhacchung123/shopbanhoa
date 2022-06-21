@@ -36,17 +36,20 @@ public interface ApiService {
     //Xử lý người dùng
     @GET("Nguoidungs/GetUserByUsername/{tenNd}")
     Call<List<KhachHang>> getUser(@Path("tenNd") String username);
+    @Headers({"Accept: application/json"})
     @POST("Nguoidungs")
     Call<KhachHang> insertKhachHang(@Body KhachHang khachHang);
     @GET("Nguoidungs")
     Call<List<KhachHang>> getAllKhachHangs();
+    @Headers({"Accept: application/json"})
     @PUT("Nguoidungs/{MaND}")
-    Call<KhachHang> updateKhachHang(@Path("MaND") String id,@Body KhachHang khachHang);
+    Call<KhachHang> updateKhachHang(@Path("MaND") int id,@Body KhachHang khachHang);
 
 
     //Xử lý danh mục
     @GET("Danhmucs")
     Call<List<DanhMuc>> getAllDanhMucs();
+
     // xu ly san pham
     @GET("Sanphams")
     Call<List<SanPham>> getSanPham();
