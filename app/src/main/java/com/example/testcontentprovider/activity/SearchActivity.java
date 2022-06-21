@@ -35,6 +35,8 @@ public class SearchActivity extends AppCompatActivity {
     SanPhamAdapter adapterSP;
     RecyclerView rv_searchSP;
     private LinearLayoutManager mlinearLayoutManager;
+    private  int mCurrentType = SanPham.TYPE_LIST;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +94,11 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
             if(listSeach.size()!=0) {
-                adapterSP = new SanPhamAdapter(getBaseContext(), (ArrayList<SanPham>) listSeach);
+                adapterSP = new SanPhamAdapter(SearchActivity.this, (ArrayList<SanPham>) listSeach);
                 adapterSP.notifyDataSetChanged();
                 rv_searchSP.setAdapter(adapterSP);
+                for(SanPham sp : listSeach)
+                    sp.setTypeDisplay(mCurrentType);
                 rv_searchSP.setVisibility(View.VISIBLE);
                 txtNoContent.setVisibility(View.GONE);
             }else {
@@ -117,5 +121,4 @@ public class SearchActivity extends AppCompatActivity {
                 return true;
         return false;
     }
-
 }
