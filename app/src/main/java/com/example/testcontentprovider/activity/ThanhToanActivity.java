@@ -25,6 +25,7 @@ import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.HoaDon;
 import com.example.testcontentprovider.model.Voucher;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,11 +43,14 @@ public class ThanhToanActivity extends AppCompatActivity {
     Button btnApDung, btnDatHang;
     Toolbar toolbar;
     List<Voucher> vouchers;
+    static Voucher voucher;
     static int giamgia;
     static String  mavc;
     static HoaDon invoice;
     int tongtien;
     static String ma;
+    DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +70,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tongtien = tt - giamgia;
-        txtTongTien.setText(tongtien + " VNĐ");
+        txtTongTien.setText(decimalFormat.format(tongtien) + " VNĐ");
         btnApDung.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,12 +106,24 @@ public class ThanhToanActivity extends AppCompatActivity {
                                 giamgia = 0;
                             }
                             else {
-                                txtGiamGia.setText(vc.getKhuyenMai() + " VNĐ");
-                                txtTongTien.setText(tongtien - vc.getKhuyenMai() + " VNĐ");
+                                AlertDialog.Builder b = new AlertDialog.Builder(ThanhToanActivity.this);
+                                b.setMessage("Áp dụng thành công");
+                                b.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                        eddiachi.requestFocus();
+                                    }
+                                });
+                                AlertDialog al = b.create();
+                                al.show();
+
+                                txtGiamGia.setText(decimalFormat.format(vc.getKhuyenMai()) + " VNĐ");
+                                tongtien -= vc.getKhuyenMai();
+                                txtTongTien.setText(decimalFormat.format(tongtien) + " VNĐ");
                                 mavc = String.valueOf(vc.getMaVc());
                                 giamgia = vc.getKhuyenMai();
                                 vc.setSoLuong(vc.getSoLuong() - 1);
-                                updateVoucher(mavc, vc);
+                                voucher = vc;
                             }
 
                         }
@@ -118,7 +134,6 @@ public class ThanhToanActivity extends AppCompatActivity {
                             mavc = null;
                             giamgia = 0;
                         }
-                        Log.e("Message",giamgia+"");
                     }
 
                     @Override
@@ -150,15 +165,15 @@ public class ThanhToanActivity extends AppCompatActivity {
                     String ngaylap = sdf.format(new Date());
                     String ngaygiao = edngaygiao.getText().toString();
                     String ng = ngaygiao + "T23:59:59";
-                    String strtong = txtTongTien.getText().toString();
-                    String tong = strtong.substring(0, strtong.length() - 4);
+
+                    int t = tongtien;
                     HoaDon hd = new HoaDon(ngaylap,
                             ng,
                             Integer.parseInt(MainActivity.makh),
                             mavc,
                             eddiachi.getText().toString(),
                             false,
-                            Integer.parseInt(tong),
+                            Integer.parseInt(String.valueOf(t)),
                             tongsl);
                     ApiService.apiService.setHD(hd).enqueue(new Callback<HoaDon>() {
                         @Override
@@ -180,9 +195,9 @@ public class ThanhToanActivity extends AppCompatActivity {
                                 }
                             }
                             else {
-
+                                Log.e("Error", response.message());
                             }
-                            Log.e("Error", response.message());
+
                             MainActivity.manggiohang.removeAll(MainActivity.manggiohang);
                             deleteCart(MainActivity.magh);
                             MainActivity.gioHang = null;
@@ -196,6 +211,7 @@ public class ThanhToanActivity extends AppCompatActivity {
 
                         }
                     });
+                    updateVoucher(mavc, voucher);
                 }
             }
         });
@@ -209,7 +225,9 @@ public class ThanhToanActivity extends AppCompatActivity {
                 {
                     Log.e("Voucher","Update successfully");
                 }
-                Log.e("Voucher","Update failed");
+                else {
+                    Log.e("Voucher", "Update failed");
+                }
             }
 
             @Override
