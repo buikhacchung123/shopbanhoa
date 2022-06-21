@@ -85,7 +85,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                                 mavc = null;
                                 giamgia = 0;
                             }
-                            if(checkNgayBd(vc.getNgayBatdau()) == false)
+                            if(checkNgayBd(vc.getNgayBatDau()) == false)
                             {
                                 txtResult_VC.setText("Mã voucher chưa hoạt động");
                                 txtGiamGia.setText("0 VNĐ");
@@ -93,7 +93,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                                 mavc = null;
                                 giamgia = 0;
                             }
-                            if(checkNgayKt(vc.getNgayKetthuc()) == false)
+                            if(checkNgayKt(vc.getNgayKetThuc()) == false)
                             {
                                 txtResult_VC.setText("Mã voucher đã hết hạn");
                                 txtGiamGia.setText("0 VNĐ");

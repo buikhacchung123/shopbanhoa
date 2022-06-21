@@ -115,11 +115,11 @@ public class SanPham implements Serializable {
     public SanPham getSPByMaSP(int ma)
     {
         SanPham kq = new SanPham();
-        for (int i = 0; i < MainActivity.dssp.size(); i++)
+        for (int i = 0; i < MainActivity.arraySP.size(); i++)
         {
-            if(MainActivity.dssp.get(i).getMaSp() == ma)
+            if(MainActivity.arraySP.get(i).getMaSp() == ma)
             {
-                kq = MainActivity.dssp.get(i);
+                kq = MainActivity.arraySP.get(i);
                 break;
             }
         }

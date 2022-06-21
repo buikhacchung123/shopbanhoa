@@ -6,13 +6,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.adapter.SanPhamAdapter;
@@ -34,18 +31,17 @@ public class CategoryActivity extends AppCompatActivity {
     private LinearLayoutManager mlinearLayoutManager;
     private GridLayoutManager gridLayoutManager;
     ImageButton btnChangeDisplay;
-    private ArrayList<SanPham> dssp;
+    private List<SanPham> arraySearch;
     private  int mCurrentType = SanPham.TYPE_LIST;
     private  int mCurrentPosition;
     DanhMuc dm;
     TextView txtCategory_name;
-    SanPham sanPham = new SanPham();
+    //SanPham sanPham = new SanPham();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-        dssp = onSetData();
         AnhXa();
 
         setSupportActionBar(toolbar);
@@ -56,11 +52,14 @@ public class CategoryActivity extends AppCompatActivity {
         txtCategory_name.setText(dm.getTenDm());
 
         //Lấy dữ liệu sản phẩm
+        LoadingSanPhamTheoDM();
+
 
         setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
-        sanPhamAdapter = new SanPhamAdapter(getBaseContext(),dssp);
+        sanPhamAdapter = new SanPhamAdapter(getBaseContext(),arraySearch);
         rv_category.setLayoutManager(mlinearLayoutManager);
         rv_category.setAdapter(sanPhamAdapter);
+
 
         //Sự kiện trang Sản phẩm theo danh mục
         btnChangeDisplay.setOnClickListener(new View.OnClickListener() {
@@ -72,37 +71,14 @@ public class CategoryActivity extends AppCompatActivity {
         });
     }
 
-    private ArrayList<SanPham> onSetData() {
-        dssp = new ArrayList<>();
-        ApiService.apiService.getSanPham().enqueue(new Callback<List<SanPham>>() {
-            @Override
-            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
-                List<SanPham> list = response.body();
-                if(list.size() > 0)
-                {
-                    for(int i = 0; i < list.size(); i++)
-                    {
-                        dssp.add(new SanPham(list.get(i)));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<SanPham>> call, Throwable t) {
-                Toast.makeText(CategoryActivity.this,"Call api failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return dssp;
-    }
-
 
     public void AnhXa(){
-        toolbar = findViewById(R.id.toolbar_category);
+        toolbar = findViewById(R.id.toolbar_voucher);
         btnChangeDisplay = findViewById(R.id.btn_changeDisplay);
         mlinearLayoutManager = new LinearLayoutManager(this.getBaseContext());
         gridLayoutManager = new GridLayoutManager(this.getBaseContext(), 2);
-        txtCategory_name = findViewById(R.id.txtCategory);
-        rv_category = findViewById(R.id.rv_category);
+        txtCategory_name = findViewById(R.id.txtHistoryOrder);
+        rv_category = findViewById(R.id.rv_listOrder);
     }
     private void onClickChangeTypeDisplay() {
         if(mCurrentType == SanPham.TYPE_LIST){
@@ -128,10 +104,10 @@ public class CategoryActivity extends AppCompatActivity {
         }
     }
     private void setTypeDisplayRecyclerView(int typeDisplay) {
-        if(dssp == null || dssp.isEmpty())
+        if(arraySearch == null || arraySearch.isEmpty())
             return;
         mCurrentType = typeDisplay;
-        for(SanPham sp : dssp)
+        for(SanPham sp : arraySearch)
             sp.setTypeDisplay(typeDisplay);
     }
     private void setCurrentPosition(){
@@ -144,5 +120,23 @@ public class CategoryActivity extends AppCompatActivity {
                 mCurrentPosition = ((GridLayoutManager)layoutManager).findFirstVisibleItemPosition();
                 break;
         }
+    }
+    private void LoadingSanPhamTheoDM() {
+        ApiService.apiService.getSanPhamTheoDM(dm.getMaDm()).enqueue(new Callback<List<SanPham>>() {
+            @Override
+            public void onResponse(Call<List<SanPham>> call, Response<List<SanPham>> response) {
+                arraySearch = response.body();
+                setTypeDisplayRecyclerView(SanPham.TYPE_LIST);
+                sanPhamAdapter = new SanPhamAdapter(getBaseContext(),arraySearch);
+                rv_category.setLayoutManager(mlinearLayoutManager);
+                rv_category.setAdapter(sanPhamAdapter);
+                return;
+            }
+
+            @Override
+            public void onFailure(Call<List<SanPham>> call, Throwable t) {
+
+            }
+        });
     }
 }

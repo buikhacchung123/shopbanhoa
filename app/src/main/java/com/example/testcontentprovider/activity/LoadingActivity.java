@@ -9,6 +9,8 @@ import android.os.Handler;
 import com.example.testcontentprovider.R;
 
 public class LoadingActivity extends AppCompatActivity {
+    public static String Description1, Description2, Description3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +21,7 @@ public class LoadingActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(LoadingActivity.this, LoginActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         }, 1000);
     }

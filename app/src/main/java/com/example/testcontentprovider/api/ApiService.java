@@ -33,10 +33,18 @@ public interface ApiService {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
-    // xu ly dang nhap
+    //Xử lý người dùng
     @GET("Nguoidungs/GetUserByUsername/{tenNd}")
     Call<List<KhachHang>> getUser(@Path("tenNd") String username);
-    //
+    @POST("Nguoidungs")
+    Call<KhachHang> insertKhachHang(@Body KhachHang khachHang);
+    @GET("Nguoidungs")
+    Call<List<KhachHang>> getAllKhachHangs();
+    @PUT("Nguoidungs/{MaND}")
+    Call<KhachHang> updateKhachHang(@Path("MaND") String id,@Body KhachHang khachHang);
+
+
+    //Xử lý danh mục
     @GET("Danhmucs")
     Call<List<DanhMuc>> getAllDanhMucs();
     // xu ly san pham
@@ -73,21 +81,21 @@ public interface ApiService {
     Call<ChiTietGioHang> deleteCartDetail(@Path("maGh") int magh,
                                           @Path("maSp") int masp);
     // xu ly voucher
+    @GET("Vouchers")
+    Call<List<Voucher>> getAllVouchers();
     @GET("Vouchers/{maVc}")
     Call<Voucher> getVoucher(@Path("maVc") String ma);
     @PUT("Vouchers/{maVc}")
     Call<Voucher> updateVoucher(@Path("maVc") String ma, @Body Voucher gh);
     // hoa don
     @GET("Hoadons/GetHdByMaNd/{maNd}")
-    Call<List<HoaDon>> getHoaDon(@Path("maNd") int ma);
+    Call<List<HoaDon>> getAllHoaDons(@Path("maNd") int ma);
     @Headers({"Accept: application/json"})
     @POST("Hoadons")
     Call<HoaDon> setHD(@Body HoaDon hd);
 
     @GET("ChitietHoadons")
     Call<List<ChiTietHoaDon>> getHoaDon();
-
-
     @Headers({"Accept: application/json"})
     @POST("ChitietHoadons")
     Call<ChiTietHoaDon> setCTHD(@Body ChiTietHoaDon cthd);

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.testcontentprovider.R;
 import com.example.testcontentprovider.api.ApiService;
 import com.example.testcontentprovider.model.ChiTietGioHang;
+import com.example.testcontentprovider.model.FavoriteHistory;
 import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.SanPham;
 import com.nex3z.notificationbadge.NotificationBadge;
@@ -57,6 +58,14 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         int imgId = getResources().getIdentifier(PACKAGE_NAME+":drawable/"+imgName , null, null);
         imgChiTiet.setImageBitmap(BitmapFactory.decodeResource(getResources(),imgId));
         MoTa.setText(sp.getMoTa());
+        FavoriteHistory utils = new FavoriteHistory(getBaseContext());
+        if(!utils.checkExist(sp))
+            btnLove.setImageResource(R.drawable.ic_unfavorite);
+        else
+            btnLove.setImageResource(R.drawable.ic_favorite);
+
+
+        //Sự kiện trang Chi tiết sản phẩm
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +90,14 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         btnLove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnLove.setImageResource(R.drawable.ic_favorite);
+                if(utils.checkExist(sp)) {
+                    btnLove.setImageResource(R.drawable.ic_unfavorite);
+                    utils.removeFavoriteHistory(sp);
+                }
+                else {
+                    btnLove.setImageResource(R.drawable.ic_favorite);
+                    utils.addFavoriteHistorry(sp);
+                }
             }
         });
         setSupportActionBar(toolbar);

@@ -124,7 +124,6 @@ public class HomeFragment extends Fragment {
         gridLayoutManager = new GridLayoutManager(this.getContext(), 2);
         button = view.findViewById(R.id.btn_changeDisplay);
     }
-
     private void ActionViewFlipper() {
         List<String> quangcao = new ArrayList<>();
         quangcao.add("https://hyt.r.worldssl.net/cms-images/banner/434410_dong-hanh-cung-nong-dan-viet-nam.jpg");
@@ -144,7 +143,6 @@ public class HomeFragment extends Fragment {
         viewFlipper.setInAnimation(slidein);
         viewFlipper.setOutAnimation(slideout);
     }
-
     private void onClickChangeTypeDisplay() {
         if(mCurrentType == SanPham.TYPE_LIST){
             setTypeDisplayRecyclerView(SanPham.TYPE_GRID);
@@ -158,7 +156,6 @@ public class HomeFragment extends Fragment {
         setIconButton();
         recyclerView.scrollToPosition(mCurrentPosition);
     }
-
     private void setIconButton() {
         switch (mCurrentType){
             case SanPham.TYPE_LIST:
@@ -169,7 +166,6 @@ public class HomeFragment extends Fragment {
                 break;
         }
     }
-
     private void setCurrentPosition(){
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         switch (mCurrentType){

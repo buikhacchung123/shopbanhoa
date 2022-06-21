@@ -55,8 +55,7 @@ public class DMSPAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        if(convertView == null)
-        {
+        if(convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.item_danhmuc_menu,null);
@@ -67,13 +66,18 @@ public class DMSPAdapter extends BaseAdapter {
         else
             viewHolder = (ViewHolder) convertView.getTag();
 
+        //Gán dữ liệu
         viewHolder.tendm_menu.setText(array.get(position).getTenDm());
-//        String[] imgSplit = array.get(position).getHinhDM().split("\\.");
-//        String imgName = imgSplit[0];
-//        String PACKAGE_NAME = context.getPackageName();
-//        int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
-//
-//        viewHolder.hinhdm_menu.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
+        String PACKAGE_NAME = context.getPackageName();
+        if(array.get(position).getHinhDM()!=null) {
+            String[] imgSplit = array.get(position).getHinhDM().split("\\.");
+            String imgName = imgSplit[0];
+            int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/" + imgName, null, null);
+            viewHolder.hinhdm_menu.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
+        }else {
+            int imgId = context.getResources().getIdentifier(PACKAGE_NAME + ":drawable/load", null, null);
+            viewHolder.hinhdm_menu.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), imgId));
+        }
         return convertView;
     }
 

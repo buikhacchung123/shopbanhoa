@@ -1,27 +1,43 @@
 package com.example.testcontentprovider.model;
-
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
+import java.text.DateFormat;
 
 public class Voucher implements Serializable {
-    int maVc;
-    String tieuDe;
+    @SerializedName("maVc")
+    int maVC;
+
+    @SerializedName("moTa")
     String moTa;
+
+    @SerializedName("khuyenMai")
     int khuyenMai;
+
+    @SerializedName("soLuong")
     int soLuong;
+
+    @SerializedName("tieuDe")
+    String tieuDe;
+
+    @SerializedName("ngayBatDau")
     String ngayBatDau;
+
+    @SerializedName("ngayKetThuc")
     String ngayKetThuc;
+
+    @SerializedName("hinhBanner")
     String hinhBanner;
 
-    public Voucher() {
+    public int getMaVC() {
+        return maVC;
     }
 
+    public void setMaVC(int maVC) {
+        this.maVC = maVC;
+    }
     public int getMaVc() {
-        return maVc;
-    }
-
-    public void setMaVc(int maVc) {
-        this.maVc = maVc;
+        return maVC;
     }
 
     public String getTieuDe() {
@@ -56,20 +72,20 @@ public class Voucher implements Serializable {
         this.soLuong = soLuong;
     }
 
-    public String getNgayBatdau() {
+    public String getNgayBatDau() {
         return ngayBatDau;
     }
 
-    public void setNgayBatdau(String ngayBatdau) {
-        this.ngayBatDau = ngayBatdau;
+    public void setNgayBatDau(String ngayBatDau) {
+        this.ngayBatDau = ngayBatDau;
     }
 
-    public String getNgayKetthuc() {
+    public String getNgayKetThuc() {
         return ngayKetThuc;
     }
 
-    public void setNgayKetthuc(String ngayKetthuc) {
-        this.ngayKetThuc = ngayKetthuc;
+    public void setNgayKetThuc(String ngayKetThuc) {
+        this.ngayKetThuc = ngayKetThuc;
     }
 
     public String getHinhBanner() {
@@ -79,4 +95,17 @@ public class Voucher implements Serializable {
     public void setHinhBanner(String hinhBanner) {
         this.hinhBanner = hinhBanner;
     }
+
+
+    public Voucher(int maVC, String moTa, int khuyenMai, int soLuong, String tieuDe, String ngayBatDau, String ngayKetThuc, String hinhBanner) {
+        this.maVC = maVC;
+        this.moTa = moTa;
+        this.khuyenMai = khuyenMai;
+        this.soLuong = soLuong;
+        this.tieuDe = tieuDe;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+        this.hinhBanner = hinhBanner;
+    }
+    public Voucher(){}
 }

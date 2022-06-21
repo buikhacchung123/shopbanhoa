@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp">
+
+    <ImageView
+        android:id="@+id/itemVC_Hinh"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemVC_TieuDe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/cerapro_regular"
+        android:gravity="center|start"
+        android:text="Mùa xuân vui tươi trẫy hội"
+        android:textColor="@color/dark_blue"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/itemVC_Hinh"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemHD_TongSL"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/cerapro_regular"
+        android:gravity="center|start"
+        android:text="Mã code: 908"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/itemVC_Hinh"
+        app:layout_constraintTop_toBottomOf="@+id/itemHD_TongTien" />
+
+    <TextView
+        android:id="@+id/itemHD_TongTien"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/cerapro_regular"
+        android:gravity="center|start"
+        android:text="Giảm 10K"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/itemVC_Hinh"
+        app:layout_constraintTop_toBottomOf="@+id/itemVC_TieuDe" />
+
+    <TextView
+        android:id="@+id/itemVC_NgayBatDau"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/cerapro_regular"
+        android:gravity="center|start"
+        android:text="Ngày bắt đầu: 21/02/2022"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/itemVC_Hinh"
+        app:layout_constraintTop_toBottomOf="@+id/itemHD_TongSL" />
+
+    <TextView
+        android:id="@+id/itemVC_NgayKetThuc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1.5"
+        android:fontFamily="@font/cerapro_regular"
+        android:text="Ngày kết thúc: 30/30/2023"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itemVC_Hinh"
+        app:layout_constraintTop_toBottomOf="@+id/itemVC_NgayBatDau" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

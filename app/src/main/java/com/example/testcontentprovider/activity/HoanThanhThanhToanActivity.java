@@ -10,19 +10,34 @@ import android.widget.Button;
 import com.example.testcontentprovider.R;
 
 public class HoanThanhThanhToanActivity extends AppCompatActivity {
+    Button btnBackToHome, btnGoToHistory;
 
-    Button btnBackToHome;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hoanthanhthanhtoan);
-        btnBackToHome = findViewById(R.id.btnBackHome);
+
+        AnhXa();
+
+        //Sự kiện trang Hoàn thành đặt hàng
         btnBackToHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HoanThanhThanhToanActivity.this, MainActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
+            }
+        });
+        btnGoToHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getBaseContext(), HistoryOrderActivity.class));
             }
         });
     }
+    public void AnhXa(){
+        btnBackToHome = findViewById(R.id.btnBackHome);
+        btnGoToHistory = findViewById(R.id.btnGoToHistory);
+    }
+
 }

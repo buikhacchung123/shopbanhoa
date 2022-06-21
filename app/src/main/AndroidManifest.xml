@@ -19,6 +19,14 @@
         android:theme="@style/Theme.TestContentProvider"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.VoucherActivity"
+            android:parentActivityName=".activity.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.HistoryOrderActivity"
+            android:parentActivityName=".activity.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.HoanThanhThanhToanActivity"
             android:exported="false" />
         <activity

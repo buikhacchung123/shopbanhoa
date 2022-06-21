@@ -1,5 +1,6 @@
 package com.example.testcontentprovider.model;
 
+import android.widget.EditText;
 
 import java.io.Serializable;
 
@@ -81,4 +82,12 @@ public class KhachHang implements Serializable {
 
     }
 
+    public KhachHang(String tenNd, String username, String passWord, String diaChi, String sdt, Boolean trangThai) {
+        this.tenNd = tenNd;
+        this.username = username;
+        this.passWord = passWord;
+        this.diaChi = diaChi;
+        this.sdt = sdt;
+        this.trangThai = trangThai;
+    }
 }

@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="Trang chủ" />
     <item
-        android:id="@+id/bottom_notification"
+        android:id="@+id/bottom_favorite"
         android:icon="@drawable/ic_favorite"
         android:title="Yêu thích" />
     <item

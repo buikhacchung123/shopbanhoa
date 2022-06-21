@@ -29,7 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText username, password;
     CheckBox checkBox;
     TextView linkDangKyNgay, linkQuenMatKhau;
-    private List<KhachHang> user;
+    public static List<KhachHang> arrayKH;
+    List<KhachHang> arrayKH_Search;
     private KhachHang mkh;
     static GioHang cart;
     @Override
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         AnhXa();
         loadData();
+        LoadListKhachHangs();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,14 +55,14 @@ public class LoginActivity extends AppCompatActivity {
                         ApiService.apiService.getUser(un).enqueue(new Callback<List<KhachHang>>() {
                             @Override
                             public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
-                                user = response.body();
-                                if(user == null || user.isEmpty()){
+                                arrayKH_Search = response.body();
+                                if(arrayKH_Search == null || arrayKH_Search.isEmpty()){
                                     Toast.makeText(LoginActivity.this, "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
 
                                 boolean isHasUser = false;
-                                for (KhachHang kh : user)
+                                for (KhachHang kh : arrayKH_Search)
                                 {
                                     if(un.equals(kh.getUsername()) && pw.equals(kh.getPassWord())){
                                         isHasUser = true;
@@ -112,7 +114,8 @@ public class LoginActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         checkBox  = findViewById(R.id.rememberme);
-        user = new ArrayList<>();
+       arrayKH_Search = new ArrayList<>();
+       arrayKH = new ArrayList<>();
         linkQuenMatKhau = findViewById(R.id.linkQuenMatKhau);
         linkDangKyNgay = findViewById(R.id.linkDangKyNgay);
     }
@@ -140,5 +143,18 @@ public class LoginActivity extends AppCompatActivity {
             checkBox.setChecked(check);
         }
     }
+    public void LoadListKhachHangs(){
+        ApiService.apiService.getAllKhachHangs().enqueue(new Callback<List<KhachHang>>() {
+            @Override
+            public void onResponse(Call<List<KhachHang>> call, Response<List<KhachHang>> response) {
+                arrayKH = response.body();
+            }
 
+            @Override
+            public void onFailure(Call<List<KhachHang>> call, Throwable t) {
+
+            }
+        });
+
+    }
 }
