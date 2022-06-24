@@ -55,6 +55,8 @@ public interface ApiService {
     Call<List<SanPham>> getSanPham();
     @GET("Sanphams/GetSpByDm/{MaDM}")
     Call<List<SanPham>> getSanPhamTheoDM(@Path("MaDM") String id);
+    @PUT("Sanphams/{maSp}")
+    Call<SanPham> updateSanPham(@Path("maSp") int ma, @Body SanPham sp);
     // xu ly gio hang
     @GET("Giohangs")
     Call<List<GioHang>> getCart();

@@ -126,8 +126,8 @@ public class HomeFragment extends Fragment {
     }
     private void ActionViewFlipper() {
         List<String> quangcao = new ArrayList<>();
-        quangcao.add("https://hyt.r.worldssl.net/cms-images/banner/434410_dong-hanh-cung-nong-dan-viet-nam.jpg");
-        quangcao.add("https://hyt.r.worldssl.net/cms-images/banner/434456_ngay-cua-me.jpg");
+        quangcao.add("https://dc.flowercorner.vn/uploads/P620dd604b502e5.09606159_dat-hoa-online-giam-den-25.jpg");
+        quangcao.add("https://dc.flowercorner.vn/uploads/P620dd64fbbc6e3.58140733_dat-hoa-online-giao-mien-phi.jpg");
         for(int i = 0; i < quangcao.size(); i++)
         {
             ImageView imageView = new ImageView(getContext());

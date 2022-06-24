@@ -23,6 +23,7 @@ import com.example.testcontentprovider.model.ChiTietGioHang;
 import com.example.testcontentprovider.model.ChiTietHoaDon;
 import com.example.testcontentprovider.model.GioHang;
 import com.example.testcontentprovider.model.HoaDon;
+import com.example.testcontentprovider.model.SanPham;
 import com.example.testcontentprovider.model.Voucher;
 
 import java.text.DecimalFormat;
@@ -89,7 +90,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                                 mavc = null;
                                 giamgia = 0;
                             }
-                            if(checkNgayBd(vc.getNgayBatDau()) == false)
+                            else if(checkNgayBd(vc.getNgayBatDau()) == false)
                             {
                                 txtResult_VC.setText("Mã voucher chưa hoạt động");
                                 txtGiamGia.setText("0 VNĐ");
@@ -97,7 +98,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                                 mavc = null;
                                 giamgia = 0;
                             }
-                            if(checkNgayKt(vc.getNgayKetThuc()) == false)
+                            else if(checkNgayKt(vc.getNgayKetThuc()) == false)
                             {
                                 txtResult_VC.setText("Mã voucher đã hết hạn");
                                 txtGiamGia.setText("0 VNĐ");
@@ -111,6 +112,8 @@ public class ThanhToanActivity extends AppCompatActivity {
                                 b.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         dialog.dismiss();
+                                        edmavc.setEnabled(false);
+                                        btnApDung.setEnabled(false);
                                         eddiachi.requestFocus();
                                     }
                                 });
@@ -197,6 +200,14 @@ public class ThanhToanActivity extends AppCompatActivity {
                             else {
                                 Log.e("Error", response.message());
                             }
+                            for(int i = 0; i < MainActivity.manggiohang.size(); i++)
+                            {
+                                SanPham sp = new SanPham();
+                                sp = sp.getSPByMaSP(MainActivity.manggiohang.get(i).getMaSp());
+                                int newsl = sp.getSoLuong() - MainActivity.manggiohang.get(i).getSoLuong();
+                                sp.setSoLuong(newsl);
+                                updateSP(sp.getMaSp(), sp);
+                            }
 
                             MainActivity.manggiohang.removeAll(MainActivity.manggiohang);
                             deleteCart(MainActivity.magh);
@@ -212,7 +223,28 @@ public class ThanhToanActivity extends AppCompatActivity {
                         }
                     });
                     updateVoucher(mavc, voucher);
+
                 }
+            }
+        });
+    }
+
+    private void updateSP(int maSp, SanPham sp) {
+        ApiService.apiService.updateSanPham(maSp, sp).enqueue(new Callback<SanPham>() {
+            @Override
+            public void onResponse(Call<SanPham> call, Response<SanPham> response) {
+                if(response.isSuccessful())
+                {
+                    Log.e("SP","Update successfully");
+                }
+                else {
+                    Log.e("SP", "Update failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SanPham> call, Throwable t) {
+                Log.e("SP","Call Api Failed");
             }
         });
     }
